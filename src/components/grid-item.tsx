@@ -23,7 +23,7 @@ const GridItem = styled(Link)`
     position: absolute;   
     text-align: center;
     // background: rgba(0,0,0,0.5);
-    font-weight: 700;
+    font-weight: 100;
     font-size: ${props => props.theme.fontSizes[0.5]};
     padding: ${props => props.theme.space[3]};
     opacity:0;

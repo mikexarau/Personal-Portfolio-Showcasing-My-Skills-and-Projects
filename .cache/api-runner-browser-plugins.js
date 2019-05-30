@@ -1,0 +1,7 @@
+module.exports = [{
+      plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-google-analytics/gatsby-browser.js'),
+      options: {"plugins":[],"trackingId":"UA-XXXXXX-X"},
+    },{
+      plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-offline/gatsby-browser.js'),
+      options: {"plugins":[]},
+    }]

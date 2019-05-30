@@ -1,0 +1,37 @@
+[
+    {
+        "componentChunkName": "component---src-pages-index-tsx",
+        "jsonName": "index",
+        "path": "/"
+    },
+    {
+        "componentChunkName": "component---src-pages-about-tsx",
+        "jsonName": "about-f34",
+        "path": "/about/"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "blockend-f1e",
+        "path": "/blockend"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "coinecocal-design-034",
+        "path": "/coinecocal-design"
+    },
+    {
+        "componentChunkName": "component---cache-dev-404-page-js",
+        "jsonName": "dev-404-page-5f9",
+        "path": "/dev-404-page/"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "startpack-design-and-code-a25",
+        "path": "/startpack-design-and-code"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "wincripto-design-34c",
+        "path": "/wincripto-design"
+    }
+]
