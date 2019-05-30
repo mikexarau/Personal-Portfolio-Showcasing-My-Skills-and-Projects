@@ -1,8 +1,14 @@
 import { css } from 'styled-components'
 
 const reset = css`
-.social-svg {
+.social-svg , .social-icon {
   opacity:0.5;
+  border-radius: 0%;
+
+}
+a.social-icon {
+  
+  target-new: tab;
   border-radius: 0%;
 
 }
