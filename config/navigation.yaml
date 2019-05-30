@@ -1,0 +1,4 @@
+- name: "Work"
+  link: "/"
+- name: "About"
+  link: "/about"
