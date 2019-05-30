@@ -1,8 +1,16 @@
 import { css } from 'styled-components'
 
 const reset = css`
+.social-svg {
+  opacity:0.5;
+  border-radius: 0%;
+
+}
+.social-svg:hover{
+  opacity:1;
+}
   button,
-  input,
+  input,;
   optgroup,
   select,
   textarea {
