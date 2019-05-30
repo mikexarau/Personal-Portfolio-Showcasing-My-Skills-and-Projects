@@ -6,17 +6,21 @@ a.svg {
 
 }
 svg.social-svg , .social-icon {
-  opacity:0.8;
+ 
   border-radius: 0 !important;
 
 }
 a.social-icon {
   border-radius: 0 !important;
-
+  
 }
 .social-svg:hover{
-  opacity:1;
+ 
 }
+g.social-svg-mask {
+  fill: rgb(255, 255, 255) !important;
+}
+
   button,
   input,;
   optgroup,
