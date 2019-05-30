@@ -25,14 +25,15 @@ type PageProps = {
 const Area = styled(animated.div)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 21.4vw;
+  grid-auto-rows: 50%;
   background: #dedede;
   margin: 1%;
   margin-bottom: 6%;
 
   @media (max-width: ${props => props.theme.breakpoints[2]}) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 35vw;
+    grid-auto-rows: 50%;
+    
   }
 `
 

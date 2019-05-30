@@ -51,7 +51,7 @@ const GridItem = styled(Link)`
       opacity: 0.9;
       transition: .4s ease;
       background:rgb(63,64,72);
-      margin: 1em;
+      margin: 1em 1em 0em 1em;
     }
     > span {
       opacity:1;
