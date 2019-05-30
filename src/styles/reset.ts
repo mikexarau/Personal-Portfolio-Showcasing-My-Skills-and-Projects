@@ -1,15 +1,17 @@
 import { css } from 'styled-components'
 
 const reset = css`
-.social-svg , .social-icon {
-  opacity:0.5;
-  border-radius: 0%;
+a.svg {
+  border-radius: 0 !important;
+
+}
+svg.social-svg , .social-icon {
+  opacity:0.8;
+  border-radius: 0 !important;
 
 }
 a.social-icon {
-  
-  target-new: tab;
-  border-radius: 0%;
+  border-radius: 0 !important;
 
 }
 .social-svg:hover{
