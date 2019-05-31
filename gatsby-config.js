@@ -23,6 +23,7 @@ module.exports = {
     facebook: config.ogSiteName,
   },
   plugins: [
+    'gatsby-plugin-page-progress',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-typescript',

@@ -7,7 +7,12 @@ import { Box, Flex } from '../elements'
 import theme from '../../config/theme'
 import reset from '../styles/reset'
 import Logo from './logo'
-import { SocialIcon } from 'react-social-icons';
+import { SocialIcon } from 'react-social-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faCheckSquare, faCoffee  } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fab, faCheckSquare, faCoffee)
 
 const GlobalStyles = createGlobalStyle`
   *::before,
@@ -139,6 +144,7 @@ const SideBarInner = styled(Box)<{ bg: string }>`
     fill: ${props => readableColor(`${props.bg}`)};
     border-radius: 0%;
   }
+  
 `
 
 const Nav = styled(Flex)<{ color: string }>`
@@ -229,7 +235,7 @@ const Layout = ({ children, color }: LayoutProps) => {
       <>
         <GlobalStyles />
         <Wrapper>
-          <SideBarInner bg={color} as="aside" p={[4, 4, 5]}>
+          <SideBarInner bg={color} as="aside" p={[4, 4, 6]}>
             <Flex
               flexWrap="nowrap"
               flexDirection={['row', 'row', 'row', 'column']}
@@ -254,11 +260,13 @@ const Layout = ({ children, color }: LayoutProps) => {
                     {item.name}
                   </PartialNavLink>
                 ))}
+                
               </Nav>
             </Flex>
           </SideBarInner>
           <Main>{children}</Main>
           <Footer color={color}>
+         
           <SocialIcon url="https://linkedin.com/miquelxarau" />
           <SocialIcon url="https://github.com/mikexarau" />
           <SocialIcon url="https://behance.com/miquelxarau" />

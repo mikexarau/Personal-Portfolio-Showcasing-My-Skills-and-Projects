@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Logo = () => (
-  <svg width="60%" viewBox="0 0 283 284">
+  <svg width="50%" viewBox="0 0 283 284">
     <title>MiquelXarau</title>    
     <g id="f42f81e6-d256-4ae7-8c53-2eee860ab641" data-name="Capa 2"><g id="2192a01e-f4c8-47cf-8aa4-599125d6e779" data-name="logo">
     <rect width="43" height="284" opacity="0.5"/><rect x="240" width="43" height="284" opacity="0.5"/>

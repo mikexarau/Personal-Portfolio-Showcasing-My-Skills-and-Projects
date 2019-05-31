@@ -50,7 +50,7 @@ const GridItem = styled(Link)`
       
       opacity: 0.9;
       transition: .4s ease;
-      background:rgb(63,64,72);
+      background: linear-gradient(to right top, #3fd5e0, #2ba9b7, #1a7f8e, #0a5765, #00333e);
       margin: 1em 1em 0em 1em;
     }
     > span {

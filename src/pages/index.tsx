@@ -26,7 +26,7 @@ const Area = styled(animated.div)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 50%;
-  background: #dedede;
+  background: transparent;
   margin: 1%;
   margin-bottom: 6%;
 
@@ -45,7 +45,7 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
   })
 
   return (
-    <Layout color="rgba(63,64,72,0.9)">
+    <Layout color="#3fd5e0">
       <SEO title="Projects | mxg" />
       <Area style={pageAnimation}>
         {projects.edges.map(({ node: project }) => (
