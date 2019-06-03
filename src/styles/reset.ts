@@ -4,7 +4,7 @@ const reset = css`
 
 
 #gatsby-plugin-page-progress {
-  width: 45%;
+  
     position: fixed;
     height: 6px;
     background-color: rgba(154, 154, 154, 0.5);
