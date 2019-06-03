@@ -26,6 +26,11 @@
     },
     {
         "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "sergat-f03",
+        "path": "/sergat"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
         "jsonName": "startpack-design-and-code-a25",
         "path": "/startpack-design-and-code"
     },

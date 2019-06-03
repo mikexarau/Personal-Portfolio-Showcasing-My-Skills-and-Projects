@@ -2,6 +2,17 @@ import { css } from 'styled-components'
 
 const reset = css`
 
+
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kCtjnT > div {
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+}
+
+
+
 #___gatsby > div > div > main > div > a > span:nth-child(3) {
  
   font-size: 18px;

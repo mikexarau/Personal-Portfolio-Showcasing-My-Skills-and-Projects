@@ -126,6 +126,7 @@ const SideBarInner = styled(Box)<{ bg: string }>`
   justify-content: space-between;
 
   background: ${props => props.bg};
+  box-shadow: 0.1rem 0rem 1rem #00173033;
 
   @media (max-width: ${props => props.theme.breakpoints[4]}) {
     width: ${props => props.theme.sidebarWidth.normal};
