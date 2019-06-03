@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
   }
   ::selection {
     color: white;
-    background-color: #f6993f;
+    background-color: rgb(254, 74, 73);
   }
   html {
     box-sizing: border-box;
