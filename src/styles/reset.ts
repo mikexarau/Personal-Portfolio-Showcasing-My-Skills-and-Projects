@@ -22,6 +22,9 @@ const reset = css`
   grid-template-columns: repeat(2, 1fr);
   background-color: transparent;
   grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 

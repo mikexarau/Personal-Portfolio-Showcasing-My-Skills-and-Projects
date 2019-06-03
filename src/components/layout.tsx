@@ -270,7 +270,7 @@ const Layout = ({ children, color }: LayoutProps) => {
          
           <SocialIcon url="https://linkedin.com/in/miquelxarau" />
           <SocialIcon url="https://github.com/mikexarau" />
-          <SocialIcon url="https://behance.com/miquelxarau" />
+          <SocialIcon url="https://www.behance.net/miquelxarau" />
           <SocialIcon url="https://twitter.com/mikixarau" />
 
             <Box p={[4, 4, 5]} fontSize={0}>
