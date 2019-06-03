@@ -12,6 +12,9 @@ const reset = css`
   grid-template-columns: repeat(2, 1fr);
   background-color: transparent;
   grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 }
 #___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kgdAvm > div {
   grid-gap: 3em;
