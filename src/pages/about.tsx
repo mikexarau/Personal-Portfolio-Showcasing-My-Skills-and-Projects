@@ -13,9 +13,9 @@ const About = () => {
 
   return (
     <Layout>
-      <SEO title="About | mxg" desc="Hi. I'm MiquelXarau! You can visit my website or my other projects." />
+      <SEO title="About | mxg" desc="Hi. I'm Miquel Xarau! You can visit my website or my other projects." />
       <AnimatedBox style={pageAnimation} py={[6, 6, 6, 8]} px={[6, 6, 8, 6, 8, 13]}>
-        <h1>Hi. I'm MiquelXarau!</h1>
+        <h1>Hi. I'm Miquel Xarau!</h1>
         <p>
           You can visit my <a href="https://www.mxglab.com">website</a> or my other{' '}
           <a href="https://mxglab.com">Pojects</a>.

@@ -23,8 +23,6 @@ const Content = styled(Box)<{ bg: string }>`
       margin-bottom: ${props => props.theme.space[8]};
     }
   }
-  // columns:2;
-  // column-gap: 0px;
 `
 
 const Category = styled(AnimatedBox)`
@@ -36,6 +34,13 @@ const Category = styled(AnimatedBox)`
 `
 
 const Description = styled(animated.div)`
+  max-width: 960px;
+  letter-spacing: -0.003em;
+  --baseline-multiplier: 0.179;
+  --x-height-multiplier: 0.35;
+  line-height: 1.58;
+`
+const Link = styled(animated.div)`
   max-width: 960px;
   letter-spacing: -0.003em;
   --baseline-multiplier: 0.179;
@@ -54,6 +59,7 @@ type PageProps = {
       title_detail: string
       color: string
       category: string
+      link: string
       desc: string
       slug: string
       parent: {
@@ -98,6 +104,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
   })
 
   const titleAnimation = useSpring({ config: config.slow, delay: 300, from: { opacity: 0 }, to: { opacity: 1 } })
+  const linkAnimation = useSpring({ config: config.slow, delay: 800, from: { opacity: 0 }, to: { opacity: 1 } })
   const descAnimation = useSpring({ config: config.slow, delay: 600, from: { opacity: 0 }, to: { opacity: 1 } })
   const imagesAnimation = useSpring({ config: config.slow, delay: 800, from: { opacity: 0 }, to: { opacity: 1 } })
 
@@ -114,6 +121,8 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
       <PBox py={10} px={[6, 6, 8, 10]}>
         <Category style={categoryAnimation}>{project.category}</Category>
         <animated.h1 style={titleAnimation}>{project.title_detail}</animated.h1>
+        <Link style={linkAnimation}>
+          <a href="string" dangerouslySetInnerHTML={{ __html: project.link }} /></Link>
         <Description style={descAnimation}>
           <div dangerouslySetInnerHTML={{ __html: project.desc }} />
         </Description>
@@ -147,6 +156,7 @@ export const query = graphql`
       title_detail
       color
       category
+      link
       desc
       slug
       parent {

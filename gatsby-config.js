@@ -13,6 +13,7 @@ module.exports = {
     pathPrefix,
     title: config.siteTitle,
     titleAlt: config.siteTitleAlt,
+    link: config.siteLink,
     description: config.siteDescription,
     logo: config.siteLogo,
     headline: config.siteHeadline,
@@ -63,6 +64,7 @@ module.exports = {
       options: {
         name: config.siteTitle,
         short_name: config.siteTitleShort,
+        link: config.siteLink,
         description: config.siteDescription,
         start_url: config.pathPrefix,
         background_color: config.backgroundColor,
