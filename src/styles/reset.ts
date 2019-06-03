@@ -10,6 +10,13 @@ const reset = css`
   background-color: transparent;
   grid-row-gap: inherit;
 }
+#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kgdAvm > div {
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+}
 
 
 
@@ -39,20 +46,30 @@ a.svg {
   border-radius: 0 !important;
 
 }
+.social-container {
+  margin:5px;
+
+}
 svg.social-svg , .social-icon {
- 
   border-radius: 0 !important;
+  margin:-1px;
 
 }
 a.social-icon {
   border-radius: 0 !important;
-  
+
 }
-.social-svg:hover{
+g.social-svg-mask:hover{
  
+  fill:#fe4a49 !important;
 }
 g.social-svg-mask {
-  fill: rgb(255, 255, 255) !important;
+  fill: #e5e7e9 !important;
+  box-shadow: 5rem 0rem 5rem red !important; 
+
+}
+g.social-svg-icon.path {
+  
 }
 
   button,
