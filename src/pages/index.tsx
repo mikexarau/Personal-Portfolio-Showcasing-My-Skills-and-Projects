@@ -36,6 +36,9 @@ const Area = styled(animated.div)`
     // grid-auto-rows: 50%;
     
   }
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) => {
