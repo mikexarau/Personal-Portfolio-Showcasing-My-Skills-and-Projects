@@ -2,8 +2,9 @@ import { css } from 'styled-components'
 
 const reset = css`
 
-
-
+div#gatsby-plugin-page-progress {
+  background-color: red !important;
+}
 #___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kCtjnT > div {
   grid-gap: 3em;
   display: grid;
