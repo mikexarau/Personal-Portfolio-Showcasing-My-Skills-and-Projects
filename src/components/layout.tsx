@@ -80,7 +80,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     color: black;
     font-family: 'Work Sans', '-apple-system', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background:#dedede;
+    background:#0017301a;
     font-size: 18px;
   }
   a {

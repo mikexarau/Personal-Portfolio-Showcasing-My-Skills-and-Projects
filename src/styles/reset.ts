@@ -1,6 +1,29 @@
 import { css } from 'styled-components'
 
 const reset = css`
+
+#___gatsby > div > div > main > div > a > span:nth-child(3) {
+ 
+  font-size: 18px;
+  text-align:left;
+  color: white;
+  position: absolute;
+  bottom: 0%;
+  top:73%;
+  width: 94%;
+  padding-left:6%;
+  -webkit-transform: translate(0%, 0%);
+  -ms-transform: translate(0%, 0%);
+  transform: translate(0%, 0%);
+  font-size: ${props => props.theme.fontSizes[0.5]}; 
+ background:transparent;
+  
+  z-index:99;
+  @media (max-width: ${props => props.theme.breakpoints[3]}) {
+    font-size: ${props => props.theme.fontSizes[0]};
+    
+  }
+}
 a.svg {
   border-radius: 0 !important;
 

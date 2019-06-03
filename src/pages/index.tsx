@@ -25,14 +25,15 @@ type PageProps = {
 const Area = styled(animated.div)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 50%;
+  // grid-auto-rows: 50%;
   background: transparent;
-  margin: 1%;
+  margin: 2%;
   margin-bottom: 6%;
+  grid-gap: 1em;
 
   @media (max-width: ${props => props.theme.breakpoints[2]}) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 50%;
+    // grid-auto-rows: 50%;
     
   }
 `
@@ -45,13 +46,14 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
   })
 
   return (
-    <Layout color="#3fd5e0">
+    <Layout color="#001730">
       <SEO title="Projects | mxg" />
       <Area style={pageAnimation}>
         {projects.edges.map(({ node: project }) => (
           <GridItem key={project.slug} to={project.slug} aria-label={`View project "${project.title}"`}>
             <Img fluid={project.cover.childImageSharp.fluid} />
             <span>{project.title}</span>
+            <span>{project.title_detail}</span>
           </GridItem>
         ))}
       </Area>
@@ -66,6 +68,7 @@ export const query = graphql`
       edges {
         node {
           title
+          title_detail
           slug
           cover {
             childImageSharp {
