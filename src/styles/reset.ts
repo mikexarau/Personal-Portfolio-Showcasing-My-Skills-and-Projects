@@ -2,10 +2,10 @@ import { css } from 'styled-components'
 
 const reset = css`
 
-div#gatsby-plugin-page-progress {
-  background-color: rgba(154, 154, 154, 1) !important;
-  height:10px !important;
-}
+// div#gatsby-plugin-page-progress {
+//   background-color: rgba(154, 154, 154, 1) !important;
+//   height:10px !important;
+// }
 #___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kCtjnT > div {
   grid-gap: 3em;
   display: grid;
@@ -50,12 +50,12 @@ a.svg {
 
 }
 .social-container {
-  margin:5px;
+  // margin:5px;
 
 }
 svg.social-svg , .social-icon {
   border-radius: 0 !important;
-  margin:-1px;
+  // margin:-1px;
 
 }
 a.social-icon {
@@ -64,11 +64,10 @@ a.social-icon {
 }
 g.social-svg-mask:hover{
  
-  fill:#fe4a49 !important;
+  fill: #fe4a49 !important;
 }
 g.social-svg-mask {
-  fill: #e5e7e9 !important;
-  box-shadow: 5rem 0rem 5rem red !important; 
+  // fill: #7f8b97 !important; 
 
 }
 g.social-svg-icon.path {

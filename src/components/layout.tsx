@@ -268,10 +268,10 @@ const Layout = ({ children, color }: LayoutProps) => {
           <Main>{children}</Main>
           <Footer color={color}>
          
-          <SocialIcon url="https://linkedin.com/miquelxarau" />
+          <SocialIcon url="https://linkedin.com/in/miquelxarau" />
           <SocialIcon url="https://github.com/mikexarau" />
           <SocialIcon url="https://behance.com/miquelxarau" />
-          <SocialIcon url="https://twitter.com/miquelxarau" />
+          <SocialIcon url="https://twitter.com/mikixarau" />
 
             <Box p={[4, 4, 5]} fontSize={0}>
               by <a href="https://www.mxglab.com/en">Miquel Xarau</a>.<br />
