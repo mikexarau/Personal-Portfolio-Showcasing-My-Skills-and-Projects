@@ -6,6 +6,50 @@ const reset = css`
 //   background-color: rgba(154, 154, 154, 1) !important;
 //   height:10px !important;
 // }
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kxrPHc > div {
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+} 
+
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div > div:nth-child(1) {
+  height: 36%;
+}
+#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kcUtSB > div {
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+}
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div {
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+}
+#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.ekNVpF > div{
+  grid-gap: 3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: transparent;
+  grid-row-gap: inherit;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+}
 #___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kIsAuw > div{
   grid-gap: 3em;
   display: grid;
