@@ -3,10 +3,6 @@ import { css } from 'styled-components'
 const reset = css`
 
 
-#gatsby-plugin-page-progress {
-    height: 6px;
-    background-color: rgba(154, 154, 154, 0.5);
-}
 
 #___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kCtjnT > div {
   grid-gap: 3em;
