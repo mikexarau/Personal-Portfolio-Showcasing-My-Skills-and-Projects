@@ -51,6 +51,7 @@ a.svg {
 }
 .social-container {
   // margin:5px;
+  background: #e5e7e9;
 
 }
 svg.social-svg , .social-icon {
