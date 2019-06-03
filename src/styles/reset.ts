@@ -20,6 +20,9 @@ const reset = css`
 #___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div > div:nth-child(1) {
   height: 36%;
 }
+#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.ekNVpF > div > div:nth-child(1) {
+  height: 36%;
+}
 #___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kcUtSB > div {
   grid-gap: 3em;
   display: grid;

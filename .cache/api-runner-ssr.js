@@ -12,7 +12,7 @@ var plugins = [{
       options: {"plugins":[]},
     },{
       plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
-      options: {"plugins":[],"name":"Miquel Xarau","short_name":"mxg","description":"Miquel Xarau - Design and development portfolio","start_url":"/","background_color":"#E6F4F1","theme_color":"#3FD5E0","display":"standalone","icon":"src/favicon.png"},
+      options: {"plugins":[],"name":"Miquel Xarau","short_name":"mxg","description":"Miquel Xarau - Design and development portfolio","start_url":"/","background_color":"#001730","theme_color":"#4AD7D1","display":"standalone","icon":"src/favicon.png"},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [
