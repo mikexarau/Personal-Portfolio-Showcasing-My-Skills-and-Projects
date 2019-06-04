@@ -121,8 +121,9 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
       <PBox py={10} px={[6, 6, 8, 10]}>
         <Category style={categoryAnimation}>{project.category}</Category>
         <animated.h1 style={titleAnimation}>{project.title_detail}</animated.h1>
-        <Link style={linkAnimation}>
-          <a href="string" dangerouslySetInnerHTML={{ __html: project.link }} /></Link>
+        <Link style={linkAnimation} color={project.color}>
+          <div dangerouslySetInnerHTML={{ __html: project.link }} />
+        </Link>
         <Description style={descAnimation}>
           <div dangerouslySetInnerHTML={{ __html: project.desc }} />
         </Description>

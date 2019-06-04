@@ -2,6 +2,15 @@ import { css } from 'styled-components'
 
 const reset = css`
 
+#___gatsby > div > div > main > div > a:nth-child(5) > div > picture {
+  width: 150%;
+}
+
+#___gatsby > div > div > main > div > a:nth-child(5) > div {
+  padding-bottom: 15.2219%;
+}
+
+
 // div#gatsby-plugin-page-progress {
 //   background-color: rgba(154, 154, 154, 1) !important;
 //   height:10px !important;
@@ -20,10 +29,10 @@ const reset = css`
 #___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div > div:nth-child(1) {
   height: 36%;
 }
-#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.ekNVpF > div > div:nth-child(1) {
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.cnaxfk > div > div:nth-child(1) {
   height: 36%;
 }
-#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kcUtSB > div {
+#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.cnaxfk > div {
   grid-gap: 3em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -106,13 +115,13 @@ const reset = css`
   position: absolute;
   bottom: 0%;
   top:73%;
-  width: 94%;
+  width: 91.3%;
   padding-left:6%;
   -webkit-transform: translate(0%, 0%);
   -ms-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
   font-size: ${props => props.theme.fontSizes[0.5]}; 
- background:transparent;
+  background:transparent;
   
   z-index:99;
   @media (max-width: ${props => props.theme.breakpoints[3]}) {

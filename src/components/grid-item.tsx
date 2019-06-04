@@ -37,7 +37,8 @@ const GridItem = styled(Link)`
   }
   &:hover {
     > div img {
-      display:none;
+      // display:none;
+      
       
 
       
