@@ -1,6 +1,9 @@
 import { css } from 'styled-components'
 
 const reset = css`
+a.grid-item__GridItem-dkpsJX.klpgVK {
+  box-shadow: 0.1rem 0.3rem 1rem #00173033;
+}
 
 #___gatsby > div > div > main > div > a:nth-child(5) > div > picture {
   width: 150%;
