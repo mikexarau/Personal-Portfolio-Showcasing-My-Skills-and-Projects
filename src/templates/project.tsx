@@ -39,6 +39,7 @@ const Description = styled(animated.div)`
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
   line-height: 1.58;
+  margin-top: 1.2rem;
 `
 const Link = styled(animated.div)`
   max-width: 960px;

@@ -48,3 +48,13 @@
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.sergat.com" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
   desc: "We Engage."
+- title: "WNS"
+  title_detail: "WNS - Design & Code"
+  slug: "wns"
+  category: "design, code"
+  color: "black"
+  images: "wns"
+  cover: "./wns/projects-wns-000.jpg"
+  link: > # ignore newlines until "baseurl:"
+    <a href="http://www.worlnetselling.com" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+  desc: "Lorem ipsum."

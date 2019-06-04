@@ -17,9 +17,9 @@ a.grid-item__GridItem-dkpsJX.klpgVK {
   width: 150%;
 }
 
-#___gatsby > div > div > main > div > a:nth-child(5) > div {
-  padding-bottom: 15.2219%;
-}
+// #___gatsby > div > div > main > div > a:nth-child(5) > div {
+//   padding-bottom: 15.2219%;
+// }
 
 
 // div#gatsby-plugin-page-progress {

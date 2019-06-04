@@ -38,5 +38,10 @@
         "componentChunkName": "component---src-templates-project-tsx",
         "jsonName": "wincripto-design-34c",
         "path": "/wincripto-design"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "wns-e45",
+        "path": "/wns"
     }
 ]

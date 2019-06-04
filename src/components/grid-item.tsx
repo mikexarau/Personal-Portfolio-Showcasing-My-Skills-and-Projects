@@ -9,6 +9,7 @@ const GridItem = styled(Link)`
     right: 0;
     bottom: 0;
     left: 0;
+    box-shadow: -0rem 0.8rem 1rem #0017301f;
   }
   > div img {
     transition: 0.2s ease 0s !important;
@@ -22,12 +23,14 @@ const GridItem = styled(Link)`
     color: white;
     position: absolute;   
     text-align: left;
-    background: #001730;
+    background: red;
     font-weight: 700;
     font-size: ${props => props.theme.fontSizes[0.5]};
     padding: ${props => props.theme.space[3]};
     opacity:0;
     // transition: 0.2s ease 0s !important;
+    bottom: 0;
+    right: 0;
     
 
     @media (max-width: ${props => props.theme.breakpoints[3]}) {

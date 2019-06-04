@@ -89,7 +89,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: underline;
     &:hover,
     &:focus {
-      color: ${theme.colors.primary};
+      color: ${theme.colors.secondary};
     }
   }
   ${reset}
