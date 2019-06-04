@@ -1,6 +1,14 @@
 import { css } from 'styled-components'
 
 const reset = css`
+
+// #___gatsby > div > div > main > div > a:nth-child(1) > span:nth-child(4) {
+//   left: 75%;
+//   width: 19%;
+//   background: #ff0000c2;
+//   color: white;
+//   display: inline-flex;
+// }
 a.grid-item__GridItem-dkpsJX.klpgVK {
   box-shadow: 0.1rem 0.3rem 1rem #00173033;
 }

@@ -40,16 +40,17 @@ const GridItem = styled(Link)`
       // display:none;
       
       
+      
 
       
     }
     > div {
       position: absolute;
-      top: 0;
+      top: -2%;
       bottom: 0;
       left: 0;
       right: 0;
-      box-shadow: 0.6rem 0.6rem #4ad7d1;
+      box-shadow: 0.6rem 0.8rem #4ad7d1;
       
       opacity: 0.9;
       transition: .4s ease;

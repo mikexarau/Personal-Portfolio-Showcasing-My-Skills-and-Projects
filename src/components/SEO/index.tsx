@@ -74,7 +74,7 @@ const SEO = ({ title, desc, banner, pathname, node, individual }: Props) => {
       '@type': 'Person',
       name: author,
     },
-    datePublished: '2019-05-10T8:00:00+01:00',
+    datePublished: '2019-06-10T8:00:00+01:00',
     dateModified: buildTime,
     image: {
       '@type': 'ImageObject',
