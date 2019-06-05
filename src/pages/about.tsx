@@ -3,6 +3,9 @@ import { config, useSpring } from 'react-spring'
 import Layout from '../components/layout'
 import { AnimatedBox } from '../elements'
 import SEO from '../components/SEO'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+
 
 const About = () => {
   const pageAnimation = useSpring({
@@ -18,11 +21,14 @@ const About = () => {
         <h1>Hi. I'm Miquel Xarau!</h1>
         <p>
           You can visit my <a href="https://www.mxglab.com">website</a> or my other{' '}
-          <a href="https://mxglab.com">Pojects</a>.
+          <a href="/">Pojects</a>.
         </p>
       </AnimatedBox>
+  
     </Layout>
   )
 }
+const element = <FontAwesomeIcon icon={faCoffee} />
+
 
 export default About

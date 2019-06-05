@@ -8,6 +8,7 @@ import GridItem from '../components/grid-item'
 import SEO from '../components/SEO'
 import { ChildImageSharp } from '../types'
 
+
 type PageProps = {
   data: {
     projects: {
@@ -63,6 +64,7 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
     </Layout>
   )
 }
+
 export default Projects
 
 export const query = graphql`
