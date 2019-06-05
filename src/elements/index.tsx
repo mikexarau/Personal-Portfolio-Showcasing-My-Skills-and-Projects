@@ -92,4 +92,3 @@ export const Button = styled.button<ButtonProps>`
 
 Button.displayName = 'Button'
 
-document.addEventListener("touchstart", function() {}, true);
