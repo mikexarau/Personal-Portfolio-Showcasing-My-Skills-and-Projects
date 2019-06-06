@@ -51,7 +51,7 @@ const GridItem = styled(Link)`
   padding: ${props => props.theme.space[0]};
   padding-top:6%;
   padding-left:6%;
-  background: #001730;
+  background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,1));
   transition: opacity 0.3s ease all !important;
   transform: opacity;
   
@@ -97,7 +97,7 @@ const GridItem = styled(Link)`
     
     }
     > span {
-      opacity:1;
+      opacity:0.9;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       color: #4ad7d1;
@@ -111,7 +111,7 @@ const GridItem = styled(Link)`
   padding: ${props => props.theme.space[0]};
   padding-top:6%;
   padding-left:6%;
-  background: #001730;
+  background: #001730 linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.2));
   transition: 0.4s ease all !important;
   transform: translate(0, -4px);
   @media (max-width: ${props => props.theme.breakpoints[0]}) {
