@@ -3,8 +3,7 @@ import { config, useSpring } from 'react-spring'
 import Layout from '../components/layout'
 import { AnimatedBox } from '../elements'
 import SEO from '../components/SEO'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Project from '../templates/project';
 
 
 const About = () => {
@@ -15,7 +14,7 @@ const About = () => {
   })
 
   return (
-    <Layout>
+    <Layout color='#4ad7d1'>
       <SEO title="About | mxg" desc="Hi. I'm Miquel Xarau! You can visit my website or my other projects." />
       <AnimatedBox style={pageAnimation} py={[6, 6, 6, 8]} px={[6, 6, 8, 6, 8, 13]}>
         <h1>Hi. I'm Miquel Xarau!</h1>
@@ -28,7 +27,6 @@ const About = () => {
     </Layout>
   )
 }
-const element = <FontAwesomeIcon icon={faCoffee} />
 
 
 export default About

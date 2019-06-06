@@ -2,6 +2,7 @@
   title_detail: "Win Cripto - Art Direction"
   slug: "/wincripto-design"
   category: "UX/UI Design"
+  bg: "red"
   color: "#85E5BC"
   images: "wc"
   cover: "./wc/projects-wc-00.jpg"
@@ -36,7 +37,7 @@
   images: "be"
   cover: "./be/projects-be-001.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://www.blockend.io" target="_blank" style="padding:0.2rem;color:white;background-color:#3340FF;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="http://www.blockend.io" target="_blank" style="padding:0.2rem;color:white;background-color:#3340FF;text-decoration:none;text-decoration-style:;">> Go to web project<a>
   desc: "Make it Blockchain."
 - title: "Sergat"
   title_detail: "Sergat - Design & Code"

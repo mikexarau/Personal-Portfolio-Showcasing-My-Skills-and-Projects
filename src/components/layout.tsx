@@ -8,11 +8,7 @@ import theme from '../../config/theme'
 import reset from '../styles/reset'
 import Logo from './logo'
 import { SocialIcon } from 'react-social-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faCheckSquare, faCoffee  } from '@fortawesome/free-solid-svg-icons'
-
-library.add(fab, faCheckSquare, faCoffee)
+import { FaUser } from "react-icons/fa/";
 
 const GlobalStyles = createGlobalStyle`
   *::before,
@@ -124,10 +120,10 @@ const SideBarInner = styled(Box)<{ bg: string }>`
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
-
-  background: ${props => props.bg};
+  background: ${props => props.bg} linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.2));
   box-shadow: 0.1rem 0rem 1rem #00173033;
-
+  // opacity: 0.9;
+  
   @media (max-width: ${props => props.theme.breakpoints[4]}) {
     width: ${props => props.theme.sidebarWidth.normal};
   }
@@ -157,8 +153,10 @@ const Nav = styled(Flex)<{ color: string }>`
     &:hover,
     &:focus,
     &.navlink-active {
-      color: ${props => props.theme.colors.primary};
+      color: ${props => props.theme.colors.secondary};
+      
     }
+    
 
     @media (max-width: ${props => props.theme.breakpoints[2]}) {
       font-size: ${props => props.theme.fontSizes[2]};
@@ -214,7 +212,7 @@ const Footer = styled.footer<{ color: string }>`
 type LayoutProps = { children: React.ReactNode } & typeof defaultProps
 
 const defaultProps = {
-  color: 'white',
+  color: 'whitesmoke',
 }
 
 interface QueryResult {
@@ -256,6 +254,7 @@ const Layout = ({ children, color }: LayoutProps) => {
                 flexDirection={['row', 'row', 'row', 'column']}
                 alignItems="flex-start"
               >
+              
                 {data.navigation.edges.map(({ node: item }) => (
                   <PartialNavLink to={item.link} key={item.name}>
                     {item.name}
@@ -267,15 +266,14 @@ const Layout = ({ children, color }: LayoutProps) => {
           </SideBarInner>
           <Main>{children}</Main>
           <Footer color={color}>
-         
-          <SocialIcon url="https://linkedin.com/in/miquelxarau" />
-          <SocialIcon url="https://github.com/mikexarau" />
-          <SocialIcon url="https://www.behance.net/miquelxarau" />
-          <SocialIcon url="https://twitter.com/mikixarau" />
+          <SocialIcon url="https://linkedin.com/in/miquelxarau" target="_blank" />
+          <SocialIcon url="https://github.com/mikexarau" target="_blank" />
+          <SocialIcon url="https://www.behance.net/miquelxarau" target="_blank" />
+          <SocialIcon url="https://twitter.com/mikixarau" target="_blank" />
 
             <Box p={[4, 4, 5]} fontSize={0}>
               by <a href="https://www.mxglab.com/en">Miquel Xarau</a>.<br />
-              <a href="https://github.com/mikexarau/portfolio"></a>
+              <a href="https://github.com/mikexarau/portfolio" target="_blank"></a>
             </Box>
           </Footer>
         </Wrapper>
