@@ -28,7 +28,7 @@ const Area = styled(animated.div)`
   grid-template-columns: repeat(3, 1fr);
   // grid-auto-rows: 50%;
   background: transparent;
-  margin: 2%;
+  margin: 3%;
   margin-bottom: 6%;
   grid-gap: 1em;
 

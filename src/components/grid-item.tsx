@@ -114,7 +114,7 @@ const GridItem = styled(Link)`
   background: #001730 linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.2));
   transition: 0.4s ease all !important;
   transform: translate(0, -4px);
-  @media (max-width: ${props => props.theme.breakpoints[0]}) {
+  @media (max-width: ${props => props.theme.breakpoints[5]}) {
     font-size: ${props => props.theme.fontSizes[0]};
     padding: ${props => props.theme.space[5]};
 
