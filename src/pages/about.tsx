@@ -14,7 +14,7 @@ const About = () => {
   })
 
   return (
-    <Layout color='#4ad7d1'>
+    <Layout color='rgb(0, 12, 26)'>
       <SEO title="About | mxg" desc="Hi. I'm Miquel Xarau! You can visit my website or my other projects." />
       <AnimatedBox style={pageAnimation} py={[6, 6, 6, 8]} px={[6, 6, 8, 6, 8, 13]}>
         <h1>Hi. I'm Miquel Xarau!</h1>

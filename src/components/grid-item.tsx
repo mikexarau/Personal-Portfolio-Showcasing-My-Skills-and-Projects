@@ -36,24 +36,24 @@ const GridItem = styled(Link)`
     // transition: 0.2s ease 0s !important;
     bottom: 0;
     right: 0; 
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
-      color: #4ad7d1;
-  position: absolute;
-  top: 60%;
-  left: 0%;
-  width: 0%;
-  height: 31.2%;
-  transform: translateZ(0);
-  text-align: left;
-  font-size: ${props => props.theme.fontSizes[2]}; 
-  padding: ${props => props.theme.space[0]};
-  padding-top:6%;
-  padding-left:6%;
-  background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,1));
-  transition: opacity 0.3s ease all !important;
-  transform: opacity;
-  transform-delay: .1s;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: #4ad7d1;
+    position: absolute;
+    top: 64%;
+    left: 0%;
+    width: 0%;
+    height: 27.5%;
+    transform: translateZ(0);
+    text-align: left;
+    font-size: ${props => props.theme.fontSizes[2]}; 
+    padding: ${props => props.theme.space[0]};
+    padding-top:6%;
+    padding-left:6%;
+    background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,1));
+    transition: opacity 0.3s ease all !important;
+    transform: opacity;
+    transform-delay: .1s;
   
   
   @media (max-width: ${props => props.theme.breakpoints[0]}) {
@@ -63,10 +63,7 @@ const GridItem = styled(Link)`
     }
     
 
-    @media (max-width: ${props => props.theme.breakpoints[3]}) {
-      font-size: ${props => props.theme.fontSizes[2]};
-      padding: ${props => props.theme.space[5]};
-    }
+    
   }
   &:hover {
     > div img {
@@ -102,10 +99,10 @@ const GridItem = styled(Link)`
       border-bottom-right-radius: 4px;
       color: #4ad7d1;
   position: absolute;
-  top: 60%;
+  top: 64%;
   left: 0%;
   width: 94%;
-  height: 31.5%;
+  height: 27.5%;
   text-align: left;
   font-size: ${props => props.theme.fontSizes[2]}; 
   padding: ${props => props.theme.space[0]};
