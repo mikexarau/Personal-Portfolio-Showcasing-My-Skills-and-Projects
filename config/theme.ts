@@ -17,7 +17,7 @@ const theme: ThemeShape = {
   breakpoints: ['480px', '650px', '1000px', '1200px', '1400px'],
   fontSizes: ['1rem', '1.2rem', '1.44rem', '1.728rem', '2.074rem', '2.488rem'],
   colors: {
-    primary: 'yellow',
+    primary: '#001070',
     secondary: 'rgba(255,255,255,0.8)',
     grey: 'grey',
     shade: 'red',
