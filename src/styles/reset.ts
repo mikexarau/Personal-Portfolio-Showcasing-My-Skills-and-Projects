@@ -12,7 +12,7 @@ const reset = css`
 
 div#gatsby-plugin-page-progress {
   background-color: rgb(0, 12, 26, 0.5) !important;
-  height:6px !important;
+  height:6px;
 }
 
 a.grid-item__GridItem-dkpsJX.klpgVK {
