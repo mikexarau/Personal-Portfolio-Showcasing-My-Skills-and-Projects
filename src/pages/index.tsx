@@ -39,6 +39,8 @@ const Area = styled(animated.div)`
   }
   @media screen and (max-width: 650px) {
     grid-template-columns: 1fr;
+    
+    margin: 5%;
   }
 `
 
