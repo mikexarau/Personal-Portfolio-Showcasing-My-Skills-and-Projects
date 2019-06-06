@@ -10,6 +10,10 @@ const reset = css`
 //   display: inline-flex;
 // }
 
+div#gatsby-plugin-page-progress {
+  background-color: rgb(0, 12, 26, 0.5) !important;
+}
+
 a.grid-item__GridItem-dkpsJX.klpgVK {
   box-shadow: 0.1rem 0.3rem 1rem #00173033;
 }
