@@ -42,10 +42,9 @@ const GridItem = styled(Link)`
   position: absolute;
   top: 60%;
   left: 0%;
-  width: 94%;
-  height: 31.5%;
+  width: 0%;
+  height: 31.2%;
   transform: translateZ(0);
-  transition-delay: .1s;
   text-align: left;
   font-size: ${props => props.theme.fontSizes[2]}; 
   padding: ${props => props.theme.space[0]};
@@ -54,6 +53,7 @@ const GridItem = styled(Link)`
   background: linear-gradient(-45deg, rgba(255,255,255,0), rgba(255,255,255,1));
   transition: opacity 0.3s ease all !important;
   transform: opacity;
+  transform-delay: .1s;
   
   
   @media (max-width: ${props => props.theme.breakpoints[0]}) {
