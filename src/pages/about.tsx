@@ -44,7 +44,7 @@ const About = () => {
         <p>+ Frontend developer </p>
         <p>+ Blockchain developer </p>
         <h4>Tecnologies</h4> 
-          <div class="">
+          <div>
             <h2><FaReact />  <FaHtml5 />  <FaSass />  <FaCss3Alt />  <DiGit />  <FaEthereum /></h2>
           </div>
           <div>
