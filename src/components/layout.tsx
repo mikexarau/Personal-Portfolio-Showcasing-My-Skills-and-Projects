@@ -153,7 +153,7 @@ const Nav = styled(Flex)<{ color: string }>`
     &:hover,
     &:focus,
     &.navlink-active {
-      color: ${props => props.theme.colors.secondary};
+      color: ${props => props.theme.colors.primary};
       
     }
     
