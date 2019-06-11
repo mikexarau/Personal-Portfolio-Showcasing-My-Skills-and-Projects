@@ -28,9 +28,9 @@ const Area = styled(animated.div)`
   grid-template-columns: repeat(3, 1fr);
   // grid-auto-rows: 50%;
   background: transparent;
-  margin: 3%;
+  margin: 4%;
   margin-bottom: 6%;
-  grid-gap: 1em;
+  grid-gap: 2em;
 
   @media (max-width: ${props => props.theme.breakpoints[2]}) {
     grid-template-columns: repeat(2, 1fr);
