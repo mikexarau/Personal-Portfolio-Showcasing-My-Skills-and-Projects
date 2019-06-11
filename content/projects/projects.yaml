@@ -79,3 +79,13 @@
   link: > # ignore newlines until "baseurl:"
     <a href="https://agoraespai.es" target="_blank" style="padding:0.2rem;color:white;background-color:rgb(185, 244, 75);text-decoration:none;text-decoration-style:;">> Go to web project<a>
   desc: "Lorem ipsum."
+- title: "Blou"
+  title_detail: "CEO. Design. Code"
+  slug: "blou"
+  category: "design, code"
+  color: "black"
+  images: "blou"
+  cover: "./blou/projects-blou-000.jpg"
+  link: > # ignore newlines until "baseurl:"
+    <a href="/" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+  desc: "Lorem ipsum."  

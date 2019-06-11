@@ -21,6 +21,11 @@
     },
     {
         "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "blou-da4",
+        "path": "/blou"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
         "jsonName": "coinecocal-design-034",
         "path": "/coinecocal-design"
     },

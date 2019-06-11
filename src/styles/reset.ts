@@ -10,6 +10,10 @@ const reset = css`
 //   display: inline-flex;
 // }
 
+#___gatsby > div > div > main > div > a > div > picture > img {
+  object-fit: inherit !important;
+}
+
 div#gatsby-plugin-page-progress {
   background-color: rgb(0, 12, 26, 0.5) !important;
   // height:6px;
