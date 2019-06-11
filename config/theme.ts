@@ -20,7 +20,7 @@ const theme: ThemeShape = {
     primary: 'rgba(255,255,255,0.8)',
     secondary: 'rgba(0,0,0,0.5)',
     grey: 'grey',
-    shade: 'red',
+    shade: 'black',
   },
   space: [
     '0',

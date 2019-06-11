@@ -68,7 +68,10 @@ const GridItem = styled(Link)`
   &:hover {
     > div img {
       // display:none;
-      transform: scale(1.4);
+      transform: scale(1.6);
+      background: rgb(63,64,72);
+      mix-blend-mode: luminosity;
+      background-blend-mode: overlay;
       
       
       
@@ -86,11 +89,11 @@ const GridItem = styled(Link)`
       
       opacity: 0.9;
       transition: .4s ease;
-      background: #FE4A49;
+      background: #001730 linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.1));
       // margin: 1em 1em 0em 1em;
       // box-shadow: 5px 0px 42px #00173005;
       box-shadow: rgba(45,45,45,0.05) 0px 2px 2px, rgba(49,49,49,0.05) 0px 4px 4px, rgba(42,42,42,0.05) 0px 8px 8px, rgba(32,32,32,0.05) 0px 16px 16px, rgba(49,49,49,0.05) 0px 32px 32px, rgba(35,35,35,0.05) 0px 64px 64px;
-      transform: translate(0, -4px);
+      transform: translate(0, -6px);
     
     }
     > span {
@@ -110,7 +113,7 @@ const GridItem = styled(Link)`
   padding-left:6%;
   background: #001730 linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.2));
   transition: 0.4s ease all !important;
-  transform: translate(0, -4px);
+  transform: translate(0, -6px);
   @media (max-width: ${props => props.theme.breakpoints[5]}) {
     font-size: ${props => props.theme.fontSizes[0]};
     padding: ${props => props.theme.space[5]};
