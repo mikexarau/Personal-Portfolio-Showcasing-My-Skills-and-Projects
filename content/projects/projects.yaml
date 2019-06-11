@@ -59,3 +59,23 @@
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.worlnetselling.com" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
   desc: "Lorem ipsum."
+- title: "IPB"
+  title_detail: "Interface design"
+  slug: "wns"
+  category: "design, code"
+  color: "black"
+  images: "ipb"
+  cover: "./ipb/projects-ipb-00.jpg"
+  link: > # ignore newlines until "baseurl:"
+    <a href="/" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+  desc: "Lorem ipsum."
+- title: "Agora"
+  title_detail: "Wordpress development"
+  slug: "agora"
+  category: "design, code"
+  color: "rgb(185, 244, 75)"
+  images: "agora"
+  cover: "./agora/projects-agora-002.jpg"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://agoraespai.es" target="_blank" style="padding:0.2rem;color:white;background-color:rgb(185, 244, 75);text-decoration:none;text-decoration-style:;">> Go to web project<a>
+  desc: "Lorem ipsum."

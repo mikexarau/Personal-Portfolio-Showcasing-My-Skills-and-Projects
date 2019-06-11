@@ -8,7 +8,7 @@ import theme from '../../config/theme'
 import reset from '../styles/reset'
 import Logo from './logo'
 import { SocialIcon } from 'react-social-icons'
-import { FaUser } from "react-icons/fa/";
+import { FaUser } from 'react-icons/fa';
 
 const GlobalStyles = createGlobalStyle`
   *::before,
@@ -120,7 +120,7 @@ const SideBarInner = styled(Box)<{ bg: string }>`
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background: ${props => props.bg} linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.2));
+  background: ${props => props.bg} linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.4));
   box-shadow: 0.1rem 0rem 1rem #00173033;
   // opacity: 0.9;
   

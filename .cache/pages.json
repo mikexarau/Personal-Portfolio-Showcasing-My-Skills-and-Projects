@@ -11,6 +11,11 @@
     },
     {
         "componentChunkName": "component---src-templates-project-tsx",
+        "jsonName": "agora-614",
+        "path": "/agora"
+    },
+    {
+        "componentChunkName": "component---src-templates-project-tsx",
         "jsonName": "blockend-f1e",
         "path": "/blockend"
     },
