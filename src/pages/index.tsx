@@ -63,12 +63,13 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
           <GridItem key={project.slug} to={project.slug} aria-label={`View project "${project.title}"`}>
             <Img fluid={project.cover.childImageSharp.fluid} />
             <div class="card">
+            <div class="fromdate">{project.from}
+                    </div>
                 <div class="card-header">
                     <div>
                       <h5>{project.title}</h5>
                       <p>{project.title_detail}</p>
                     </div>
-                    <p>{project.from}</p>
                 </div>
                 <div class="card-footer">
                   <p>{project.category}</p>

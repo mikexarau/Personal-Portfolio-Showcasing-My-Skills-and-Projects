@@ -9,7 +9,16 @@ const reset = css`
 //   color: white;
 //   display: inline-flex;
 // }
+.fromdate {
+    background: #fe4a49e0;
+    color: white;
+    text-align: center;
+    right: 0;
+    position: absolute;
+    padding: 7px;
+ 
 
+}
 .card {
   position: relative;
     bottom: 0;
@@ -22,8 +31,9 @@ const reset = css`
     border-bottom-right-radius: 4px;
 }
 .card-header {
-  padding: 30px 15px 20px 15px;
+  // padding: 30px 15px 20px 15px;
   background:#e5e7e961;
+  padding: 10%;
 }
 .card-header:hover {
   background:#e5e7e961;
@@ -34,10 +44,13 @@ const reset = css`
 
 .card p {
   font-size: 16px;
-  margin-top: 6px;
+  // margin-top: 6px;
+  color: #001730;
+  margin-top: 10px;
 }
 .card h5 {
   margin:0px;
+  color:#4ad7d1;
 }
 .card-footer {
   color: #5e6c7c;
