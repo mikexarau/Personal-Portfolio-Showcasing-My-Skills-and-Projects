@@ -58,6 +58,7 @@ type PageProps = {
   data: {
     project: {
       title_detail: string
+      date: string
       color: string
       category: string
       link: string

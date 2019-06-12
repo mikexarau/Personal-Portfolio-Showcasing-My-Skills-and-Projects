@@ -7,6 +7,7 @@ import Layout from '../components/layout'
 import GridItem from '../components/grid-item'
 import SEO from '../components/SEO'
 import { ChildImageSharp } from '../types'
+import { FaReact } from 'react-icons/fa';
 
 
 type PageProps = {
@@ -15,6 +16,9 @@ type PageProps = {
       edges: {
         node: {
           title: string
+          title_detail: string
+          from: string
+          category: string
           slug: string
           cover: ChildImageSharp
         }
@@ -58,8 +62,18 @@ const Projects: React.FunctionComponent<PageProps> = ({ data: { projects } }) =>
         {projects.edges.map(({ node: project }) => (
           <GridItem key={project.slug} to={project.slug} aria-label={`View project "${project.title}"`}>
             <Img fluid={project.cover.childImageSharp.fluid} />
-            <span>{project.title}</span>
-            <span>{project.title_detail}</span>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                      <h5>{project.title}</h5>
+                      <p>{project.title_detail}</p>
+                    </div>
+                    <p>{project.from}</p>
+                </div>
+                <div class="card-footer">
+                  <p>{project.category}</p>
+                </div>
+            </div>
           </GridItem>
         ))}
       </Area>
@@ -76,6 +90,8 @@ export const query = graphql`
         node {
           title
           title_detail
+          from
+          category
           slug
           cover {
             childImageSharp {

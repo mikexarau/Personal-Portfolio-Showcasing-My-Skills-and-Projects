@@ -10,6 +10,51 @@ const reset = css`
 //   display: inline-flex;
 // }
 
+.card {
+  position: relative;
+    bottom: 0;
+    
+    background: white;
+    z-index: 99;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.card-header {
+  padding: 30px 15px 20px 15px;
+  background:#e5e7e961;
+}
+.card-header:hover {
+  background:#e5e7e961;
+}
+.card:hover {
+  
+}
+
+.card p {
+  font-size: 16px;
+  margin-top: 6px;
+}
+.card h5 {
+  margin:0px;
+}
+.card-footer {
+  color: #5e6c7c;
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #e5e7e9;
+  box-sizing: border-box;
+  padding: 1rem;
+  background: #e5e7e9bd !important;
+}
+.card-footer > p {
+  margin-top: -3px;
+}
+.icon {
+
+}
+
 #___gatsby > div > div > main > div > a > div > picture > img {
   object-fit: inherit !important;
 }
@@ -19,9 +64,9 @@ div#gatsby-plugin-page-progress {
   // height:6px;
 }
 
-a.grid-item__GridItem-dkpsJX.klpgVK {
-  box-shadow: 0.1rem 0.3rem 1rem #00173033;
-}
+// a.grid-item__GridItem-dkpsJX.klpgVK {
+//   box-shadow: 0.1rem 0.3rem 1rem #00173033;
+// }
 
 #___gatsby > div > div > main > div > a:nth-child(5) > div > picture {
   width: 150%;

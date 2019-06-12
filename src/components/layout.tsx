@@ -82,10 +82,10 @@ const GlobalStyles = createGlobalStyle`
   a {
     transition: all 0.3s ease-in-out;
     color: black;
-    text-decoration: underline;
+    text-decoration: none;
     &:hover,
     &:focus {
-      color: ${theme.colors.secondary};
+      // color: ${theme.colors.secondary};
     }
   }
   ${reset}
@@ -292,7 +292,7 @@ const query = graphql`
       edges {
         node {
           name
-          link          
+          link         
         }
       }
     }
