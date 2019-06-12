@@ -45,8 +45,9 @@ const reset = css`
 .card p {
   font-size: 16px;
   // margin-top: 6px;
-  color: #001730;
+  // color: #001730;
   margin-top: 10px;
+  line-height: 1.3em;
 }
 .card h5 {
   margin:0px;
