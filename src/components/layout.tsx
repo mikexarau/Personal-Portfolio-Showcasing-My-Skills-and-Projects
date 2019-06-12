@@ -64,6 +64,7 @@ const GlobalStyles = createGlobalStyle`
       }
       h5 {
         font-size: ${theme.fontSizes[0]};
+        
       }
       h6 {
         font-size: ${theme.fontSizes[0]};

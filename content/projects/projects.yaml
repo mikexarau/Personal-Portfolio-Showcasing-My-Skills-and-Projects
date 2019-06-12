@@ -7,7 +7,8 @@
   images: "be"
   cover: "./be/projects-be-001.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="http://www.blockend.io" target="_blank" style="padding:0.2rem;color:white;background-color:#3340FF;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="http://www.blockend.io" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72;background-color:transparent;text-decoration:none;">Go to web project<a>
   desc: "Make it Blockchain."
 - title: "Win Cripto"
   title_detail: "Brand and UI design for win cripto investment App."
