@@ -48,12 +48,16 @@ a.navlink.navlink svg:hover {
     width: 50px;
     height: 50px;
 }
+a.navlink.navlink {
+  width: 50px;
+  height: 50px;
+}
 #___gatsby > div > div > aside > div {
   margin: -1.5rem;
 }
 #___gatsby > div > div > aside > div > div {
-  width: 4.4rem;
-  margin-left: 0.5rem;
+  width: 4rem;
+  margin-left: 0.7rem;
   margin-top: 0.2rem;
 }
 a.navlink.navlink {
@@ -71,8 +75,8 @@ a.navlink.navlink {
   margin: -1rem;
 }
 #___gatsby > div > div > aside > div > div {
-  width: 4.4rem;
-  margin-left: 0.5rem;
+  width: 4rem;
+  margin-left: 0.7rem;
   margin-top: 0.2rem;
 }
 
