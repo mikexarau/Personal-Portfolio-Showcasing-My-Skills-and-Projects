@@ -294,9 +294,7 @@ const query = graphql`
       edges {
         node {
           name
-          link 
-          icon
-          icon2      
+          link    
         }
       }
     }
