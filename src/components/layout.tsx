@@ -223,8 +223,6 @@ interface QueryResult {
       node: {
         name: string
         link: string
-        icon: string
-        icon2: string
       }
     }[]
   }
