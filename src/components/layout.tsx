@@ -8,7 +8,8 @@ import theme from '../../config/theme'
 import reset from '../styles/reset'
 import Logo from './logo'
 import { SocialIcon } from 'react-social-icons'
-import { FaUser } from 'react-icons/fa';
+import { FaConnectdevelop } from 'react-icons/fa';
+import { FaTh } from 'react-icons/fa';
 
 const GlobalStyles = createGlobalStyle`
   *::before,
@@ -222,6 +223,8 @@ interface QueryResult {
       node: {
         name: string
         link: string
+        icon: string
+        icon2: string
       }
     }[]
   }
@@ -258,7 +261,7 @@ const Layout = ({ children, color }: LayoutProps) => {
               
                 {data.navigation.edges.map(({ node: item }) => (
                   <PartialNavLink to={item.link} key={item.name}>
-                    {item.name}
+                  <FaTh/> <FaConnectdevelop/>
                   </PartialNavLink>
                 ))}
                 
@@ -293,7 +296,9 @@ const query = graphql`
       edges {
         node {
           name
-          link         
+          link 
+          icon
+          icon2      
         }
       }
     }

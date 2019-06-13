@@ -9,6 +9,86 @@ const reset = css`
 //   color: white;
 //   display: inline-flex;
 // }
+nav {
+  margin-top: 5%;
+}
+
+a.navlink.navlink {
+    margin-left: -24px;
+    line-height: 2.5rem;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+  // background: #feffff4f;
+    margin-right: 30px;
+}
+a.navlink-active.navlink {
+  margin-left: -24px;
+  line-height: 2.5rem;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  background: #feffff4f;
+  margin-right: 30px;
+}
+a.navlink.navlink:hover{
+  background: #fe4a496b;
+ 
+}
+a.navlink.navlink svg {
+  font-size: 1.4rem;
+  vertical-align: -webkit-baseline-middle;
+}
+a.navlink.navlink svg:hover {
+  font-size: 1.5rem;
+
+}
+@media (max-width: 1000px){
+  a.navlink-active.navlink {
+    width: 50px;
+    height: 50px;
+}
+#___gatsby > div > div > aside > div {
+  margin: -1.5rem;
+}
+#___gatsby > div > div > aside > div > div {
+  width: 4.4rem;
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+a.navlink.navlink {
+ margin-left: 0;
+ margin-right: 0;
+}
+
+} 
+@media (max-width: 650px){
+  a.navlink-active.navlink {
+    width: 50px;
+    height: 50px;
+}
+#___gatsby > div > div > aside > div {
+  margin: -1rem;
+}
+#___gatsby > div > div > aside > div > div {
+  width: 4.4rem;
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+}   
+
+
+#___gatsby > div > div > aside > div > nav > a:nth-child(1) > svg:nth-child(2) {
+  display: none;
+}
+#___gatsby > div > div > aside > div > nav > a:nth-child(2) > svg:nth-child(1) {
+  display: none;
+}
+#___gatsby > div > div > aside > div > nav > a.navlink-active.navlink > svg:nth-child(2) {
+  // display: none;
+}
+
 .fromdate {
     background: #fe4a49e0;
     color: white;

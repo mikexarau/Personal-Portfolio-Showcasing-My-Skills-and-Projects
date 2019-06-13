@@ -1,4 +1,6 @@
 - name: "Work"
+  # icon: "./FaUser"
   link: "/"
 - name: "About"
   link: "/about"
+  # icon2: "FaBeer"
