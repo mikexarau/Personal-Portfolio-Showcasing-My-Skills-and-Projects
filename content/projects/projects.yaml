@@ -8,19 +8,19 @@
   cover: "./be/projects-be-001.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.blockend.io" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72;background-color:transparent;text-decoration:none;">Go to web project<a>
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch Project<a>
   desc: "Make it Blockchain."
 - title: "Win Cripto"
   title_detail: "Brand and UI design for win cripto investment App."
   from: "2019"
   slug: "/wincripto-design"
   category: "#Branding #UI"
-  bg: "red"
   color: "#85E5BC"
   images: "wc"
   cover: "./wc/projects-wc-00.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://www.wincripto.com" target="_blank" style="padding:0.2rem;background-color:#85E5BC;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="https://www.wincripto.com" target="_blank" #85E5BC
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Color (American English), or colour (Commonwealth English), is the characteristic of human visual perception described through color categories, with names such as red, orange, yellow, green, blue, or purple. This perception of color derives from the stimulation of cone cells in the human eye by electromagnetic radiation in the visible spectrum. Color categories and physical specifications of color are associated with objects through the wavelength of the light that is reflected from them. This reflection is governed by the object's physical properties such as light absorption, emission spectra, etc."
 - title: "Coinecocal"
   title_detail: "Brand and interface design for Coinecocal economic calendar App."
@@ -31,7 +31,8 @@
   images: "cec"
   cover: "./cec/projects-cec-001.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://www.coinecocal.com" target="_blank" style="padding:0.2rem;color:white;background-color:rgb(63,64,72);text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="https://www.coinecocal.com" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch Project<a>
   desc: "Monochrome photography is photography where each position on an image can record and show a different amount of light, but not a different hue. It includes all forms of black-and-white photography, which produce images containing tones of neutral grey ranging from black to white."
 - title: "Startpack"
   title_detail: "Agency design and development."
@@ -42,7 +43,8 @@
   images: "sp"
   cover: "./sp/projects-sp-001.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://www.startpack.io" target="_blank" style="padding:0.2rem;color:white;background-color:#275896;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="https://www.startpack.io" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Startpack gives a distinct reddish-orange glow when used in low-voltage neon glow lamps, high-voltage discharge tubes and neon advertising signs. The red emission line from neon also causes the well known red light of helium–neon lasers. Neon is used in some plasma tube and refrigerant applications but has few other commercial uses. It is commercially extracted by the fractional distillation of liquid air. Since air is the only source, it is considerably more expensive than helium."
 
 - title: "Sergat"
@@ -54,7 +56,8 @@
   images: "se"
   cover: "./se/projects-se-001.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="http://www.sergat.com" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="http://www.sergat.com" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "We Engage."
 - title: "WNS"
   title_detail: "WNS - Design & Code"
@@ -65,7 +68,8 @@
   images: "wns"
   cover: "./wns/projects-wns-000.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="http://www.worlnetselling.com" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="http://www.worlnetselling.com" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Lorem ipsum."
 - title: "IPB"
   title_detail: "Interface design"
@@ -76,7 +80,8 @@
   images: "ipb"
   cover: "./ipb/projects-ipb-00.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="/" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Lorem ipsum."
 - title: "Agora"
   title_detail: "Wordpress Design and development"
@@ -87,7 +92,8 @@
   images: "agora"
   cover: "./agora/projects-agora-002.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://agoraespai.es" target="_blank" style="padding:0.2rem;color:white;background-color:rgb(185, 244, 75);text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="https://agoraespai.es" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Lorem ipsum."
 - title: "Blou"
   title_detail: "Own web design agency"
@@ -98,5 +104,6 @@
   images: "blou"
   cover: "./blou/projects-blou-000.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="/" target="_blank" style="padding:0.2rem;color:white;background-color:#fe4a49;text-decoration:none;text-decoration-style:;">> Go to web project<a>
+    <a href="/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
   desc: "Lorem ipsum."  

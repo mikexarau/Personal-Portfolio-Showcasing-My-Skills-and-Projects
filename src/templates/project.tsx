@@ -7,6 +7,8 @@ import { config, useSpring, animated } from 'react-spring'
 import Layout from '../components/layout'
 import { Box, AnimatedBox, Button } from '../elements'
 import SEO from '../components/SEO'
+import Slider from "react-slick";
+
 
 const PBox = styled(AnimatedBox)`
   max-width: 1400px;
@@ -17,8 +19,7 @@ const Content = styled(Box)<{ bg: string }>`
 
   background-color: ${props => transparentize(0.9, props.bg)};
   .gatsby-image-wrapper:not(:last-child) {
-    margin-bottom: ${props => props.theme.space[10]};
-
+    margin-bottom: ${props => props.theme.space[5]};
     @media (max-width: ${props => props.theme.breakpoints[3]}) {
       margin-bottom: ${props => props.theme.space[8]};
     }
@@ -47,6 +48,7 @@ const Link = styled(animated.div)`
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
   line-height: 1.58;
+  padding-top: 2rem;
 `
 
 const PButton = styled(Button)<{ color: string }>`
@@ -123,12 +125,12 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
       <PBox py={10} px={[6, 6, 8, 10]}>
         <Category style={categoryAnimation}>{project.category}</Category>
         <animated.h1 style={titleAnimation}>{project.title_detail}</animated.h1>
-        <Link style={linkAnimation} color={project.color}>
-          <div dangerouslySetInnerHTML={{ __html: project.link }} />
-        </Link>
         <Description style={descAnimation}>
           <div dangerouslySetInnerHTML={{ __html: project.desc }} />
         </Description>
+        <Link style={linkAnimation} color={project.color}>
+          <div dangerouslySetInnerHTML={{ __html: project.link }} />
+        </Link>
       </PBox>
       <Content bg={project.color} py={10}>
         <PBox style={imagesAnimation} px={[6, 6, 8, 10]}>
@@ -139,6 +141,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
               fluid={image.node.childImageSharp.fluid}
             />
           ))}
+          <ReactSlick />
         </PBox>
       </Content>
       <PBox textAlign="center" py={10} px={[6, 6, 8, 10]}>
@@ -149,6 +152,31 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
       </PBox>
     </Layout>
   )
+}
+class ReactSlick extends React.Component {
+  render() {
+    var settings = {
+      dots: true
+    };
+    return (
+      <div className="container">
+        <Slider {...settings}>
+          <div>
+            <img src="http://placekitten.com/g/400/200" />
+          </div>
+          <div>
+            <img src="http://placekitten.com/g/400/200" />
+          </div>
+          <div>
+            <img src="http://placekitten.com/g/400/200" />
+          </div>
+          <div>
+            <img src="http://placekitten.com/g/400/200" />
+          </div>
+        </Slider>
+      </div>
+    );
+  }
 }
 
 export default Project
