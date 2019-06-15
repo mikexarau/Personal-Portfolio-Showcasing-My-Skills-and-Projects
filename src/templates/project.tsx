@@ -7,7 +7,6 @@ import { config, useSpring, animated } from 'react-spring'
 import Layout from '../components/layout'
 import { Box, AnimatedBox, Button } from '../elements'
 import SEO from '../components/SEO'
-import Slider from "react-slick";
 
 
 const PBox = styled(AnimatedBox)`
