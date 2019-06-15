@@ -141,7 +141,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
               fluid={image.node.childImageSharp.fluid}
             />
           ))}
-          <ReactSlick />
         </PBox>
       </Content>
       <PBox textAlign="center" py={10} px={[6, 6, 8, 10]}>
@@ -153,31 +152,31 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
     </Layout>
   )
 }
-class ReactSlick extends React.Component {
-  render() {
-    var settings = {
-      dots: true
-    };
-    return (
-      <div className="container">
-        <Slider {...settings}>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-          <div>
-            <img src="http://placekitten.com/g/400/200" />
-          </div>
-        </Slider>
-      </div>
-    );
-  }
-}
+// class ReactSlick extends React.Component {
+//   render() {
+//     var settings = {
+//       dots: true
+//     };
+//     return (
+//       <div className="container">
+//         <Slider {...settings}>
+//           <div>
+//             <img src="http://placekitten.com/g/400/200" />
+//           </div>
+//           <div>
+//             <img src="http://placekitten.com/g/400/200" />
+//           </div>
+//           <div>
+//             <img src="http://placekitten.com/g/400/200" />
+//           </div>
+//           <div>
+//             <img src="http://placekitten.com/g/400/200" />
+//           </div>
+//         </Slider>
+//       </div>
+//     );
+//   }
+// }
 
 export default Project
 
