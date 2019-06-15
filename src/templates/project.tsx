@@ -22,9 +22,13 @@ const Content = styled(Box)<{ bg: string }>`
   padding-right: 2rem;
   padding-left: 2rem;
   background-color: ${props => transparentize(0.9, props.bg)};
-  
-  .gatsby-image-wrapper {
+  @media (max-width: ${props => props.theme.breakpoints[3]}) {
+    columns:1;
+  }
 
+  .gatsby-image-wrapper {
+    padding-right: 0rem;
+    padding-left: 0rem;
   }
   .gatsby-image-wrapper:not(:last-child) {
     margin-bottom: ${props => props.theme.space[5]};
@@ -141,7 +145,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
         </Link>
       </PBox>
       <Content bg={project.color} py={10}>
-        <PBox style={imagesAnimation} px={[6, 6, 8, 10]}>
+        <PBox style={imagesAnimation} px={[6, 6, 8, 3]}>
           {images.edges.map(image => (
             <Img
               alt={image.node.name}
