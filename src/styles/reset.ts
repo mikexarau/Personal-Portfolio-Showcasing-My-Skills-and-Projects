@@ -157,7 +157,8 @@ a.navlink.navlink {
 div#gatsby-plugin-page-progress {
   background-color: rgb(0, 12, 26, 0.5) !important;
   z-index:99;
-  height: 1rem;
+  height: 1rem !important;
+  display: -webkit-inline-box;
 }
 
 
