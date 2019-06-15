@@ -243,7 +243,7 @@ const Layout = ({ children, color }: LayoutProps) => {
               alignItems={['center', 'center', 'center', 'flex-start']}
               justifyContent="space-between"
             >
-              <Box width={['3rem', '4rem', '5rem', '6rem']}>
+              <Box width={['3rem', '4rem', '5rem', '6rem']} m={[0, 0, 2]}>
                 <Link to="/" aria-label="MiquelXarau, Back to Home">
                   <Logo />
                 </Link>

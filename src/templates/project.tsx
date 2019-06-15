@@ -17,7 +17,15 @@ const PBox = styled(AnimatedBox)`
 
 const Content = styled(Box)<{ bg: string }>`
 
+  columns:2;
+  column-gap: 0rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
   background-color: ${props => transparentize(0.9, props.bg)};
+  
+  .gatsby-image-wrapper {
+
+  }
   .gatsby-image-wrapper:not(:last-child) {
     margin-bottom: ${props => props.theme.space[5]};
     @media (max-width: ${props => props.theme.breakpoints[3]}) {

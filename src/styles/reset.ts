@@ -58,7 +58,7 @@ a.navlink.navlink {
 #___gatsby > div > div > aside > div > div {
   width: 4rem;
   margin-left: 0.7rem;
-  margin-top: 0.2rem;
+  margin-top: 0.7rem;
 }
 a.navlink.navlink {
  margin-left: 0;
