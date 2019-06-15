@@ -108,7 +108,7 @@ a.navlink.navlink {
     bottom: 0;
     
     background: white;
-    z-index: 99;
+    z-index: 5;
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
     border-bottom-left-radius: 4px;
@@ -156,7 +156,8 @@ a.navlink.navlink {
 
 div#gatsby-plugin-page-progress {
   background-color: rgb(0, 12, 26, 0.5) !important;
-  // height:6px;
+  z-index:99;
+  height: 1rem !important;
 }
 
 

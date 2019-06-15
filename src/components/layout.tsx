@@ -124,6 +124,7 @@ const SideBarInner = styled(Box)<{ bg: string }>`
   justify-content: space-between;
   background: ${props => props.bg} linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.4));
   box-shadow: 0.1rem 0rem 1rem #00173033;
+  z-index: 999;
   // opacity: 0.9;
   
   @media (max-width: ${props => props.theme.breakpoints[4]}) {
@@ -152,6 +153,7 @@ const Nav = styled(Flex)<{ color: string }>`
     color: ${props => readableColor(`${props.color}`)};
     font-size: ${props => props.theme.fontSizes[0]};
     line-height: 1.5;
+    z-index: 99;
     &:hover,
     &:focus,
     &.navlink-active {
@@ -188,6 +190,7 @@ const Footer = styled.footer<{ color: string }>`
   width: ${props => props.theme.sidebarWidth.big};
   font-size: ${props => props.theme.fontSizes[0]};
   bottom: 0;
+  z-index:9999;
 
   background: ${props => props.color};
 
