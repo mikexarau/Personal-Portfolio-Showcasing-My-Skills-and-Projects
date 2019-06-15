@@ -57,7 +57,7 @@ a.navlink.navlink {
 }
 #___gatsby > div > div > aside > div > div {
   width: 4rem;
-  margin-left: 0.7rem;
+  margin-left: 1.2rem;
   margin-top: 0.7rem;
 }
 a.navlink.navlink {
@@ -76,7 +76,7 @@ a.navlink.navlink {
 }
 #___gatsby > div > div > aside > div > div {
   width: 4rem;
-  margin-left: 0.7rem;
+  margin-left: 1rem;
   margin-top: 0.2rem;
 }
 
@@ -149,9 +149,6 @@ a.navlink.navlink {
 .card-footer > p {
   margin-top: -3px;
 }
-.icon {
-
-}
 
 #___gatsby > div > div > main > div > a > div > picture > img {
   object-fit: inherit !important;
@@ -161,114 +158,6 @@ div#gatsby-plugin-page-progress {
   background-color: rgb(0, 12, 26, 0.5) !important;
   // height:6px;
 }
-
-// a.grid-item__GridItem-dkpsJX.klpgVK {
-//   box-shadow: 0.1rem 0.3rem 1rem #00173033;
-// }
-
-#___gatsby > div > div > main > div > a:nth-child(5) > div > picture {
-  width: 150%;
-}
-
-// #___gatsby > div > div > main > div > a:nth-child(5) > div {
-//   padding-bottom: 15.2219%;
-// }
-
-
-// div#gatsby-plugin-page-progress {
-//   background-color: rgba(154, 154, 154, 1) !important;
-//   height:10px !important;
-// }
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kxrPHc > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-} 
-
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div > div:nth-child(1) {
-  height: 36%;
-}
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.cnaxfk > div > div:nth-child(1) {
-  height: 36%;
-}
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.cnaxfk > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.hjmco > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.ekNVpF > div{
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kIsAuw > div{
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.BRdya > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-#___gatsby > div > div > main > div.elements__Box-cOJFaO.project__Content-kNqxAg.kCtjnT > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-#___gatsby > div > div > main > div.elements__Box-sc-1dburgb-0.project__Content-sc-46qbt-1.kgdAvm > div {
-  grid-gap: 3em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: transparent;
-  grid-row-gap: inherit;
-  @media screen and (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-}
-
 
 
 #___gatsby > div > div > main > div > a > span:nth-child(3) {
@@ -300,7 +189,6 @@ a.svg {
 .social-container {
   // margin:5px;
   background: #e5e7e9;
-
 }
 svg.social-svg , .social-icon {
   border-radius: 0 !important;

@@ -144,7 +144,7 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
         </Link>
       </PBox>
       <Content bg={project.color} py={10}>
-        <PBox style={imagesAnimation} px={[6, 6, 8, 3]}>
+        <PBox style={imagesAnimation} px={[0, 0, 0, 3]}>
           {images.edges.map(image => (
             <Img
               alt={image.node.name}
