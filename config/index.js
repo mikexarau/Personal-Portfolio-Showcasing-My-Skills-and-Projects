@@ -9,13 +9,13 @@ module.exports = {
   siteLanguage: 'en', // Language Tag on <html> element
   siteLogo: '/logos/logo.png', // Used for SEO and manifest
   siteDescription: 'Miquel Xarau - Design and development portfolio',
-  author: 'MiquelXarau', // Author for schema.org JSONLD
+  author: 'Miquel Xarau', // Author for schema.org JSONLD
 
   // siteFBAppID: '123456789', // Facebook App ID - Optional
   userTwitter: '@mxg', // Twitter Username
   ogSiteName: 'mxg', // Facebook Site Name
   ogLanguage: 'en_US', // og:language
-  googleAnalyticsID: 'UA-XXXXXX-X',
+  googleAnalyticsID: 'UA-27005548-1',
 
   // Manifest and Progress color
   themeColor: '#4AD7D1',

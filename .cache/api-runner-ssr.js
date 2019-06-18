@@ -6,7 +6,7 @@ var plugins = [{
       options: {"plugins":[]},
     },{
       plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
-      options: {"plugins":[],"trackingId":"UA-XXXXXX-X"},
+      options: {"plugins":[],"trackingId":"UA-27005548-1"},
     },{
       plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-sitemap/gatsby-ssr'),
       options: {"plugins":[]},

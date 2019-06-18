@@ -2,13 +2,6 @@ import { css } from 'styled-components'
 
 const reset = css`
 
-// #___gatsby > div > div > main > div > a:nth-child(1) > span:nth-child(4) {
-//   left: 75%;
-//   width: 19%;
-//   background: #ff0000c2;
-//   color: white;
-//   display: inline-flex;
-// }
 nav {
   margin-top: 5%;
 }
@@ -155,7 +148,7 @@ a.navlink.navlink {
 }
 
 div#gatsby-plugin-page-progress {
-  background-color: rgb(0, 12, 26, 0.5) !important;
+  background-color: rgb(0, 12, 26, 0.5);
   z-index:99;
   height: 1rem !important;
   display: -webkit-inline-box;

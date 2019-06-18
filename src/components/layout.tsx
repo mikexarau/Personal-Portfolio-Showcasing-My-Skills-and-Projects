@@ -90,6 +90,9 @@ const GlobalStyles = createGlobalStyle`
       // color: ${theme.colors.secondary};
     }
   }
+  #gatsby-plugin-page-progress {
+    background-color: #00173038 !important;
+  }
   ${reset}
 `
 
@@ -135,15 +138,10 @@ const SideBarInner = styled(Box)<{ bg: string }>`
     position: relative;
     width: 100%;
   }
+  
   svg {
     fill: ${props => readableColor(`${props.bg}`)};
     border-radius: 0%;
-  }
-
-  g.social-svg-mask > path {
-    fill: ${props => readableColor(`${props.bg}`)};
-    border-radius: 0%;
-  }
   
 `
 
