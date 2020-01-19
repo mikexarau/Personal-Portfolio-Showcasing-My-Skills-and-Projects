@@ -43,11 +43,35 @@ module.exports = {
         defaultDataLayer: { platform: "gatsby" },
   
         // Specify optional GTM environment details.
-        gtmAuth: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_AUTH_STRING",
-        gtmPreview: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_PREVIEW_NAME",
+        gtmAuth: "6000340351",
+        gtmPreview: "GTM-WW95BD8",
         dataLayerName: "YOUR_DATA_LAYER_NAME",
       },
     },
+    'gatsby-plugin-seo'{
+      resolve: "gatsby-plugin-seo",
+      options: {
+        siteName: "MXG Lab.",
+        defaultSiteImage: "/img/logo.png",
+        siteUrl: "https://mxglab.com",
+        twitterCreator: "@mikixarau",
+        twitterSite: "@mikixarau",
+        globalSchema: `{
+            "@type": "WebSite",
+            "@id": "https://example.com/#website",
+            "url": "https://example.com/",
+            "name": "Miquel Xarau Lab.",
+            "publisher": {
+              "@id": "https://example.com/about/#organization"
+            },
+            "image": {
+              "@type": "ImageObject",
+              "@id": "https://example.com/#logo",
+              "url": "https://example.com/img/logo.png",
+              "caption": "MXG Lab Logo"
+            }
+          }`
+    }
     'gatsby-transformer-yaml',
     {
       resolve: 'gatsby-source-filesystem',
