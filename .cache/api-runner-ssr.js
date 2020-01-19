@@ -5,6 +5,9 @@ var plugins = [{
       plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-styled-components/gatsby-ssr'),
       options: {"plugins":[]},
     },{
+      plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-google-tagmanager/gatsby-ssr'),
+      options: {"plugins":[],"id":"GTM-WW95BD8","includeInDevelopment":false,"defaultDataLayer":{"type":"object","value":{"platform":"gatsby"}},"gtmAuth":"YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_AUTH_STRING","gtmPreview":"YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_PREVIEW_NAME","dataLayerName":"YOUR_DATA_LAYER_NAME"},
+    },{
       plugin: require('/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
       options: {"plugins":[],"trackingId":"UA-27005548-1"},
     },{

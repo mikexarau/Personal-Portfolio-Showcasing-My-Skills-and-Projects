@@ -9,6 +9,18 @@
             "plugins": [],
             "ssr": false
           }
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-optional-chaining/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-nullish-coalescing-operator/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-numeric-separator/lib/index.js",
+          "options": {}
         }
       ],
       "presets": [
@@ -26,6 +38,18 @@
     },
     "develop-html": {
       "plugins": [
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-optional-chaining/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-nullish-coalescing-operator/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-numeric-separator/lib/index.js",
+          "options": {}
+        },
         {
           "name": "babel-plugin-styled-components",
           "stage": "develop-html",
@@ -51,6 +75,18 @@
     "build-html": {
       "plugins": [
         {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-optional-chaining/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-nullish-coalescing-operator/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-numeric-separator/lib/index.js",
+          "options": {}
+        },
+        {
           "name": "babel-plugin-styled-components",
           "stage": "build-html",
           "options": {
@@ -74,6 +110,18 @@
     },
     "build-javascript": {
       "plugins": [
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-optional-chaining/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-nullish-coalescing-operator/lib/index.js",
+          "options": {}
+        },
+        {
+          "name": "/Users/MX/Documents/Web/mxglab-gatsby-react/mxg-lab/node_modules/@babel/plugin-proposal-numeric-separator/lib/index.js",
+          "options": {}
+        },
         {
           "name": "babel-plugin-styled-components",
           "stage": "build-javascript",
