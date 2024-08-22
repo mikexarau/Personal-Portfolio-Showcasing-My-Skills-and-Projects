@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage, IGatsbyImageData } from "gatsby-plugin-image"
 import { transparentize, readableColor } from 'polished'
 import styled from 'styled-components'
 import { config, useSpring, animated } from 'react-spring'
@@ -8,14 +8,12 @@ import Layout from '../components/layout'
 import { Box, AnimatedBox, Button } from '../elements'
 import SEO from '../components/SEO'
 
-
 const PBox = styled(AnimatedBox)`
   max-width: 1400px;
   margin: 0 auto;
 `
 
 const Content = styled(Box)<{ bg: string }>`
-
   columns:2;
   column-gap: 0rem;
   padding-right: 2rem;
@@ -94,16 +92,7 @@ type PageProps = {
         node: {
           name: string
           childImageSharp: {
-            fluid: {
-              aspectRatio: number
-              src: string
-              srcSet: string
-              sizes: string
-              base64: string
-              tracedSVG: string
-              srcWebp: string
-              srcSetWebp: string
-            }
+            gatsbyImageData: IGatsbyImageData
           }
         }
       }[]
@@ -145,13 +134,16 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
       </PBox>
       <Content bg={project.color} py={10}>
         <PBox style={imagesAnimation} px={[0, 0, 0, 3]}>
-          {images.edges.map(image => (
-            <Img
-              alt={image.node.name}
-              key={image.node.childImageSharp.fluid.src}
-              fluid={image.node.childImageSharp.fluid}
-            />
-          ))}
+          {images.edges.map(image => {
+            const fluidImage = getImage(image.node.childImageSharp);
+            return fluidImage ? (
+              <GatsbyImage
+                alt={image.node.name}
+                key={fluidImage.images.fallback?.src}
+                image={fluidImage}
+              />
+            ) : null;
+          })}
         </PBox>
       </Content>
       <PBox textAlign="center" py={10} px={[6, 6, 8, 10]}>
@@ -163,31 +155,6 @@ const Project: React.FunctionComponent<PageProps> = ({ data: { project, images }
     </Layout>
   )
 }
-// class ReactSlick extends React.Component {
-//   render() {
-//     var settings = {
-//       dots: true
-//     };
-//     return (
-//       <div className="container">
-//         <Slider {...settings}>
-//           <div>
-//             <img src="http://placekitten.com/g/400/200" />
-//           </div>
-//           <div>
-//             <img src="http://placekitten.com/g/400/200" />
-//           </div>
-//           <div>
-//             <img src="http://placekitten.com/g/400/200" />
-//           </div>
-//           <div>
-//             <img src="http://placekitten.com/g/400/200" />
-//           </div>
-//         </Slider>
-//       </div>
-//     );
-//   }
-// }
 
 export default Project
 
@@ -219,9 +186,7 @@ export const query = graphql`
         node {
           name
           childImageSharp {
-            fluid(quality: 95, maxWidth: 1200) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+            gatsbyImageData(layout: CONSTRAINED, quality: 95, width: 1200)
           }
         }
       }

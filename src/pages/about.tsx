@@ -19,7 +19,7 @@ import { DiPhotoshop } from 'react-icons/di';
 import { DiIllustrator } from 'react-icons/di';
 import { DiVisualstudio } from 'react-icons/di';
 import { FaDocker } from 'react-icons/fa';
-import { FaAdobe } from 'react-icons/fa';
+// import { FaAdobe } from 'react-icons/fa';
 import { DiPhp } from 'react-icons/di';
 
 const About = () => {
@@ -51,7 +51,7 @@ const About = () => {
             <h2><FaBootstrap />  <FaWordpress />  <FaJsSquare />  <FaJava />  <DiNpm /> <DiNodejsSmall /></h2>
           </div>
           <div>
-            <h2><FaAdobe />  <DiIllustrator />  <DiPhotoshop />  <DiVisualstudio />  <FaDocker />  <DiPhp /></h2>
+            <h2><DiIllustrator />  <DiPhotoshop />  <DiVisualstudio />  <FaDocker />  <DiPhp /></h2>
           </div>
         </div>
       </AnimatedBox>

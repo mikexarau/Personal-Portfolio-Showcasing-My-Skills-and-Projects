@@ -66,30 +66,30 @@ const GridItem = styled(Link)`
     
   }
   &:hover {
-    > div img {
+    // > div img {
       // display:none;
       // transform: scale(1.6);
       // background: rgb(63,64,72);
       // mix-blend-mode: multiply;
       // background: linear-gradient(45deg, rgba(76, 1, 0, 0.5), rgba(0,37,77,0.5));
         
-    } 
-    > div {
-      position: relative;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
+    // } 
+    // > div {
+    //   position: relative;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
       // box-shadow: 0.6rem 0.8rem #4ad7d1;
       transition: .3s ease;
       // background: linear-gradient(45deg, rgba(76, 1, 0, 0.5), rgba(0,37,77,0.5));
       // margin: 1em 1em 0em 1em;
       // box-shadow: 5px 0px 42px #00173005;
-      box-shadow: rgba(45,45,45,0.05) 0px 2px 2px, rgba(49,49,49,0.05) 0px 4px 4px, rgba(42,42,42,0.05) 0px 8px 8px, rgba(32,32,32,0.05) 0px 16px 16px, rgba(49,49,49,0.05) 0px 32px 32px, rgba(35,35,35,0.05) 0px 64px 64px;
-      transform: translate(0, -10px);
+      // box-shadow: rgba(45,45,45,0.05) 0px 2px 2px, rgba(49,49,49,0.05) 0px 4px 4px, rgba(42,42,42,0.05) 0px 8px 8px, rgba(32,32,32,0.05) 0px 16px 16px, rgba(49,49,49,0.05) 0px 32px 32px, rgba(35,35,35,0.05) 0px 64px 64px;
+      // transform: translate(0, -10px);
       // mix-blend-mode: exclusion;
     
-    }
+    // }
   //   > span {
   //     opacity:1;
   //     border-bottom-left-radius: 4px;

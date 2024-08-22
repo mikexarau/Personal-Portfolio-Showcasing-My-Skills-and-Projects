@@ -1,4 +1,0 @@
-This is a Brave Rewards publisher verification file.
-
-Domain: mxglab.com
-Token: 170a006482085a357983d69cc4441439a345db3f70f6ee89e27653611f473547

@@ -1,10 +1,10 @@
 require('dotenv').config({
   path: `.env`,
-})
+});
 
-const config = require('./config')
+const config = require('./config');
 
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
+const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
 
 module.exports = {
   pathPrefix: config.pathPrefix,
@@ -25,53 +25,21 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-page-progress',
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
-    'gatsby-plugin-typescript',
+    'gatsby-plugin-typescript', 
+    'gatsby-transformer-sharp', 
+    
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
         id: "GTM-WW95BD8",
-  
-        // Include GTM in development.
-        // Defaults to false meaning GTM will only be loaded in production.
         includeInDevelopment: false,
-  
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        // Defaults to null
         defaultDataLayer: { platform: "gatsby" },
-  
-        // Specify optional GTM environment details.
         gtmAuth: "6000340351",
         gtmPreview: "GTM-WW95BD8",
         dataLayerName: "YOUR_DATA_LAYER_NAME",
       },
     },
-    'gatsby-plugin-seo'{
-      resolve: "gatsby-plugin-seo",
-      options: {
-        siteName: "MXG Lab.",
-        defaultSiteImage: "/img/logo.png",
-        siteUrl: "https://mxglab.com",
-        twitterCreator: "@mikixarau",
-        twitterSite: "@mikixarau",
-        globalSchema: `{
-            "@type": "WebSite",
-            "@id": "https://example.com/#website",
-            "url": "https://example.com/",
-            "name": "Miquel Xarau Lab.",
-            "publisher": {
-              "@id": "https://example.com/about/#organization"
-            },
-            "image": {
-              "@type": "ImageObject",
-              "@id": "https://example.com/#logo",
-              "url": "https://example.com/img/logo.png",
-              "caption": "MXG Lab Logo"
-            }
-          }`
-    }
     'gatsby-transformer-yaml',
     {
       resolve: 'gatsby-source-filesystem',
@@ -102,7 +70,12 @@ module.exports = {
       },
     },
     'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
+    {
+      resolve: 'gatsby-plugin-image' , // Sustituyendo gatsby-image
+      options: {
+        // Configuración adicional si es necesario
+      },
+    },
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
@@ -121,4 +94,4 @@ module.exports = {
     'gatsby-plugin-offline',
     'gatsby-plugin-netlify',
   ],
-}
+};

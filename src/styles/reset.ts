@@ -33,7 +33,7 @@ a.navlink.navlink svg {
   vertical-align: -webkit-baseline-middle;
 }
 a.navlink.navlink svg:hover {
-  font-size: 1.5rem;
+  // font-size: 1.5rem;
 
 }
 @media (max-width: 1000px){
@@ -115,9 +115,10 @@ a.navlink.navlink {
 .card-header:hover {
   background:#e5e7e961;
 }
-.card:hover {
-  
-}
+// .card:hover {
+//   transform: translate(0, -10px);
+//   box-shadow: rgba(45,45,45,0.05) 0px 2px 2px, rgba(49,49,49,0.05) 0px 4px 4px, rgba(42,42,42,0.05) 0px 8px 8px, rgba(32,32,32,0.05) 0px 16px 16px, rgba(49,49,49,0.05) 0px 32px 32px, rgba(35,35,35,0.05) 0px 64px 64px;
+// }
 
 .card p {
   font-size: 16px;
