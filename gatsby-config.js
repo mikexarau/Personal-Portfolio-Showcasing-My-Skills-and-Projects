@@ -45,7 +45,7 @@ module.exports = {
       options: {
         trackingIds: [config.googleAnalyticsID],
         gtagConfig: {
-          optimize_id: process.env.GATSBY_GTM_OPTIMIZE_ID || 'GTM-KSMTTTB',
+          optimize_id: process.env.GATSBY_GTM_OPTIMIZE_ID || '',
           anonymize_ip: true,
           cookie_expires: 0,
           allow_google_signals: false,
