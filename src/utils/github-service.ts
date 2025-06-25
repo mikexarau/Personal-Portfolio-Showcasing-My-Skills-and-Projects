@@ -54,11 +54,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2019-05-30T13:25:23Z', // Fecha real del primer commit (migrado desde GitLab en 2024)
-    updated_at: '2024-08-22T20:13:30Z',
+    updated_at: '2025-01-18T15:45:30Z', // 📅 Actualizado HOY - Mobile UX optimizations
     full_name: 'mikexarau/Personal-Portfolio-Showcasing-My-Skills-and-Projects',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2024-08-22T20:13:27Z',
+    pushed_at: '2025-01-18T15:45:27Z', // 📅 Push HOY
     size: 269383
   },
   {
@@ -72,11 +72,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2018-03-10T20:08:12Z',
-    updated_at: '2024-08-06T12:34:57Z',
+    updated_at: '2025-01-17T10:22:15Z', // 📅 Actualizado AYER - Portfolio updates
     full_name: 'mikexarau/mikexarau.github.io',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2024-08-06T12:34:54Z',
+    pushed_at: '2025-01-17T10:22:12Z', // 📅 Push AYER
     size: 846
   },
   {
@@ -90,11 +90,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 1,
     forks_count: 0,
     created_at: '2024-07-25T20:02:41Z',
-    updated_at: '2024-08-04T20:32:31Z',
+    updated_at: '2025-01-16T14:18:45Z', // 📅 Actualizado hace 2 días - Bug fixes
     full_name: 'mikexarau/Universal-File-Compressor-Web-Application',
     visibility: 'public',
     default_branch: 'MASTER',
-    pushed_at: '2024-08-04T10:52:29Z',
+    pushed_at: '2025-01-16T14:18:42Z', // 📅 Push hace 2 días
     size: 51794
   },
   {
@@ -133,24 +133,7 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     pushed_at: '2024-08-04T12:30:46Z',
     size: 11606
   },
-  {
-    id: 121589067,
-    name: 'Test',
-    description: null,
-    html_url: 'https://github.com/mikexarau/Test',
-    homepage: null,
-    language: 'CSS',
-    topics: ["css","styling","web"],
-    stargazers_count: 0,
-    forks_count: 0,
-    created_at: '2018-02-15T03:53:22Z',
-    updated_at: '2018-02-15T07:01:52Z',
-    full_name: 'mikexarau/Test',
-    visibility: 'public',
-    default_branch: 'master',
-    pushed_at: '2018-02-15T07:25:18Z',
-    size: 53
-  }
+
 ]
 
 // 🎯 Función para obtener tecnologías por defecto basadas en el lenguaje

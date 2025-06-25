@@ -406,21 +406,21 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   transform: translate(0, 0) scale(1);
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    /* 📱 MOBILE FIX: Posición dentro de la card para evitar overflow:hidden */
-    top: 8px;
-    right: 8px;
+    /* 📱 MOBILE FIX: Mantener posición de desktop pero con z-index máximo */
+    top: -6px;
+    right: -6px;
     padding: 3px 8px;
     font-size: 9px;
-    z-index: 25; /* Mayor z-index para móvil */
+    z-index: 50; /* Z-index máximo para superar cualquier overlay */
   }
   
   @media (max-width: 480px) {
-    /* 📱 MOBILE PEQUEÑO: Aún más dentro para asegurar visibilidad */
-    top: 6px;
-    right: 6px;
+    /* 📱 MOBILE PEQUEÑO: Misma posición pero menor padding */
+    top: -6px;
+    right: -6px;
     padding: 2px 6px;
     font-size: 8px;
-    z-index: 30; /* Máximo z-index para pantallas pequeñas */
+    z-index: 60; /* Z-index extra alto para pantallas pequeñas */
   }
 `
 
