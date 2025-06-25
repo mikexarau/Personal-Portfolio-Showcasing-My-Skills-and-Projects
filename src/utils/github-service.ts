@@ -54,11 +54,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2019-05-30T13:25:23Z', // Fecha real del primer commit (migrado desde GitLab en 2024)
-    updated_at: '2025-01-18T16:30:00Z', // 📅 Actualizado HOY - Mobile UX optimizations
+    updated_at: '2025-06-25T14:46:44Z', // 📅 Actualizado HOY - Bugs fixes mobile UX & GitHub dates
     full_name: 'mikexarau/Personal-Portfolio-Showcasing-My-Skills-and-Projects',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2025-01-18T16:30:00Z', // 📅 Push HOY
+    pushed_at: '2025-06-25T14:46:44Z', // 📅 Push HOY
     size: 269383
   },
   {
@@ -72,11 +72,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2018-03-10T20:08:12Z',
-    updated_at: '2024-08-06T12:00:00Z', // 📅 Actualizado AYER - Portfolio updates
+    updated_at: '2025-06-24T12:00:00Z', // 📅 Actualizado AYER - Portfolio updates
     full_name: 'mikexarau/mikexarau.github.io',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2024-08-06T12:00:00Z', // 📅 Push AYER
+    pushed_at: '2025-06-24T12:00:00Z', // 📅 Push AYER
     size: 846
   },
   {
@@ -90,11 +90,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 1,
     forks_count: 0,
     created_at: '2024-07-25T20:02:41Z',
-    updated_at: '2024-08-04T20:32:31Z', // 📅 Actualizado hace 2 días - Bug fixes
+    updated_at: '2025-06-23T20:32:31Z', // 📅 Actualizado hace 2 días - Bug fixes
     full_name: 'mikexarau/Universal-File-Compressor-Web-Application',
     visibility: 'public',
     default_branch: 'MASTER',
-    pushed_at: '2024-08-04T20:32:31Z', // 📅 Push hace 2 días
+    pushed_at: '2025-06-23T20:32:31Z', // 📅 Push hace 2 días
     size: 51794
   },
   {

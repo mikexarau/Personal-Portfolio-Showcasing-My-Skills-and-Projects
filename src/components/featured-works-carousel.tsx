@@ -153,7 +153,7 @@ const CarouselTrack = styled.div<{
   }
 `
 
-// 🎯 Wrapper para card + información debajo (como lecorre.design)
+// 🎯 Wrapper para card + información debajo (como lecorre.design) - Sin interferencia z-index
 const CarouselCard = styled.div<{ 
   $theme: any; 
   $designSystem: any; 
@@ -168,9 +168,17 @@ const CarouselCard = styled.div<{
   text-decoration: none;
   transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
   
+  /* 🔥 CRITICAL: NO crear stacking context que interfiera con badge */
+  z-index: auto;
+  isolation: auto;
+  will-change: auto;
+  
   /* Hover effect unificado: toda la card (visual + info) se mueve junta */
   &:hover {
-    transform: translateY(-8px);
+    /* 🔥 MOBILE FIX: No usar transform en mobile que interfiere con badge z-index */
+    @media (min-width: ${props => props.$designSystem.breakpoints.md}) {
+      transform: translateY(-8px);
+    }
     
     .card-visual {
       .work-image {
@@ -186,14 +194,28 @@ const CarouselCard = styled.div<{
         opacity: 1;
       }
       
+      /* 🔥 Badge hover effect sin interferencia */
       .work-badge {
-        transform: translateY(-4px);
+        @media (min-width: ${props => props.$designSystem.breakpoints.md}) {
+          transform: translateY(-4px) translateZ(999px) !important;
+        }
+        @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
+          transform: translateZ(999px) scale(1.05) !important;
+        }
       }
     }
   }
+  
+  /* 🔥 MOBILE: Asegurar que no haya stacking context issues */
+  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
+    z-index: auto !important;
+    isolation: auto !important;
+    will-change: auto !important;
+    transform: none !important;
+  }
 `
 
-// 🎯 Card visual interactiva
+// 🎯 Card visual interactiva - Sin interferencia con badge z-index
 const CardVisual = styled(Link)<{ 
   $theme: any; 
   $designSystem: any; 
@@ -201,17 +223,28 @@ const CardVisual = styled(Link)<{
 }>`
   display: block;
   position: relative;
-    width: 100%;
+  width: 100%;
   height: 240px;
   border-radius: ${props => props.$designSystem.radius.xl};
   /* REMOVIDO: overflow: hidden; - Para permitir que el badge sobresalga */
   text-decoration: none;
   transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
   
+  /* 🔥 CRITICAL: NO crear stacking context que interfiera con el badge */
+  z-index: auto; /* No forzar z-index para evitar stacking context */
+  transform: none; /* No usar transform que crea stacking context */
+  will-change: auto; /* Evitar creating layers innecesarios */
+  isolation: auto; /* No crear isolation context */
+  
   /* El hover effect se maneja desde CarouselCard */
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     height: 200px;
+    
+    /* 🔥 MOBILE: Asegurar que no interfiera con badge */
+    z-index: auto !important;
+    transform: none !important;
+    will-change: auto !important;
   }
 `
 
@@ -268,6 +301,7 @@ const WorkImageBackground = styled.div<{ $designSystem: any }>`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1; /* Z-index bajo para que no tape el badge */
 `
 
 const WorkImage = styled.div<{ $designSystem: any }>`
@@ -340,7 +374,7 @@ const WorkOverlay = styled.div<{ $theme: any; $designSystem: any; $isDark: boole
   z-index: 2;
 `
 
-// 🏷️ Badge - Posicionado exactamente como en Pangram Pangram con mayor precision
+// 🏷️ Badge - SOLUCION DEFINITIVA Z-INDEX - Posición absoluta con máximo z-index
 const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: string }>`
   position: absolute;
   top: -6px;
@@ -394,7 +428,6 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   text-transform: uppercase;
   letter-spacing: ${props => props.$designSystem.typography.tracking.wider};
   transition: all ${props => props.$designSystem.animation.duration.normal} ease;
-  z-index: 999999; /* Mayor z-index para asegurar visibilidad */
   white-space: nowrap;
   
   /* Diseño ultra limpio sin bordes */
@@ -405,22 +438,48 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   opacity: 1;
   transform: translate(0, 0) scale(1);
   
+  /* 🔥 SOLUCIÓN DEFINITIVA Z-INDEX - MÁXIMA PRIORIDAD */
+  z-index: 999999 !important; /* Z-index máximo con !important */
+  
+  /* 🔥 CREAR NUEVO STACKING CONTEXT PARA SUPERAR TODOS LOS DEMÁS */
+  isolation: isolate;
+  will-change: auto;
+  contain: layout style;
+  
+  /* 📱 MOBILE: Configuración específica para pantallas pequeñas */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    /* 📱 MOBILE FIX: Mantener posición de desktop pero con z-index máximo */
-    top: -6px;
-    right: -6px;
+    top: -6px !important;
+    right: -6px !important;
     padding: 3px 8px;
     font-size: 9px;
-    z-index: 50; /* Z-index máximo para superar cualquier overlay */
+    z-index: 999999 !important;
+    position: absolute !important;
+    
+    /* 🔥 ASEGURAR QUE ESTÉ POR ENCIMA DE VIDEOS Y OVERLAYS EN MOBILE */
+    isolation: isolate !important;
+    will-change: auto !important;
+    transform: translateZ(999px) !important; /* Forzar nuevo layer */
   }
   
   @media (max-width: 480px) {
-    /* 📱 MOBILE PEQUEÑO: Misma posición pero menor padding */
-    top: -6px;
-    right: -6px;
+    top: -6px !important;
+    right: -6px !important;
     padding: 2px 6px;
     font-size: 8px;
-    z-index: 60; /* Z-index extra alto para pantallas pequeñas */
+    z-index: 999999 !important;
+    position: absolute !important;
+    
+    /* 🔥 MÁXIMO NIVEL DE ESPECIFICIDAD PARA PANTALLAS PEQUEÑAS */
+    isolation: isolate !important;
+    will-change: auto !important;
+    transform: translateZ(999px) !important;
+    contain: layout style !important;
+  }
+  
+  /* 🎯 HOVER: Mantener máxima visibilidad en hover */
+  &:hover {
+    z-index: 999999 !important;
+    transform: translateZ(999px) scale(1.05) !important;
   }
 `
 
@@ -623,6 +682,7 @@ const WorkVideo = styled.video<{ $designSystem: any }>`
   object-position: center;
   border-radius: inherit;
   background: ${props => props.$designSystem.colors.neutral?.[100] || '#f5f5f5'};
+  z-index: 1; /* Z-index bajo para que no tape el badge */
   
   /* Optimización para reproducción suave */
   will-change: transform;
@@ -656,6 +716,7 @@ const VideoLoadingPlaceholder = styled.div<{ $theme: any; $designSystem: any }>`
   justify-content: center;
   color: ${props => props.$theme.colors.text.inverse};
   border-radius: inherit;
+  z-index: 1; /* Z-index bajo para que no tape el badge */
   
   svg {
     opacity: 0.7;

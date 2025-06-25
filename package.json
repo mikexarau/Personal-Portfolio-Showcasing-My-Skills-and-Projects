@@ -11,12 +11,21 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "dev": "gatsby develop -o",
-    "start": "npm run develop",
+    "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "clean-dev": "gatsby clean && npm run develop",
     "cleanup": "node scripts/cleanup.js",
     "analyze": "npm run build && npx gatsby-plugin-webpack-bundle-analyser-v2",
+    "test-hero": "node scripts/test-hero-animation.js",
+    "test-video": "node scripts/test-video-performance.js",
+    "test-navigation": "node scripts/test-direct-navigation.js",
+    "test-performance": "node scripts/test-performance.js",
+    "test-aspect-ratios": "node scripts/test-aspect-ratios.js",
+    "test-mobile-badge": "node scripts/test-mobile-badge-fix.js",
+    "security-audit": "node scripts/security-audit.js",
+    "security": "npm audit && npm run security-audit",
+    "update-github": "node scripts/update-github-data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -53,7 +62,8 @@
     "imagemin": "^9.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "puppeteer": "^24.10.2"
   },
   "repository": {
     "type": "git",

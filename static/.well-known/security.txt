@@ -1,8 +1,18 @@
 Contact: mailto:security@miquelxarau.com
-Expires: 2025-12-31T23:59:59.000Z
+Contact: https://github.com/mikexarau/Personal-Portfolio-Showcasing-My-Skills-and-Projects/security/advisories/new
+Expires: 2026-06-25T00:00:00.000Z
 Preferred-Languages: en, es
 Canonical: https://miquelxarau.netlify.app/.well-known/security.txt
-Policy: https://miquelxarau.netlify.app/security-policy
+Policy: https://github.com/mikexarau/Personal-Portfolio-Showcasing-My-Skills-and-Projects/blob/master/SECURITY.md
+Hiring: https://miquelxarau.netlify.app/contact
+
+# Security Contact Information
+# 
+# This file provides security contact information for Miquel Xarau's Portfolio
+# Following RFC 9116 standard for security.txt
+#
+# Last updated: 2025-06-25
+# Next review: 2026-06-25
 
 # Security Policy
 # 
