@@ -107,9 +107,23 @@ netlify env:set GATSBY_GTM_OPTIMIZE_ID "GTM-KSMTTTB"
 - Alertas activas: **0**
 - Última verificación: 25 Junio 2025
 
+### Auditoría de Seguridad Automatizada
+```bash
+npm run security-check
+
+📊 RESUMEN DE SEGURIDAD:
+✅ 0 secretos expuestos en código fuente
+✅ Variables de entorno configuradas correctamente
+✅ Documentación completa
+✅ .env en .gitignore
+✅ .env.example creado
+
+🏆 PUNTUACIÓN: 100/100 puntos - EXCELENTE
+```
+
 ### Build Status
 - Desarrollo local: ✅ Funcionando
-- Deploy Netlify: ✅ Funcionando  
+- Deploy Netlify: ⚠️ Pendiente (errores GraphQL no relacionados)
 - Variables de entorno: ✅ Configuradas
 
 ### URLs de Verificación

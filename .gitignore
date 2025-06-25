@@ -80,5 +80,12 @@ storybook-static
 secrets/
 .secrets/
 
+# Test keys and certificates (para evitar false positives en GitHub Security)
+**/test*/**/*.pem
+**/test*/**/*.key
+**/fixtures/**/*.pem
+**/fixtures/**/*.key
+node_modules/**/test_rsa_privkey.pem
+
 # Development files
 dev_server.pid
