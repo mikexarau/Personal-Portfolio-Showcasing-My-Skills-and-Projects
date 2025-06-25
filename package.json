@@ -32,6 +32,7 @@
     "deploy-all": "node scripts/deploy-all.js",
     "commit-deploy": "git add . && git commit -m \"🚀 AUTO DEPLOY: $(date +'%Y-%m-%d %H:%M')\" && git push origin master && npm run deploy",
     "quick-deploy": "npm run deploy-all",
+    "test-ipb-gallery": "node scripts/test-ipb-gallery.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

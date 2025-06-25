@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
-import IPBGallery from './IPBGallery'
 
 // 🎯 CONTENEDOR PRINCIPAL SIMPLIFICADO
 const ShowcaseContainer = styled.section<{ $theme: any; $designSystem: any }>`
@@ -26,7 +25,7 @@ const MediaSection = styled.div<{ $theme: any; $designSystem: any }>`
 `
 
 // 🖼️ CONTENEDOR DE IMAGEN SIMPLIFICADO Y EFECTIVO
-const ImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
+const ImageContainer = styled.div<{ $theme: any; $designSystem: any; $isIPB?: boolean }>`
   position: relative;
   width: 100%;
   max-width: 1200px;
@@ -46,7 +45,7 @@ const ImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
       height: auto !important;
       object-fit: contain !important;
       object-position: center !important;
-      transition: transform 0.3s ease !important;
+      transition: ${props => props.$isIPB ? 'none' : 'transform 0.3s ease'} !important;
       display: block !important;
       background: ${props => props.$theme.colors.bg.secondary} !important;
     }
@@ -60,6 +59,7 @@ const ImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
     object-position: center;
     display: block;
     background: ${props => props.$theme.colors.bg.secondary};
+    transition: ${props => props.$isIPB ? 'none' : 'transform 0.3s ease'};
   }
   
   /* 📱 Optimización para móviles */
@@ -84,6 +84,62 @@ const ImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
   
   &.aspect-square {
     max-width: 800px; /* Tamaño medio para cuadrados */
+  }
+`
+
+// 🖼️ GRID ESPECIAL PARA PROYECTO IPB - SIN EFECTOS
+const IPBImageGrid = styled.div<{ $theme: any; $designSystem: any }>`
+  display: grid;
+  gap: ${props => props.$designSystem.spacing[4]};
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  /* 🖥️ Desktop: 3 columnas para aprovechar imágenes móviles */
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: ${props => props.$designSystem.spacing[6]};
+  }
+  
+  /* 📱 Tablet: 2 columnas */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${props => props.$designSystem.spacing[4]};
+  }
+  
+  /* 📱 Mobile: 1 columna */
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: ${props => props.$designSystem.spacing[3]};
+  }
+`
+
+// 🖼️ CONTENEDOR SIMPLE PARA IMÁGENES IPB
+const IPBImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
+  width: 100%;
+  border-radius: ${props => props.$designSystem.radius.lg};
+  overflow: hidden;
+  background: ${props => props.$theme.colors.bg.secondary};
+  
+  .gatsby-image-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    
+    img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      display: block !important;
+    }
+  }
+  
+  > img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    display: block;
   }
 `
 
@@ -462,12 +518,43 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
     return null
   }
 
-  // 🎯 DETECCIÓN ESPECIAL PARA PROYECTO IPB - Galería vanguardista
+  // 🎯 CONFIGURACIÓN ESPECIAL PARA PROYECTO IPB - Mostrar imágenes sin efectos
   const isIPBProject = projectTitle.toLowerCase().includes('ipb') || 
                       allMedia.some(media => media.name.includes('ipb'))
-  
+
+  // 🎯 RENDERIZADO ESPECIAL PARA IPB - SIN EFECTOS
   if (isIPBProject && projectImages.length > 0) {
-    return <IPBGallery images={projectImages} projectTitle={projectTitle} />
+    const sortedImages = [...projectImages].sort((a, b) => 
+      a.node.name.localeCompare(b.node.name)
+    )
+    
+    return (
+      <ShowcaseContainer $theme={theme} $designSystem={designSystem}>
+        <IPBImageGrid $theme={theme} $designSystem={designSystem}>
+          {sortedImages.map(({ node: image }) => (
+            <IPBImageContainer 
+              key={image.id}
+              $theme={theme} 
+              $designSystem={designSystem}
+            >
+              {image.childImageSharp?.gatsbyImageData ? (
+                <GatsbyImage
+                  image={image.childImageSharp.gatsbyImageData}
+                  alt={`${projectTitle} - ${image.name}`}
+                  loading="lazy"
+                />
+              ) : image.publicURL ? (
+                <img
+                  src={image.publicURL}
+                  alt={`${projectTitle} - ${image.name}`}
+                  loading="lazy"
+                />
+              ) : null}
+            </IPBImageContainer>
+          ))}
+        </IPBImageGrid>
+      </ShowcaseContainer>
+    )
   }
 
   return (
@@ -483,11 +570,14 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
             <ImageContainer 
               $theme={theme} 
               $designSystem={designSystem}
+              $isIPB={isIPBProject}
               id={`image-container-${media.id}`}
             >
-              <MediaIndicator $theme={theme} $designSystem={designSystem} $type="image">
-                Imagen
-              </MediaIndicator>
+              {!isIPBProject && (
+                <MediaIndicator $theme={theme} $designSystem={designSystem} $type="image">
+                  Imagen
+                </MediaIndicator>
+              )}
               
               {media.childImageSharp?.gatsbyImageData ? (
                 <GatsbyImage
