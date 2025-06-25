@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
+import IPBGallery from './IPBGallery'
 
 // 🎯 CONTENEDOR PRINCIPAL SIMPLIFICADO
 const ShowcaseContainer = styled.section<{ $theme: any; $designSystem: any }>`
@@ -459,6 +460,14 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
       console.warn(`⚠️ No se encontraron archivos para el proyecto: ${projectTitle}`)
     }
     return null
+  }
+
+  // 🎯 DETECCIÓN ESPECIAL PARA PROYECTO IPB - Galería vanguardista
+  const isIPBProject = projectTitle.toLowerCase().includes('ipb') || 
+                      allMedia.some(media => media.name.includes('ipb'))
+  
+  if (isIPBProject && projectImages.length > 0) {
+    return <IPBGallery images={projectImages} projectTitle={projectTitle} />
   }
 
   return (
