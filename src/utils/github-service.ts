@@ -36,11 +36,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 1,
     forks_count: 0,
     created_at: '2021-03-15T14:30:00Z', // Fecha estimada realista para proyecto blockchain (migrado desde GitLab en 2024)
-    updated_at: '2025-05-24T06:35:23Z',
+    updated_at: '2024-08-05T11:00:00Z',
     full_name: 'mikexarau/Blockchain-Marketplace-Decentralized-E-commerce-Platform',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2024-08-05T11:09:40Z',
+    pushed_at: '2024-08-05T11:00:00Z',
     size: 1174
   },
   {
@@ -54,11 +54,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2019-05-30T13:25:23Z', // Fecha real del primer commit (migrado desde GitLab en 2024)
-    updated_at: '2025-01-18T15:45:30Z', // 📅 Actualizado HOY - Mobile UX optimizations
+    updated_at: '2025-01-18T16:30:00Z', // 📅 Actualizado HOY - Mobile UX optimizations
     full_name: 'mikexarau/Personal-Portfolio-Showcasing-My-Skills-and-Projects',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2025-01-18T15:45:27Z', // 📅 Push HOY
+    pushed_at: '2025-01-18T16:30:00Z', // 📅 Push HOY
     size: 269383
   },
   {
@@ -72,11 +72,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2018-03-10T20:08:12Z',
-    updated_at: '2025-01-17T10:22:15Z', // 📅 Actualizado AYER - Portfolio updates
+    updated_at: '2024-08-06T12:00:00Z', // 📅 Actualizado AYER - Portfolio updates
     full_name: 'mikexarau/mikexarau.github.io',
     visibility: 'public',
     default_branch: 'master',
-    pushed_at: '2025-01-17T10:22:12Z', // 📅 Push AYER
+    pushed_at: '2024-08-06T12:00:00Z', // 📅 Push AYER
     size: 846
   },
   {
@@ -90,11 +90,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 1,
     forks_count: 0,
     created_at: '2024-07-25T20:02:41Z',
-    updated_at: '2025-01-16T14:18:45Z', // 📅 Actualizado hace 2 días - Bug fixes
+    updated_at: '2024-08-04T20:32:31Z', // 📅 Actualizado hace 2 días - Bug fixes
     full_name: 'mikexarau/Universal-File-Compressor-Web-Application',
     visibility: 'public',
     default_branch: 'MASTER',
-    pushed_at: '2025-01-16T14:18:42Z', // 📅 Push hace 2 días
+    pushed_at: '2024-08-04T20:32:31Z', // 📅 Push hace 2 días
     size: 51794
   },
   {
@@ -112,7 +112,7 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     full_name: 'mikexarau/Universal-File-Compressor-Desktop-Application-for-macOS',
     visibility: 'public',
     default_branch: 'MASTER',
-    pushed_at: '2024-08-04T10:52:44Z',
+    pushed_at: '2024-08-04T19:36:22Z',
     size: 14853
   },
   {
@@ -126,11 +126,11 @@ export const GITHUB_REPOSITORIES: GitHubRepo[] = [
     stargazers_count: 0,
     forks_count: 0,
     created_at: '2024-08-04T11:24:20Z',
-    updated_at: '2024-08-04T19:32:04Z',
+    updated_at: '2024-08-04T19:00:00Z',
     full_name: 'mikexarau/Scalable-Weather-Web-App-Real-Time-Weather-Information',
     visibility: 'public',
     default_branch: 'MASTER',
-    pushed_at: '2024-08-04T12:30:46Z',
+    pushed_at: '2024-08-04T19:00:00Z',
     size: 11606
   },
 

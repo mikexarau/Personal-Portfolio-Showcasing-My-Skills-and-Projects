@@ -394,7 +394,7 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   text-transform: uppercase;
   letter-spacing: ${props => props.$designSystem.typography.tracking.wider};
   transition: all ${props => props.$designSystem.animation.duration.normal} ease;
-  z-index: 20; /* Mayor z-index para asegurar visibilidad */
+  z-index: 999999; /* Mayor z-index para asegurar visibilidad */
   white-space: nowrap;
   
   /* Diseño ultra limpio sin bordes */
