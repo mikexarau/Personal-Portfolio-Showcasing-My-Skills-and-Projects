@@ -1,0 +1,54 @@
+# Global security headers for all routes
+/*
+  # Content Security Policy - Strict but functional for portfolio
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-ancestors 'none';
+  
+  # Prevent XSS attacks
+  X-XSS-Protection: 1; mode=block
+  
+  # Prevent content type sniffing
+  X-Content-Type-Options: nosniff
+  
+  # Prevent clickjacking
+  X-Frame-Options: DENY
+  
+  # Force HTTPS
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # Referrer policy
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # Permissions policy
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=()
+  
+  # Cache control for security
+  Cache-Control: public, max-age=31536000, immutable
+
+# Specific headers for HTML pages
+/*.html
+  # Additional CSP for HTML pages
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+
+# Static assets with long-term caching
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images with optimized caching
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Videos with optimized caching  
+*.mp4
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts with long-term caching
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# Service worker
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Manifest file
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400 

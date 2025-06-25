@@ -1,3 +1,23 @@
 User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.env
+Disallow: /.git/
+Disallow: /api/
+Disallow: /*?*debug*
+Disallow: /*?*test*
+Disallow: /404/
+Disallow: /offline-plugin-app-shell-fallback/
 
-sitemap: https://mxglab.com/sitemap.xml
+# Security-sensitive paths
+Disallow: /.well-known/
+Allow: /.well-known/security.txt
+
+# Preferred version of the site
+Host: https://miquelxarau.netlify.app
+
+# Sitemap location
+Sitemap: https://miquelxarau.netlify.app/sitemap-index.xml
+
+# Crawl delay for polite crawling
+Crawl-delay: 1

@@ -23,21 +23,40 @@ module.exports = {
     twitter: config.userTwitter,
     facebook: config.ogSiteName,
   },
+  flags: {
+    FAST_DEV: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+  },
   plugins: [
-    'gatsby-plugin-page-progress',
+    {
+      resolve: 'gatsby-plugin-page-progress',
+      options: {
+        height: 3,
+        prependToBody: false,
+        color: '#0ea5e9',
+        excludePaths: ['/'],
+      },
+    },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-typescript', 
     'gatsby-transformer-sharp', 
-    
     {
-      resolve: "gatsby-plugin-google-tagmanager",
+      resolve: 'gatsby-plugin-google-gtag',
       options: {
-        id: "GTM-WW95BD8",
-        includeInDevelopment: false,
-        defaultDataLayer: { platform: "gatsby" },
-        gtmAuth: "6000340351",
-        gtmPreview: "GTM-WW95BD8",
-        dataLayerName: "YOUR_DATA_LAYER_NAME",
+        trackingIds: [config.googleAnalyticsID],
+        gtagConfig: {
+          optimize_id: 'GTM-KSMTTTB',
+          anonymize_ip: true,
+          cookie_expires: 0,
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true,
+          exclude: ['/preview/**', '/do-not-track/me/too/', '/404/**', '/dev-404-page/**'],
+          delayOnRouteUpdate: 0,
+        },
       },
     },
     'gatsby-transformer-yaml',
@@ -45,6 +64,13 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'projects',
+        path: `${__dirname}/content/projects`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'content',
         path: `${__dirname}/content/`,
       },
     },
@@ -63,20 +89,68 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        trackingId: config.googleAnalyticsID,
-        optimizeId: "GTM-KSMTTTB",
+        name: 'static',
+        path: `${__dirname}/static`,
       },
     },
-    'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-plugin-image' , // Sustituyendo gatsby-image
+      resolve: 'gatsby-plugin-sharp',
       options: {
-        // Configuración adicional si es necesario
+        defaults: {
+          formats: ['auto', 'webp', 'avif'],
+          placeholder: 'blurred',
+          quality: 75,
+          breakpoints: [480, 768, 1024, 1366, 1920],
+          backgroundColor: 'transparent',
+        },
+        failOnError: false,
+        base64Width: 20,
+        forceBase64Format: 'webp',
+        useMozJpeg: process.env.GATSBY_JPEG_ENCODER === 'MOZJPEG',
+        stripMetadata: true, // Security: Remove EXIF data
+        defaultQuality: 75,
+
       },
     },
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-image',
+      options: {
+        defaults: {
+          formats: ['auto', 'webp', 'avif'],
+          placeholder: 'blurred',
+          quality: 70,
+          breakpoints: [480, 768, 1024, 1366, 1920],
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        output: '/',
+        excludes: ['/dev-404-page/', '/404/', '/404.html', '/offline-plugin-app-shell-fallback/'],
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolveSiteUrl: () => config.siteUrl,
+        resolvePages: ({ allSitePage: { nodes: allPages } }) => {
+          return allPages.map(page => ({ ...page }))
+        },
+        serialize: ({ path }) => ({
+          url: path,
+          changefreq: 'daily',
+          priority: path === '/' ? 1.0 : 0.7,
+        }),
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -89,9 +163,33 @@ module.exports = {
         theme_color: config.themeColor,
         display: 'standalone',
         icon: 'src/favicon.png',
+        icons: [
+          {
+            src: 'favicons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'favicons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+        cache_busting_mode: 'query',
+        crossOrigin: 'use-credentials',
       },
     },
-    'gatsby-plugin-offline',
+    // Deshabilitado por vulnerabilidades de seguridad en workbox-build
+    // Se reactivará cuando se actualicen las dependencias
+    // {
+    //   resolve: 'gatsby-plugin-offline',
+    //   options: {
+    //     precachePages: [`/`, `/404/`],
+    //     workboxConfig: {
+    //       globPatterns: ['**/offline-plugin-app-shell-fallback/index.html']
+    //     }
+    //   }
+    // },
     'gatsby-plugin-netlify',
   ],
 };

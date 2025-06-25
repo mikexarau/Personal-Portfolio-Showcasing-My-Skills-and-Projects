@@ -1,0 +1,1017 @@
+import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
+import styled, { keyframes, createGlobalStyle } from 'styled-components'
+import { useTheme2025 } from '../utils/theme-context-2025'
+
+// 🔥 CSS Global DEFINITIVO - FORZAR VISIBILIDAD INMEDIATA DE IMÁGENES
+const GlobalImageFix = createGlobalStyle`
+  /* 🔥 CSS NUCLEAR: ANULAR COMPLETAMENTE TODOS LOS SCRIPTS DE GATSBY */
+  
+  /* MÁXIMA ESPECIFICIDAD GLOBAL - ANULAR CUALQUIER JAVASCRIPT */
+  body img[data-main-image],
+  body .gatsby-image-wrapper img[data-main-image],
+  body .gatsby-image-wrapper picture img[data-main-image],
+  body div[data-gatsby-image-wrapper] img[data-main-image],
+  body .ProjectShowcase__ImageContainer-hyMbCj img[data-main-image],
+  body .hHRaab img[data-main-image] {
+    opacity: 1 !important;
+    transition: none !important;
+    transform: translateZ(0) !important;
+    will-change: auto !important;
+    animation: none !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* FORÇA BRUTA: Anular CUALQUIER style inline */
+  body img[data-main-image][style],
+  body img[data-main-image][style*="opacity"],
+  body img[data-main-image][style*="opacity: 0"],
+  body img[data-main-image][style*="opacity:0"],
+  body img[data-main-image][style*="opacity: 0.25"],
+  body img[data-main-image][style*="opacity:0.25"] {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  
+  /* Específico para los contenedores ProjectShowcase */
+  .ProjectShowcase__ImageContainer-hyMbCj .gatsby-image-wrapper img[data-main-image],
+  .hHRaab .gatsby-image-wrapper img[data-main-image] {
+    opacity: 1 !important;
+    transition: none !important;
+    animation: none !important;
+    transform: translateZ(0) !important;
+  }
+  
+  /* Ocultar TODOS los placeholders */
+  body [data-placeholder-image],
+  body .gatsby-image-wrapper [data-placeholder-image] {
+    opacity: 0 !important;
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Asegurar que los wrappers sean visibles */
+  body .gatsby-image-wrapper,
+  body div[data-gatsby-image-wrapper] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* CSS ANIMATION para FORZAR que las imágenes se muestren */
+  @keyframes forceImageVisibility {
+    0%, 100% {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+  
+  /* Aplicar animación que fuerza visibilidad constante */
+  body img[data-main-image] {
+    animation: forceImageVisibility 0.01s linear infinite !important;
+  }
+  
+  /* Optimización de renderizado */
+  .gatsby-image-wrapper {
+    image-rendering: optimizeQuality;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+`
+
+// 🎬 Animaciones premium inspiradas en tendencias 2024
+const fadeInScale = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`
+
+const parallaxFloat = keyframes`
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+`
+
+// 🌟 Contenedor principal con scroll suave
+const ShowcaseContainer = styled.section<{ $theme: any; $designSystem: any }>`
+  width: 100%;
+  margin: ${props => props.$designSystem.spacing[16]} 0;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    margin: ${props => props.$designSystem.spacing[12]} 0;
+  }
+`
+
+// 📱 Sección de media individual con intersection observer
+const MediaSection = styled.div<{ $theme: any; $designSystem: any; $isVisible: boolean }>`
+  width: 100%;
+  margin-bottom: ${props => props.$designSystem.spacing[20]};
+  opacity: ${props => props.$isVisible ? 1 : 0};
+  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(40px)'};
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  @media (max-width: 768px) {
+    margin-bottom: ${props => props.$designSystem.spacing[16]};
+  }
+`
+
+// 🖼️ Contenedor de imagen con efecto parallax sutil
+const ImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: ${props => props.$designSystem.radius['2xl']};
+  overflow: hidden;
+  background: ${props => props.$theme.colors.bg.secondary};
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.1),
+    0 10px 25px -5px rgba(0, 0, 0, 0.04);
+  
+  &:hover {
+    box-shadow: 
+      0 35px 70px -12px rgba(0, 0, 0, 0.15),
+      0 15px 35px -5px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* 🎯 SOLUCIÓN DEFINITIVA - MÁXIMA ESPECIFICIDAD CSS PARA GALERÍA */
+  .gatsby-image-wrapper,
+  .gatsby-image-wrapper > div,
+  .gatsby-image-wrapper picture,
+  .gatsby-image-wrapper img {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block !important;
+    
+    /* Renderizado de alta calidad */
+    image-rendering: optimizeQuality !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    
+    /* Transición suave */
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  
+  /* Forzar visibilidad de las imágenes principales */
+  .gatsby-image-wrapper img[data-main-image] {
+    opacity: 1 !important;
+  }
+  
+  /* Ocultar placeholders */
+  .gatsby-image-wrapper [data-placeholder-image] {
+    opacity: 0 !important;
+  }
+  
+  &:hover .gatsby-image-wrapper,
+  &:hover .gatsby-image-wrapper > div,
+  &:hover .gatsby-image-wrapper picture,
+  &:hover .gatsby-image-wrapper img {
+    transform: scale(1.02) !important;
+  }
+  
+  @media (max-width: 768px) {
+    border-radius: ${props => props.$designSystem.radius.xl};
+    box-shadow: 
+      0 15px 30px -10px rgba(0, 0, 0, 0.1),
+      0 5px 15px -3px rgba(0, 0, 0, 0.04);
+  }
+`
+
+// 🎥 Contenedor de video con auto-play avanzado y aspect ratio perfecto
+const VideoContainer = styled.div<{ $theme: any; $designSystem: any }>`
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: ${props => props.$designSystem.radius['2xl']};
+  overflow: hidden;
+  background: ${props => props.$theme.colors.bg.secondary};
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.1),
+    0 10px 25px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Aspect ratio dinámico basado en el contenido del video */
+  aspect-ratio: 16 / 9;
+  
+  /* 🎯 SOLUCIÓN DEFINITIVA - VIDEOS PERFECTAMENTE ESCALADOS */
+  video {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    
+    /* Optimización para reproducción suave */
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    
+    /* Configuración de reproducción automática */
+    autoplay: true !important;
+    
+    /* Ocultar controles completamente */
+    &::-webkit-media-controls,
+    &::-webkit-media-controls-panel,
+    &::-webkit-media-controls-play-button,
+    &::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    
+    /* Ocultar controles en Firefox */
+    &::-moz-media-controls {
+      display: none !important;
+    }
+    
+    /* Asegurar que no hay controles nativos */
+    &[controls] {
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      appearance: none !important;
+    }
+  }
+  
+  &:hover {
+    box-shadow: 
+      0 35px 70px -12px rgba(0, 0, 0, 0.15),
+      0 15px 35px -5px rgba(0, 0, 0, 0.08);
+    
+    video {
+      transform: scale(1.01) translateZ(0) !important;
+    }
+  }
+  
+  /* Responsive aspect ratios para diferentes tipos de contenido */
+  &[data-aspect="portrait"] {
+    aspect-ratio: 9 / 16;
+    max-width: 600px;
+  }
+  
+  &[data-aspect="square"] {
+    aspect-ratio: 1 / 1;
+    max-width: 800px;
+  }
+  
+  &[data-aspect="ultra-wide"] {
+    aspect-ratio: 21 / 9;
+  }
+  
+  @media (max-width: 768px) {
+    border-radius: ${props => props.$designSystem.radius.xl};
+    box-shadow: 
+      0 15px 30px -10px rgba(0, 0, 0, 0.1),
+      0 5px 15px -3px rgba(0, 0, 0, 0.04);
+      
+    /* En móvil, los videos mantienen proporciones más compactas */
+    aspect-ratio: 16 / 10;
+    
+    &[data-aspect="portrait"] {
+      aspect-ratio: 4 / 5;
+    }
+    
+    &[data-aspect="square"] {
+      aspect-ratio: 1 / 1;
+    }
+  }
+`
+
+// 🏷️ Indicador de tipo de media (minimalista)
+const MediaTypeIndicator = styled.div<{ $theme: any; $designSystem: any; $type: 'image' | 'video' | 'document' }>`
+  position: absolute;
+  top: ${props => props.$designSystem.spacing[4]};
+  right: ${props => props.$designSystem.spacing[4]};
+  padding: ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[3]};
+  background: ${props => props.$theme.colors.bg.primary}E6;
+  backdrop-filter: blur(20px);
+  border-radius: ${props => props.$designSystem.radius.full};
+  font-family: ${props => props.$designSystem.typography.fonts.sans};
+  font-size: ${props => props.$designSystem.typography.scale.xs};
+  font-weight: ${props => props.$designSystem.typography.weight.medium};
+  color: ${props => props.$theme.colors.text.secondary};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  
+  ${MediaSection}:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+// 📄 Contenedor de documentos con preview elegante
+const DocumentContainer = styled.div<{ $theme: any; $designSystem: any }>`
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: ${props => props.$designSystem.spacing[8]};
+  background: ${props => props.$theme.colors.bg.secondary};
+  border: 1px solid ${props => props.$theme.colors.border.primary};
+  border-radius: ${props => props.$designSystem.radius['2xl']};
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.05),
+    0 10px 25px -5px rgba(0, 0, 0, 0.02);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 35px 70px -12px rgba(0, 0, 0, 0.1),
+      0 15px 35px -5px rgba(0, 0, 0, 0.05);
+    border-color: ${props => props.$theme.colors.interactive.primary};
+  }
+  
+  .document-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto ${props => props.$designSystem.spacing[4]} auto;
+    padding: ${props => props.$designSystem.spacing[3]};
+    background: ${props => props.$theme.colors.interactive.primary}15;
+    border-radius: ${props => props.$designSystem.radius.lg};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${props => props.$theme.colors.interactive.primary};
+  }
+  
+  .document-title {
+    font-family: ${props => props.$designSystem.typography.fonts.display};
+    font-size: ${props => props.$designSystem.typography.scale.lg};
+    font-weight: ${props => props.$designSystem.typography.weight.bold};
+    color: ${props => props.$theme.colors.text.primary};
+    text-align: center;
+    margin-bottom: ${props => props.$designSystem.spacing[2]};
+  }
+  
+  .document-meta {
+    font-family: ${props => props.$designSystem.typography.fonts.sans};
+    font-size: ${props => props.$designSystem.typography.scale.sm};
+    color: ${props => props.$theme.colors.text.secondary};
+    text-align: center;
+    margin-bottom: ${props => props.$designSystem.spacing[4]};
+  }
+  
+  .document-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${props => props.$designSystem.spacing[2]};
+    padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
+    background: ${props => props.$theme.colors.interactive.primary};
+    color: ${props => props.$theme.colors.text.inverse};
+    border: none;
+    border-radius: ${props => props.$designSystem.radius.full};
+    font-family: ${props => props.$designSystem.typography.fonts.sans};
+    font-size: ${props => props.$designSystem.typography.scale.sm};
+    font-weight: ${props => props.$designSystem.typography.weight.medium};
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: ${props => props.$theme.colors.interactive.secondary};
+      transform: translateY(-2px);
+    }
+  }
+`
+
+// 🎯 Progress indicator (optimizado para evitar regeneración de clases)
+const ProgressIndicator = styled.div.attrs<{ $progress: number }>(props => ({
+  style: {
+    width: `${props.$progress}%`,
+  },
+}))<{ $theme: any; $designSystem: any; $progress: number }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    ${props => props.$theme.colors.interactive.primary}, 
+    ${props => props.$theme.colors.interactive.secondary}
+  );
+  z-index: 100;
+  transition: width 0.3s ease;
+`
+
+// 🏗️ Interface para el componente
+interface ProjectShowcaseProps {
+  projectImages: Array<{
+    node: {
+      id: string
+      name: string
+      relativePath: string
+      publicURL?: string
+      childImageSharp?: {
+        gatsbyImageData?: IGatsbyImageData
+      }
+    }
+  }>
+  projectVideos: Array<{
+    node: {
+      id: string
+      name: string
+      relativePath: string
+      publicURL?: string
+    }
+  }>
+  projectDocuments: Array<{
+    node: {
+      id: string
+      name: string
+      relativePath: string
+      publicURL?: string
+      extension: string
+    }
+  }>
+  projectTitle: string
+}
+
+// 🎨 Hook personalizado para Intersection Observer
+const useIntersectionObserver = (threshold = 0.5) => {
+  const [visibleElements, setVisibleElements] = useState(new Set<string>())
+  const observerRef = useRef<IntersectionObserver | null>(null)
+
+  const observe = useCallback((element: Element | null, id: string) => {
+    if (!element) return
+
+    if (!observerRef.current) {
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const elementId = entry.target.getAttribute('data-id')
+            if (elementId) {
+              setVisibleElements(prev => {
+                const newSet = new Set(prev)
+                if (entry.isIntersecting) {
+                  newSet.add(elementId)
+                } else {
+                  newSet.delete(elementId)
+                }
+                return newSet
+              })
+            }
+          })
+        },
+        { threshold, rootMargin: '0px 0px -10% 0px' }
+      )
+    }
+
+    observerRef.current.observe(element)
+  }, [threshold])
+
+  useEffect(() => {
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [])
+
+  return { visibleElements, observe }
+}
+
+// 🎥 Hook para auto-play de videos (mejorado y optimizado)
+const useVideoAutoPlay = () => {
+  const videoObserverRef = useRef<IntersectionObserver | null>(null)
+  const videosRef = useRef<Set<HTMLVideoElement>>(new Set())
+
+  useEffect(() => {
+    videoObserverRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(async (entry) => {
+          const video = entry.target as HTMLVideoElement
+          
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+            try {
+              // Configurar el video para autoplay
+              video.muted = true
+              video.loop = true
+              video.playsInline = true
+              
+              // Intentar reproducir
+              if (video.readyState >= 2) {
+                const playPromise = video.play()
+                if (playPromise !== undefined) {
+                  await playPromise
+                }
+              } else {
+                // Esperar a que el video esté listo
+                const handleLoadedData = async () => {
+                  try {
+                    const playPromise = video.play()
+                    if (playPromise !== undefined) {
+                      await playPromise
+                    }
+                  } catch (error) {
+                    console.warn('Video autoplay failed:', error)
+                  }
+                }
+                
+                video.addEventListener('loadeddata', handleLoadedData, { once: true })
+                
+                // Fallback: intentar cargar el video
+                if (video.readyState === 0) {
+                  video.load()
+                }
+              }
+            } catch (error) {
+              console.warn('Video autoplay failed:', error)
+            }
+          } else {
+            // Pausar video cuando sale de vista
+            if (!video.paused) {
+              video.pause()
+            }
+          }
+        })
+      },
+      { 
+        threshold: [0, 0.1, 0.3, 0.5, 0.7, 1],
+        rootMargin: '0px 0px -10% 0px'
+      }
+    )
+
+    // Cleanup al desmontar
+    return () => {
+      videosRef.current.forEach(video => {
+        if (!video.paused) {
+          video.pause()
+        }
+      })
+      
+      if (videoObserverRef.current) {
+        videoObserverRef.current.disconnect()
+      }
+    }
+  }, [])
+
+  const observeVideo = useCallback((video: HTMLVideoElement | null) => {
+    if (video && videoObserverRef.current) {
+      // Configuración inicial del video
+      video.muted = true
+      video.loop = true
+      video.playsInline = true
+      video.preload = 'metadata'
+      video.controls = false
+      
+      // Agregar al set de videos
+      videosRef.current.add(video)
+      
+      // Observar con intersection observer
+      videoObserverRef.current.observe(video)
+      
+      // Intentar reproducir inmediatamente si está visible
+      const rect = video.getBoundingClientRect()
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+      
+      if (isVisible) {
+        video.play().catch(err => console.warn('Initial autoplay failed:', err))
+      }
+      
+      // Cleanup cuando el video se desmonte
+      return () => {
+        videosRef.current.delete(video)
+        if (videoObserverRef.current) {
+          videoObserverRef.current.unobserve(video)
+        }
+      }
+    }
+  }, [])
+
+  return { observeVideo }
+}
+
+// 📊 Hook para scroll progress
+const useScrollProgress = () => {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollTop = window.scrollY
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight
+      const scrollProgress = (scrollTop / documentHeight) * 100
+      setProgress(Math.min(scrollProgress, 100))
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    updateProgress()
+
+    return () => window.removeEventListener('scroll', updateProgress)
+  }, [])
+
+  return progress
+}
+
+// 📐 Función para detectar aspect ratio de videos
+const getVideoAspectRatio = (video: HTMLVideoElement): string => {
+  if (!video.videoWidth || !video.videoHeight) return 'landscape'
+  
+  const ratio = video.videoWidth / video.videoHeight
+  
+  if (ratio > 2) return 'ultra-wide'      // 21:9 o mayor
+  if (ratio > 1.6) return 'landscape'     // 16:9 estándar
+  if (ratio > 0.9 && ratio < 1.1) return 'square'  // 1:1 cuadrado
+  if (ratio < 0.7) return 'portrait'      // 9:16 vertical
+  
+  return 'landscape' // fallback
+}
+
+const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
+  projectImages,
+  projectVideos,
+  projectDocuments,
+  projectTitle
+}) => {
+  const { theme, designSystem } = useTheme2025()
+  const { visibleElements, observe } = useIntersectionObserver()
+  const { observeVideo } = useVideoAutoPlay()
+  const progress = useScrollProgress()
+
+  // 🔥 SISTEMA DEFINITIVO: INTERCEPTAR Y ANULAR SCRIPT DE GATSBY
+  useEffect(() => {
+    // Función para simular que las imágenes están "complete" para Gatsby
+    const simulateImageComplete = (img: HTMLImageElement) => {
+      // Marcar como complete
+      Object.defineProperty(img, 'complete', {
+        value: true,
+        writable: false
+      })
+      
+      // Forzar visibilidad inmediata
+      img.style.setProperty('opacity', '1', 'important')
+      img.style.setProperty('visibility', 'visible', 'important')
+      img.style.setProperty('transition', 'none', 'important')
+      
+      // Encontrar y ocultar placeholder
+      const wrapper = img.closest('.gatsby-image-wrapper')
+      if (wrapper) {
+        const placeholder = wrapper.querySelector('[data-placeholder-image]') as HTMLElement
+        if (placeholder) {
+          placeholder.style.setProperty('opacity', '0', 'important')
+          placeholder.style.setProperty('display', 'none', 'important')
+        }
+      }
+    }
+
+    const forceImageVisibility = () => {
+      // 1. Cargar imágenes desde data-src
+      const images = document.querySelectorAll('img[data-main-image]') as NodeListOf<HTMLImageElement>
+      images.forEach((img) => {
+        // Transferir data-src a src
+        if (img.dataset.src && !img.src.includes(img.dataset.src)) {
+          img.src = img.dataset.src
+          img.removeAttribute('data-src')
+        }
+        if (img.dataset.srcset && !img.srcset.includes(img.dataset.srcset)) {
+          img.srcset = img.dataset.srcset
+          img.removeAttribute('data-srcset')
+        }
+        
+        // FORZAR que las imágenes sean detectadas como 'complete'
+        Object.defineProperty(img, 'complete', {
+          value: true,
+          writable: false,
+          configurable: true
+        })
+        
+        // FORZAR visibilidad INMEDIATA sin esperar a Gatsby
+        img.style.setProperty('opacity', '1', 'important')
+        img.style.setProperty('visibility', 'visible', 'important')
+        img.style.setProperty('transition', 'none', 'important')
+        
+        // Simular evento de load para que Gatsby ejecute su lógica
+        const loadEvent = new Event('load', { bubbles: true })
+        setTimeout(() => img.dispatchEvent(loadEvent), 0)
+        
+        // Simular imagen completamente cargada
+        simulateImageComplete(img)
+      })
+      
+      // 2. Cargar sources
+      const sources = document.querySelectorAll('source[data-srcset]') as NodeListOf<HTMLSourceElement>
+      sources.forEach((source) => {
+        if (source.dataset.srcset) {
+          source.srcset = source.dataset.srcset
+          source.removeAttribute('data-srcset')
+        }
+      })
+      
+      // 3. Forzar wrappers
+      const wrappers = document.querySelectorAll('.gatsby-image-wrapper') as NodeListOf<HTMLElement>
+      wrappers.forEach((wrapper) => {
+        wrapper.style.setProperty('opacity', '1', 'important')
+        wrapper.style.setProperty('visibility', 'visible', 'important')
+      })
+      
+      // 4. FORÇA BRUTA: Interceptar y anular CUALQUIER cambio a opacity
+      const images2 = document.querySelectorAll('img[data-main-image]') as NodeListOf<HTMLImageElement>
+      images2.forEach((img) => {
+        // Observer que anula CUALQUIER intento de cambiar opacity
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+              const target = mutation.target as HTMLImageElement
+              if (target.style.opacity !== '1') {
+                target.style.setProperty('opacity', '1', 'important')
+              }
+            }
+          })
+        })
+        
+        observer.observe(img, {
+          attributes: true,
+          attributeFilter: ['style']
+        })
+        
+        // Cleanup después de 3 segundos
+        setTimeout(() => observer.disconnect(), 3000)
+      })
+    }
+
+    // 🚀 ANULAR COMPLETAMENTE EL SCRIPT DE GATSBY
+    const preventGatsbyScript = () => {
+      // Interceptar el document.querySelectorAll para que Gatsby no encuentre las imágenes
+      const originalQSA = document.querySelectorAll
+      document.querySelectorAll = function(selector: string) {
+        if (selector === 'img[data-main-image]' && document.body.innerHTML.includes('ProjectShowcase')) {
+          // Devolver lista vacía para que Gatsby no procese nuestras imágenes
+          return [] as any
+        }
+        return originalQSA.call(this, selector)
+      }
+      
+      // Bloquear addEventListener para load events en el body
+      const originalAddEventListener = document.body.addEventListener
+      document.body.addEventListener = function(this: HTMLElement, type: string, listener: any, options?: any) {
+        if (type === 'load') {
+          // No registrar ningún listener de load para evitar interferencias
+          return
+        }
+        return originalAddEventListener.call(this, type, listener, options)
+      }
+    }
+
+    // Ejecutar antes de que Gatsby cargue
+    preventGatsbyScript()
+
+    // Ejecutar inmediatamente y múltiples veces
+    forceImageVisibility()
+    const timers = [
+      setTimeout(forceImageVisibility, 1),
+      setTimeout(forceImageVisibility, 10),
+      setTimeout(forceImageVisibility, 50),
+      setTimeout(forceImageVisibility, 150),
+      setTimeout(forceImageVisibility, 300),
+      setTimeout(forceImageVisibility, 500),
+      setTimeout(forceImageVisibility, 1000),
+      setTimeout(forceImageVisibility, 2000)
+    ]
+    
+    // Observer para cambios dinámicos
+    const observer = new MutationObserver((mutations) => {
+      let needsForcing = false
+      
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          const target = mutation.target as HTMLElement
+          if (target.hasAttribute('data-main-image')) {
+            const opacity = target.style.opacity
+            if (opacity === '0' || opacity === '' || parseFloat(opacity) < 1) {
+              needsForcing = true
+            }
+          }
+        }
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) {
+              const element = node as HTMLElement
+              if (element.querySelector('img[data-main-image]')) {
+                needsForcing = true
+              }
+            }
+          })
+        }
+      })
+      
+      if (needsForcing) {
+        setTimeout(forceImageVisibility, 0)
+      }
+    })
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style', 'src', 'srcset'],
+      childList: true,
+      subtree: true
+    })
+
+    return () => {
+      timers.forEach(clearTimeout)
+      observer.disconnect()
+    }
+  }, [projectImages])
+
+  // 🔄 Combinar y ordenar todos los medios
+  const allMedia = [
+    ...projectImages.map(({ node }) => ({ ...node, type: 'image' as const })),
+    ...projectVideos.map(({ node }) => ({ ...node, type: 'video' as const })),
+    ...projectDocuments.map(({ node }) => ({ ...node, type: 'document' as const }))
+  ].sort((a, b) => a.name.localeCompare(b.name))
+
+  if (allMedia.length === 0) {
+    return null
+  }
+
+  return (
+    <>
+      <GlobalImageFix />
+      <ProgressIndicator $theme={theme} $designSystem={designSystem} $progress={progress} />
+      <ShowcaseContainer $theme={theme} $designSystem={designSystem}>
+        {allMedia.map((media, index) => {
+          const mediaId = `media-${media.id}`
+          const isVisible = visibleElements.has(mediaId)
+
+          return (
+            <MediaSection
+              key={media.id}
+              data-id={mediaId}
+              ref={(el) => observe(el, mediaId)}
+              $theme={theme}
+              $designSystem={designSystem}
+              $isVisible={isVisible}
+            >
+              {media.type === 'image' && (
+                <ImageContainer $theme={theme} $designSystem={designSystem}>
+                  <MediaTypeIndicator $theme={theme} $designSystem={designSystem} $type="image">
+                    Image
+                  </MediaTypeIndicator>
+                  {media.childImageSharp?.gatsbyImageData ? (
+                    <GatsbyImage
+                      image={media.childImageSharp.gatsbyImageData}
+                      alt={`${projectTitle} - ${media.name}`}
+                      loading="eager"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        opacity: '1 !important'
+                      }}
+                      imgStyle={{
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        opacity: '1 !important',
+                        transition: 'none !important'
+                      }}
+                      onLoad={() => {
+                        // Forzar visibilidad inmediata con setTimeout para asegurar ejecución
+                        setTimeout(() => {
+                          const imgs = document.querySelectorAll(`[data-id="${mediaId}"] img[data-main-image]`) as NodeListOf<HTMLImageElement>;
+                          imgs.forEach((img) => {
+                            img.style.setProperty('opacity', '1', 'important');
+                            img.style.setProperty('transition', 'none', 'important');
+                          });
+                          
+                          const wrappers = document.querySelectorAll(`[data-id="${mediaId}"] .gatsby-image-wrapper`) as NodeListOf<HTMLElement>;
+                          wrappers.forEach((wrapper) => {
+                            wrapper.style.setProperty('opacity', '1', 'important');
+                          });
+                        }, 0);
+                      }}
+                    />
+                  ) : media.publicURL ? (
+                    <img
+                      src={media.publicURL}
+                      alt={`${projectTitle} - ${media.name}`}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                        opacity: 1
+                      }}
+                    />
+                  ) : (
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      background: `linear-gradient(135deg, ${theme?.colors?.interactive?.primary || '#3b82f6'}, ${theme?.colors?.interactive?.hover || '#6366f1'})`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: theme?.colors?.text?.inverse || '#ffffff',
+                      fontSize: '3rem'
+                    }}>
+                      🖼️
+                    </div>
+                  )}
+                </ImageContainer>
+              )}
+
+              {media.type === 'video' && media.publicURL && (
+                <VideoContainer 
+                  $theme={theme} 
+                  $designSystem={designSystem}
+                  data-aspect="landscape" // Default, se actualizará dinámicamente
+                  ref={(container) => {
+                    if (container) {
+                      const video = container.querySelector('video')
+                      if (video) {
+                        video.addEventListener('loadedmetadata', () => {
+                          const aspectRatio = getVideoAspectRatio(video)
+                          container.setAttribute('data-aspect', aspectRatio)
+                        }, { once: true })
+                      }
+                    }
+                  }}
+                >
+                  <MediaTypeIndicator $theme={theme} $designSystem={designSystem} $type="video">
+                    Video
+                  </MediaTypeIndicator>
+                  <video
+                    ref={(videoElement) => {
+                      if (videoElement) {
+                        observeVideo(videoElement)
+                      }
+                    }}
+                    src={media.publicURL}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    controls={false}
+                    onError={(e) => {
+                      console.warn('Video failed to load:', media.publicURL, e)
+                    }}
+                    onLoadedData={(e) => {
+                      const video = e.target as HTMLVideoElement
+                      video.play().catch(err => console.warn('Autoplay failed:', err))
+                    }}
+                  />
+                </VideoContainer>
+              )}
+
+              {media.type === 'document' && media.publicURL && (
+                <DocumentContainer $theme={theme} $designSystem={designSystem}>
+                  <MediaTypeIndicator $theme={theme} $designSystem={designSystem} $type="document">
+                    Document
+                  </MediaTypeIndicator>
+                  <div className="document-icon">
+                    📄
+                  </div>
+                  <div className="document-title">
+                    {media.name.replace(/\.[^/.]+$/, '')}
+                  </div>
+                  <div className="document-meta">
+                    {media.extension.toUpperCase()} Document
+                  </div>
+                  <a
+                    href={media.publicURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="document-action"
+                  >
+                    View Document
+                  </a>
+                </DocumentContainer>
+              )}
+            </MediaSection>
+          )
+        })}
+      </ShowcaseContainer>
+    </>
+  )
+}
+
+export default ProjectShowcase 

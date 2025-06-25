@@ -1,0 +1,311 @@
+/* 🚀 OPTIMIZACIONES DE PERFORMANCE CSS - SISTEMA 2025 */
+
+/* ===== CRITICAL PERFORMANCE RULES ===== */
+
+/* 🎯 Reducir layout shift con aspect-ratios predefinidos */
+.carousel-card,
+.video-container,
+.image-container {
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+/* 🎬 Videos optimizados */
+video {
+  /* Aspect ratio por defecto para evitar layout shift */
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: auto;
+  
+  /* Optimizaciones de rendering */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  /* Mejor calidad de imagen */
+  image-rendering: optimizeQuality;
+}
+
+/* 📱 Videos verticales (móvil) */
+video[data-aspect="portrait"] {
+  aspect-ratio: 9/16;
+}
+
+/* ⬜ Videos cuadrados */
+video[data-aspect="square"] {
+  aspect-ratio: 1/1;
+}
+
+/* 📺 Videos ultra-wide */
+video[data-aspect="ultra-wide"] {
+  aspect-ratio: 21/9;
+}
+
+/* 🖼️ Imágenes optimizadas */
+img,
+.gatsby-image-wrapper {
+  /* Evitar layout shift */
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: auto;
+  
+  /* Optimizaciones de rendering */
+  contain: layout style paint;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  /* Mejor calidad de imagen */
+  image-rendering: optimizeQuality;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🎠 CARRUSELES - Optimizaciones específicas */
+.carousel-container {
+  /* Contener layout para mejor performance */
+  contain: layout style paint;
+  
+  /* Optimización de scroll */
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track {
+  /* Optimización de animación */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  /* Reducir repaints durante animación */
+  contain: layout style paint;
+}
+
+.carousel-card {
+  /* Optimización individual de cards */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  /* Evitar layout shift en hover */
+  contain: layout style;
+}
+
+/* 🎭 ANIMACIONES OPTIMIZADAS */
+
+/* Animaciones que solo afectan transform y opacity */
+@keyframes optimizedFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes optimizedSlide {
+  from {
+    transform: translateX(-100%) translateZ(0);
+  }
+  to {
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+/* Reducir animaciones en dispositivos con motion reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .carousel-track {
+    animation: none !important;
+  }
+}
+
+/* 📱 OPTIMIZACIONES MÓVILES */
+@media (max-width: 768px) {
+  /* Reducir calidad de filtros en móvil */
+  video,
+  img {
+    filter: none;
+    image-rendering: optimizeSpeed;
+  }
+  
+  /* Simplificar animaciones en móvil */
+  .carousel-card:hover {
+    transform: none;
+  }
+  
+  /* Reducir efectos visuales complejos */
+  .work-overlay,
+  .work-content {
+    backdrop-filter: none;
+    filter: none;
+  }
+}
+
+/* 🔋 OPTIMIZACIONES PARA BATERÍAS BAJAS */
+@media (max-resolution: 150dpi) {
+  /* Reducir calidad de imágenes en pantallas de baja densidad */
+  img,
+  video {
+    image-rendering: optimizeSpeed;
+    filter: none;
+  }
+}
+
+/* ⚡ LAZY LOADING ESPECÍFICO */
+
+/* Loading states optimizados */
+.loading-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Estados de carga para videos */
+video[data-loading="true"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+video[data-loaded="true"] {
+  opacity: 1;
+}
+
+/* 🎯 INTERSECTION OBSERVER OPTIMIZATIONS */
+
+/* Elementos que entran en viewport */
+.in-viewport {
+  animation: optimizedFadeIn 0.6s ease-out forwards;
+}
+
+/* Elementos que salen del viewport */
+.out-viewport {
+  opacity: 0.5;
+  transform: scale(0.95) translateZ(0);
+  transition: all 0.3s ease;
+}
+
+/* 🌟 CRITICAL CSS - Load Above the Fold */
+
+/* Hero section - máxima prioridad */
+.hero-section {
+  contain: layout style paint;
+  will-change: contents;
+}
+
+/* Featured carousel - alta prioridad */
+.featured-carousel {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Secondary content - baja prioridad */
+.secondary-content {
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
+}
+
+/* 🔧 DEBUGGING EN DESARROLLO */
+@media (max-width: 0) {
+  /* Solo visible en dev tools */
+  .performance-debug {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    font-family: monospace;
+    z-index: 9999;
+    font-size: 12px;
+  }
+}
+
+/* 🎨 OPTIMIZACIÓN DE PINTADO */
+
+/* Crear capas de composición para elementos animados */
+.animated-element {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Evitar repaints en hover effects */
+.hover-optimized {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hover-optimized:hover {
+  transform: translateY(-8px) translateZ(0);
+}
+
+/* 📊 MÉTRICAS DE PERFORMANCE */
+
+/* Marcadores para Web Vitals */
+.lcp-element {
+  /* Largest Contentful Paint optimization */
+  contain: layout style paint;
+  will-change: contents;
+}
+
+.cls-prevention {
+  /* Cumulative Layout Shift prevention */
+  aspect-ratio: 16/9;
+  min-height: 200px;
+}
+
+.fid-optimization {
+  /* First Input Delay optimization */
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* 🎪 FINAL OPTIMIZATIONS */
+
+/* Optimización global del documento */
+html {
+  /* Mejorar scrolling performance */
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  
+  /* Optimización de fonts */
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  /* Contener layout shifts */
+  contain: layout style paint;
+  
+  /* Optimización de scroll */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimización de elementos que cambian frecuentemente */
+.dynamic-content {
+  contain: layout style paint;
+  will-change: contents;
+} 

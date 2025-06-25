@@ -1,109 +1,204 @@
+- title: "Banco Mediolanum"
+  title_detail: "Spot de animación para productos financieros"
+  from: "2016"
+  slug: "mediolanum"
+  category: "#Motion Graphics #Animation #After Effects #Financial #Advertising"
+  color: "#FF6B35"
+  images: "mediolanum"
+  cover: "./mediolanum/mediolanum_-_renta_fija_hd (1080p).mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="#" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver animación<a>
+  desc: "Desarrollo completo de spot animado para Banco Mediolanum, enfocado en la promoción de productos de renta fija. Realización integral de la animación utilizando Adobe After Effects, desde el concepto visual hasta la post-producción final. El proyecto incluyó diseño de elementos gráficos, animación de tipografías dinámicas, transiciones fluidas y efectos visuales que comunican de manera clara y atractiva los beneficios de los productos financieros. Trabajo que combina creatividad visual con comunicación efectiva en el sector bancario, logrando un mensaje impactante y profesional para campañas publicitarias multiplataforma."
+
+- title: "EHTB"
+  title_detail: "Webapp y creatividades animadas para escuela de hostelería"
+  from: "2021"
+  slug: "ehtb"
+  category: "#UX/UI #Full-Stack #Motion Graphics #Education #Web Development"
+  color: "#2E8B57"
+  images: "ehtb"
+  cover: "./ehtb/EHTB-Linkedin-ESP.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="#" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Liderazgo integral del diseño y desarrollo de la webapp para INS Escola d'Hoteleria i Turisme de Barcelona, junto con la creación de diversas creatividades animadas para campañas publicitarias. El proyecto abarcó desde la investigación UX y arquitectura de información hasta el desarrollo full-stack de la plataforma educativa. Implementación de sistema de gestión de contenidos académicos, portal de estudiantes, calendario de eventos y herramientas de comunicación interna. Paralelamente, desarrollo de piezas de motion graphics para ads en redes sociales y campañas de captación de estudiantes. Solución integral que modernizó la presencia digital de la institución educativa, mejorando la experiencia tanto de estudiantes actuales como potenciales candidatos."
+
 - title: "Blockend"
-  title_detail: "Agency blockchain design and development."
+  title_detail: "Plataforma blockchain y desarrollo de identidad corporativa"
   from: "2019"
   slug: "blockend"
-  category: "#Branding #UX #UI #Development"
+  category: "#UX/UI #Branding#TypeScript #Blockchain #UX/UI #Branding"
   color: "#3340FF"
   images: "be"
-  cover: "./be/projects-be-001.jpg"
+  cover: "./be/projects-be-001.mp4"
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.blockend.io" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch Project<a>
-  desc: "Make it Blockchain."
-- title: "Win Cripto"
-  title_detail: "Brand and UI design for win cripto investment App."
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Desarrollo integral de identidad visual y plataforma web para agencia especializada en tecnología blockchain. Implementación de interfaces modernas con React y TypeScript, diseño de sistema de componentes escalable y optimización para Web3. Proyecto que combina diseño corporativo profesional con funcionalidad técnica avanzada, resultando en una experiencia de usuario intuitiva para el complejo ecosistema blockchain."
+
+- title: "WC"
+  title_detail: "App de inversión en criptomonedas - Diseño UX/UI y branding"
   from: "2019"
-  slug: "/wincripto-design"
-  category: "#Branding #UI"
+  slug: "wincripto-design"
+  category: "#Branding #UX/UI #Fintech #Mobile Design #Branding"
   color: "#85E5BC"
   images: "wc"
   cover: "./wc/projects-wc-00.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="https://www.wincripto.com" target="_blank" #85E5BC
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Color (American English), or colour (Commonwealth English), is the characteristic of human visual perception described through color categories, with names such as red, orange, yellow, green, blue, or purple. This perception of color derives from the stimulation of cone cells in the human eye by electromagnetic radiation in the visible spectrum. Color categories and physical specifications of color are associated with objects through the wavelength of the light that is reflected from them. This reflection is governed by the object's physical properties such as light absorption, emission spectra, etc."
+    <a href="https://www.wincripto.com" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Diseño completo de experiencia de usuario y sistema de branding para aplicación móvil de inversión en criptomonedas. Investigación UX enfocada en simplificar la complejidad del trading, creación de wireframes y prototipos interactivos, desarrollo de sistema de design tokens y guías de estilo. Solución que prioriza la confiabilidad y claridad en la información financiera, optimizada para usuarios tanto novatos como experimentados en el sector fintech."
+
 - title: "Coinecocal"
-  title_detail: "Brand and interface design for Coinecocal economic calendar App."
+  title_detail: "Calendario económico especializado en criptomonedas"
   from: "2019"
   slug: "coinecocal-design"
-  category: "#Branding #UX #UI"
+  category: "#UX/UI #Branding #Data Visualization #Fintech #Responsive"
   color: "rgb(63,64,72)"
   images: "cec"
   cover: "./cec/projects-cec-001.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="https://www.coinecocal.com" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch Project<a>
-  desc: "Monochrome photography is photography where each position on an image can record and show a different amount of light, but not a different hue. It includes all forms of black-and-white photography, which produce images containing tones of neutral grey ranging from black to white."
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Desarrollo de marca y experiencia de usuario para plataforma de calendario económico especializada en el mercado de criptomonedas. Diseño de interfaces centradas en la visualización clara de datos financieros complejos, implementación de sistemas de filtrado avanzado y notificaciones en tiempo real. Enfoque en accesibilidad y usabilidad para democratizar el acceso a información económica relevante para traders e inversores en el ecosistema crypto."
+
 - title: "Startpack"
-  title_detail: "Agency design and development."
+  title_detail: "Desarrollo full-stack para agencia digital"
   from: "2018"
   slug: "startpack-design-and-code"
-  category: "#Branding #UX #UI #Development"
+  category: "#UX/UI #Branding #Full-Stack #React #Node.js #UX/UI #Branding"
   color: "#275896"
   images: "sp"
   cover: "./sp/projects-sp-001.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="https://www.startpack.io" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Startpack gives a distinct reddish-orange glow when used in low-voltage neon glow lamps, high-voltage discharge tubes and neon advertising signs. The red emission line from neon also causes the well known red light of helium–neon lasers. Neon is used in some plasma tube and refrigerant applications but has few other commercial uses. It is commercially extracted by the fractional distillation of liquid air. Since air is the only source, it is considerably more expensive than helium."
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Proyecto integral de diseño y desarrollo para agencia digital emergente. Desde la conceptualización de marca hasta la implementación técnica completa con React y Node.js. Desarrollo de CMS personalizado, sistema de gestión de proyectos integrado y optimización SEO avanzada. Arquitectura escalable que permite crecimiento orgánico del negocio, con enfoque en rendimiento, seguridad y experiencia de usuario excepcional."
 
 - title: "Sergat"
-  title_detail: "Agency wordpress development"
+  title_detail: "Solución empresarial WordPress con optimización avanzada"
   from: "2017"
   slug: "sergat"
-  category: "#UX #Wordpress Development"
+  category: "#UX/UI #WordPress #PHP #Performance #SEO #Enterprise"
   color: "#fe4a49"
   images: "se"
   cover: "./se/projects-se-001.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.sergat.com" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "We Engage."
-- title: "WNS"
-  title_detail: "WNS - Design & Code"
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Desarrollo de solución web empresarial en WordPress para compañía de servicios corporativos. Implementación de tema personalizado con arquitectura modular, optimización de rendimiento con técnicas de lazy loading y cache avanzado, integración con sistemas CRM existentes. Enfoque en escalabilidad y mantenibilidad, resultando en mejoras significativas en velocidad de carga y posicionamiento SEO."
+
+- title: "World Net Selling"
+  title_detail: "Ecosistema digital completo para red de ventas global"
   from: "2016"
   slug: "wns"
-  category: "#Branding #UX #UI #Development"
+  category: "#UX/UI #Branding #Full-Stack #E-commerce #Global #Responsive #CMS"
   color: "black"
   images: "wns"
   cover: "./wns/projects-wns-000.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="http://www.worlnetselling.com" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Lorem ipsum."
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Diseño y desarrollo completo de identidad de marca y presencia digital para red global de ventas. Arquitectura de información optimizada para múltiples mercados, implementación de sistema de gestión de contenidos multiidioma, integración con plataformas de pago internacionales. Solución escalable que soporta operaciones en diferentes zonas horarias y monedas, con enfoque en conversión y experiencia de usuario localizada."
+
 - title: "IPB"
-  title_detail: "Interface design"
+  title_detail: "Prototipado UX para aplicación bancaria digital"
   from: "2018"
-  slug: "wns"
-  category: "#UX #UI #Prototype"
-  color: "black"
+  slug: "ipb"
+  category: "#UX Research #Prototyping #Banking #Mobile #Accessibility"
+  color: "#2E7D32"
   images: "ipb"
   cover: "./ipb/projects-ipb-00.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="/" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Lorem ipsum."
+    <a href="#" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Proyecto confidencial<a>
+  desc: "Investigación UX y prototipado para aplicación bancaria digital de nueva generación. Proceso completo de design thinking incluyendo entrevistas con usuarios, mapeo de journey customer, wireframing y testing de usabilidad. Desarrollo de prototipos de alta fidelidad con especial atención a accesibilidad y regulaciones financieras. Proyecto que estableció nuevos estándares de usabilidad en el sector bancario, mejorando significativamente la experiencia de usuario en transacciones digitales."
+
 - title: "Agora"
-  title_detail: "Wordpress Design and development"
+  title_detail: "Plataforma cultural WordPress con gestión de eventos"
   from: "2015"
   slug: "agora"
-  category: "#UX #Wordpress Development"
+  category: "#UX/UI #WordPress #Event Management #Cultural #SEO #Responsive"
   color: "rgb(185, 244, 75)"
   images: "agora"
   cover: "./agora/projects-agora-002.jpg"
   link: > # ignore newlines until "baseurl:"
     <a href="https://agoraespai.es" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Lorem ipsum."
-- title: "Blou"
-  title_detail: "Own web design agency"
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Desarrollo de sitio web para centro cultural con enfoque en gestión de eventos y actividades comunitarias. Implementación de sistema de reservas online, calendario interactivo de eventos, galería multimedia optimizada y newsletter integrado. Arquitectura SEO-friendly que resultó en aumento del 300% en visibilidad online y 150% en reservas digitales. Diseño responsivo que prioriza la accesibilidad y experiencia de usuario en dispositivos móviles."
+
+- title: "Blou Studio"
+  title_detail: "Agencia digital propia - Proyecto fundacional"
   from: "2014"
   slug: "blou"
-  category: "#CEO #Branding #UX #UI #Development"
-  color: "black"
+  category: "#Entrepreneurship #Branding #Portfolio #Strategy #Business"
+  color: "#1A1A1A"
   images: "blou"
   cover: "./blou/projects-blou-000.jpg"
   link: > # ignore newlines until "baseurl:"
-    <a href="/" target="_blank" 
-    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Launch project<a>
-  desc: "Lorem ipsum."  
+    <a href="#" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Proyecto histórico<a>
+  desc: "Proyecto fundacional de agencia digital propia que marcó el inicio de mi carrera empresarial independiente. Desarrollo completo de identidad de marca, estrategia de posicionamiento, portfolio digital y presencia en redes sociales. Establecimiento de procesos de trabajo, metodologías de diseño y desarrollo, y relaciones con primeros clientes. Este proyecto sentó las bases de mi experiencia en gestión de proyectos, liderazgo de equipos y visión estratégica en el sector digital."
+
+- title: "VIMAX"
+  title_detail: "Ecosistema digital completo para lentes progresivas de alta tecnología"
+  from: "2023"
+  slug: "vimax"
+  category: "#UX/UI #Full-Stack #Healthcare #E-commerce #Team Leadership"
+  color: "#4A90E2"
+  images: "vimax"
+  cover: "./vimax/projects-vimax-00.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://vimaxlens.com/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Liderazgo completo del diseño y desarrollo del ecosistema digital para VIMAX, la marca de lentes progresivas más avanzada del Grupo Prats. Creación de la plataforma web corporativa, aplicación interna de gestión y sistema de citas online para ópticas asociadas. Gestión de equipo multidisciplinar, definición de arquitectura de información y desarrollo de interfaces optimizadas para el sector óptico. Proyecto integral que abarcó desde research y prototipado hasta implementación técnica y formación de usuarios finales."
+
+- title: "Galerías del Tresillo"
+  title_detail: "Rediseño completo de e-commerce líder en el sector del mueble"
+  from: "2022"
+  slug: "gdt"
+  category: "#UX/UI #E-commerce #Team Leadership #Retail #Responsive"
+  color: "#8B4513"
+  images: "gdt"
+  cover: "./gdt/projects-gdt-00.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://www.galeriasdeltresillo.com" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Dirección de diseño para la renovación completa de la plataforma e-commerce de Galerías del Tresillo, empresa líder en el sector del mueble con más de 50 años de experiencia. Liderazgo del equipo de diseño en la creación de nueva experiencia de usuario, implementación de sistema de design tokens, optimización del funnel de conversión y desarrollo de herramientas de visualización de productos. Enfoque en mobile-first design y accesibilidad, resultando en mejoras significativas en métricas de conversión y satisfacción del usuario."
+
+- title: "PRATS"
+  title_detail: "Plataforma digital para líder mundial en lentes oftálmicas"
+  from: "2023"
+  slug: "prats"
+  category: "#UX/UI #Corporate #Full-Stack #Healthcare #International"
+  color: "#1B4F72"
+  images: "prats"
+  cover: "./prats/projects-prats-00.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://grupoprats.com/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Diseño y liderazgo del desarrollo de la nueva presencia digital para Grupo PRATS, multinacional española líder en fabricación de lentes oftálmicas desde 1924. Creación de arquitectura de información multiidioma, desarrollo de sistema de gestión de contenidos corporativo, implementación de herramientas de comunicación B2B y optimización de procesos de pedidos online. Proyecto estratégico que unificó la comunicación digital de una empresa con presencia en 22 países, mejorando la experiencia tanto de profesionales ópticos como usuarios finales."
+
+- title: "TRAM"
+  title_detail: "Campañas audiovisuales para transporte público de Barcelona"
+  from: "2023"
+  slug: "tram"
+  category: "#Motion Graphics #UX/UI #Animation #Social Media #Branding #Campaign"
+  color: "#E74C3C"
+  images: "tram"
+  cover: "./tram/projects-tram-00.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://www.tram.cat/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Desarrollo de campañas de motion graphics y animación para TRAM (Trambaix y Trambesos), sistema de transporte público del área metropolitana de Barcelona, bajo la dirección de agencia Pajarraco. 
+
+  Campañas destacadas:
+  
+  'NO COLA' (2023): Campaña antifrau innovadora que combina humor y concienciación ciudadana. Desarrollo completo de concepto visual, storyboard, animación 2D y motion graphics para redes sociales y comunicación digital.
+  
+  'COLA'T' (2022): Campaña anterior centrada en la educación sobre validación de títulos de transporte.
+
+  Creación de piezas audiovisuales para múltiples formatos: stories de Instagram, posts de Facebook, banners web y contenido para pantallas internas del sistema TRAM. Trabajo colaborativo que combinó creatividad, narrative storytelling y objetivos de comunicación pública, mejorando la percepción y uso del transporte sostenible en el área metropolitana de Barcelona.
+
+  Resultados: Las campañas aumentaron la concienciación sobre el fraude en el transporte público y mejoraron la imagen de marca del TRAM como medio de transporte moderno y accesible."  

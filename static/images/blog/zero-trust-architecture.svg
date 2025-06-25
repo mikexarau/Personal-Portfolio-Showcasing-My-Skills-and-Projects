@@ -1,0 +1,122 @@
+<svg width="900" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dangerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="successGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="600" fill="#0f172a"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" fill="#f8fafc" font-family="monospace" font-size="20" font-weight="bold">
+    Zero Trust Architecture - Never Trust, Always Verify
+  </text>
+  
+  <!-- Untrusted Network (Internet) -->
+  <rect x="50" y="80" width="800" height="80" fill="none" stroke="url(#dangerGradient)" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="60" y="100" fill="#ef4444" font-family="monospace" font-size="14" font-weight="bold">Untrusted Network</text>
+  <text x="60" y="120" fill="#f87171" font-family="monospace" font-size="12">Internet • Public WiFi • Partner Networks</text>
+  <circle cx="150" cy="135" r="8" fill="#ef4444"/>
+  <text x="165" y="140" fill="#f87171" font-family="monospace" font-size="10">Threat Actor</text>
+  <circle cx="250" cy="135" r="8" fill="#ef4444"/>
+  <text x="265" y="140" fill="#f87171" font-family="monospace" font-size="10">Malware</text>
+  <circle cx="350" cy="135" r="8" fill="#ef4444"/>
+  <text x="365" y="140" fill="#f87171" font-family="monospace" font-size="10">Phishing</text>
+  
+  <!-- Identity Verification Layer -->
+  <rect x="100" y="200" width="700" height="60" fill="url(#primaryGradient)" fill-opacity="0.2" stroke="url(#primaryGradient)" stroke-width="2"/>
+  <text x="110" y="220" fill="#3b82f6" font-family="monospace" font-size="14" font-weight="bold">Identity Verification Layer</text>
+  <text x="110" y="240" fill="#60a5fa" font-family="monospace" font-size="12">MFA • SSO • Identity Provider • Risk Assessment</text>
+  
+  <!-- Policy Engine -->
+  <rect x="350" y="290" width="200" height="80" fill="url(#successGradient)" rx="10" filter="url(#glow)"/>
+  <text x="450" y="315" text-anchor="middle" fill="#fff" font-family="monospace" font-size="14" font-weight="bold">Policy Engine</text>
+  <text x="450" y="335" text-anchor="middle" fill="#d1fae5" font-family="monospace" font-size="11">Decision Point</text>
+  <text x="450" y="350" text-anchor="middle" fill="#d1fae5" font-family="monospace" font-size="11">Risk Evaluation</text>
+  <text x="450" y="365" text-anchor="middle" fill="#d1fae5" font-family="monospace" font-size="11">Access Control</text>
+  
+  <!-- Microsegmentation -->
+  <rect x="50" y="400" width="200" height="120" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="60" y="420" fill="#8b5cf6" font-family="monospace" font-size="14" font-weight="bold">Microsegment A</text>
+  <rect x="70" y="430" width="60" height="30" fill="#8b5cf6" fill-opacity="0.3"/>
+  <text x="100" y="450" text-anchor="middle" fill="#c4b5fd" font-family="monospace" font-size="10">Web App</text>
+  <rect x="150" y="430" width="80" height="30" fill="#8b5cf6" fill-opacity="0.3"/>
+  <text x="190" y="450" text-anchor="middle" fill="#c4b5fd" font-family="monospace" font-size="10">API Gateway</text>
+  <rect x="70" y="480" width="160" height="30" fill="#8b5cf6" fill-opacity="0.3"/>
+  <text x="150" y="500" text-anchor="middle" fill="#c4b5fd" font-family="monospace" font-size="10">Load Balancer</text>
+  
+  <rect x="280" y="400" width="200" height="120" fill="none" stroke="#06b6d4" stroke-width="2"/>
+  <text x="290" y="420" fill="#06b6d4" font-family="monospace" font-size="14" font-weight="bold">Microsegment B</text>
+  <rect x="300" y="430" width="70" height="30" fill="#06b6d4" fill-opacity="0.3"/>
+  <text x="335" y="450" text-anchor="middle" fill="#67e8f9" font-family="monospace" font-size="10">App Server</text>
+  <rect x="390" y="430" width="70" height="30" fill="#06b6d4" fill-opacity="0.3"/>
+  <text x="425" y="450" text-anchor="middle" fill="#67e8f9" font-family="monospace" font-size="10">Auth Service</text>
+  <rect x="300" y="480" width="160" height="30" fill="#06b6d4" fill-opacity="0.3"/>
+  <text x="380" y="500" text-anchor="middle" fill="#67e8f9" font-family="monospace" font-size="10">Business Logic</text>
+  
+  <rect x="510" y="400" width="200" height="120" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="520" y="420" fill="#f59e0b" font-family="monospace" font-size="14" font-weight="bold">Microsegment C</text>
+  <rect x="530" y="430" width="70" height="30" fill="#f59e0b" fill-opacity="0.3"/>
+  <text x="565" y="450" text-anchor="middle" fill="#fcd34d" font-family="monospace" font-size="10">Database</text>
+  <rect x="620" y="430" width="70" height="30" fill="#f59e0b" fill-opacity="0.3"/>
+  <text x="655" y="450" text-anchor="middle" fill="#fcd34d" font-family="monospace" font-size="10">File Server</text>
+  <rect x="530" y="480" width="160" height="30" fill="#f59e0b" fill-opacity="0.3"/>
+  <text x="610" y="500" text-anchor="middle" fill="#fcd34d" font-family="monospace" font-size="10">Backup Systems</text>
+  
+  <!-- Data Protection Layer -->
+  <rect x="730" y="400" width="120" height="120" fill="none" stroke="#10b981" stroke-width="2"/>
+  <text x="740" y="420" fill="#10b981" font-family="monospace" font-size="14" font-weight="bold">Data Protection</text>
+  <rect x="740" y="430" width="100" height="20" fill="#10b981" fill-opacity="0.3"/>
+  <text x="790" y="444" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="9">Encryption at Rest</text>
+  <rect x="740" y="460" width="100" height="20" fill="#10b981" fill-opacity="0.3"/>
+  <text x="790" y="474" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="9">Encryption in Transit</text>
+  <rect x="740" y="490" width="100" height="20" fill="#10b981" fill-opacity="0.3"/>
+  <text x="790" y="504" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="9">DLP Controls</text>
+  
+  <!-- Arrows showing traffic flow -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa" />
+    </marker>
+  </defs>
+  
+  <!-- User to Identity Layer -->
+  <line x1="450" y1="160" x2="450" y2="200" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="460" y="185" fill="#60a5fa" font-family="monospace" font-size="10">Auth Request</text>
+  
+  <!-- Identity Layer to Policy Engine -->
+  <line x1="450" y1="260" x2="450" y2="290" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="460" y="280" fill="#60a5fa" font-family="monospace" font-size="10">Policy Check</text>
+  
+  <!-- Policy Engine to Microsegments -->
+  <line x1="400" y1="370" x2="150" y2="400" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="450" y1="370" x2="380" y2="400" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="370" x2="610" y2="400" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Principles -->
+  <text x="50" y="570" fill="#94a3b8" font-family="monospace" font-size="12" font-weight="bold">Core Principles:</text>
+  <text x="200" y="570" fill="#64748b" font-family="monospace" font-size="11">• Never Trust, Always Verify</text>
+  <text x="400" y="570" fill="#64748b" font-family="monospace" font-size="11">• Least Privilege Access</text>
+  <text x="600" y="570" fill="#64748b" font-family="monospace" font-size="11">• Assume Breach</text>
+  
+  <text x="200" y="585" fill="#64748b" font-family="monospace" font-size="11">• Verify Explicitly</text>
+  <text x="400" y="585" fill="#64748b" font-family="monospace" font-size="11">• Continuous Monitoring</text>
+  <text x="600" y="585" fill="#64748b" font-family="monospace" font-size="11">• Context-Aware Decisions</text>
+</svg> 

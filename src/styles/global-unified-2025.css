@@ -1,0 +1,1108 @@
+/* ========================================
+   SISTEMA DE DISEÑO UNIFICADO 2025
+   Miquel Xarau Portfolio
+   
+   Sistema robusto, escalable y liviano
+   ✅ Tipografías consistentes
+   ✅ Colors corporativos
+   ✅ Componentes reutilizables
+   ✅ Sin redundancias
+======================================== */
+
+/* ========================================
+   VARIABLES CSS OPTIMIZADAS PARA BLOG
+   Estilo Medium.com con identidad corporativa
+======================================== */
+
+:root {
+  /* Tipografías corporativas únicamente */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-mono: 'SF Mono', 'JetBrains Mono', 'Source Code Pro', 'Menlo', 'Monaco', monospace;
+  
+  /* Espaciado perfecto para lectura */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --space-3xl: 3rem;
+  --space-4xl: 4rem;
+  --space-5xl: 5rem;
+  
+  /* Tamaños de tipografía optimizados para lectura */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  
+  /* Alturas de línea optimizadas */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+  
+  /* Radios de borde sutiles */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  /* Sombras suaves estilo Medium */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transiciones fluidas */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* Colores de foco para accesibilidad */
+  --focus-ring: 0 0 0 3px rgba(14, 165, 233, 0.5);
+  
+  /* ========================================
+     PALETA DE COLORES MINIMALISTA
+     Inspirada en sistemas modernos como Linear, Notion y Figma
+  ======================================== */
+  
+  /* Colores principales del sistema */
+  --color-primary: #0ea5e9;
+  --color-primary-hover: #0284c7;
+  --color-primary-light: #e0f2fe;
+  
+  /* Colores neutros para categorías */
+  --color-slate: #64748b;
+  --color-slate-light: #f1f5f9;
+  --color-slate-bg: #f8fafc;
+  
+  --color-zinc: #71717a;
+  --color-zinc-light: #f4f4f5;
+  --color-zinc-bg: #fafafa;
+  
+  --color-stone: #78716c;
+  --color-stone-light: #f5f5f4;
+  --color-stone-bg: #fafaf9;
+  
+  /* Colores accent minimalistas - MODO CLARO */
+  --color-blue: #3b82f6;
+  --color-blue-light: #dbeafe;
+  --color-blue-bg: #eff6ff;
+  
+  --color-emerald: #10b981;
+  --color-emerald-light: #d1fae5;
+  --color-emerald-bg: #ecfdf5;
+  
+  --color-amber: #f59e0b;
+  --color-amber-light: #fef3c7;
+  --color-amber-bg: #fffbeb;
+  
+  --color-rose: #f43f5e;
+  --color-rose-light: #fecdd3;
+  --color-rose-bg: #fff1f2;
+  
+  --color-purple: #8b5cf6;
+  --color-purple-light: #e9d5ff;
+  --color-purple-bg: #f3e8ff;
+  
+  --color-indigo: #6366f1;
+  --color-indigo-light: #e0e7ff;
+  --color-indigo-bg: #eef2ff;
+}
+
+/* ========================================
+   MODO OSCURO - Variables Override
+======================================== */
+[data-theme="dark"] {
+  /* Colores accent ajustados para modo oscuro */
+  --color-blue: #60a5fa;
+  --color-emerald: #34d399;
+  --color-amber: #fbbf24;
+  --color-rose: #fb7185;
+  --color-purple: #a78bfa;
+  --color-indigo: #818cf8;
+}
+
+/* ========================================
+   RESET CSS MEJORADO PARA BLOG
+======================================== */
+
+/* Eliminar márgenes y padding por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   ELIMINACIÓN TOTAL DE OUTLINES AZULES
+   Mejora la UX sin comprometer accesibilidad
+======================================== */
+
+/* Eliminar outline azul en todos los elementos */
+*,
+*:before,
+*:after,
+*:focus,
+*:active,
+*:hover,
+button,
+input,
+select,
+textarea,
+a,
+[tabindex],
+[role="button"],
+[role="link"] {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-focus-ring-color: transparent !important;
+  -webkit-appearance: none;
+}
+
+/* Eliminar específicamente outline del navegador */
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Eliminar outline en elementos específicos */
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active,
+a:focus,
+a:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Base del documento */
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  overflow-x: hidden;
+  /* Hide default cursor globally */
+  cursor: none !important;
+}
+
+/* ========================================
+   TIPOGRAFÍA ESTILO MEDIUM
+======================================== */
+
+/* Títulos con jerarquía clara */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: inherit;
+}
+
+h1 {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  line-height: var(--leading-none);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  margin-top: var(--space-4xl);
+  margin-bottom: var(--space-xl);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-3xl);
+  margin-bottom: var(--space-lg);
+}
+
+h4 {
+  font-size: var(--text-xl);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+/* Párrafos optimizados para lectura */
+p {
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-xl);
+  max-width: 65ch; /* Línea óptima para lectura */
+  color: inherit;
+}
+
+/* Listas con mejor espaciado */
+ul, ol {
+  margin: var(--space-xl) 0;
+  padding-left: var(--space-xl);
+}
+
+li {
+  font-size: var(--text-lg);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-md);
+}
+
+/* Enlaces con estilo Medium */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+
+a:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Código inline y bloques */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.125em 0.25em;
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  font-family: var(--font-mono);
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin: var(--space-2xl) 0;
+}
+
+/* Citas estilo Medium */
+blockquote {
+  margin: var(--space-2xl) 0;
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-md);
+  font-style: italic;
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* ========================================
+   LAYOUT BLOG PAGES
+======================================== */
+
+/* Contenedor principal del blog */
+.blog-page,
+[class*="blog-page"] {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Layout articles estilo Medium */
+article[class*="ArticleContainer"] {
+  max-width: 700px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--space-2xl) !important;
+  
+  @media (max-width: 768px) {
+    padding: 0 var(--space-lg) !important;
+  }
+}
+
+/* ActionBar limpio */
+div[class*="ActionBar"] {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding: var(--space-2xl) 0 var(--space-3xl) 0 !important;
+  margin-bottom: var(--space-3xl) !important;
+}
+
+/* Header del artículo */
+header[class*="ArticleHeader"] {
+  margin-bottom: var(--space-4xl) !important;
+  
+  h1 {
+    margin-bottom: var(--space-xl) !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+  }
+}
+
+/* Contenido del artículo */
+div[class*="ArticleContent"] {
+  font-size: var(--text-lg) !important;
+  line-height: var(--leading-loose) !important;
+  
+  p {
+    margin-bottom: var(--space-xl) !important;
+    max-width: 65ch;
+  }
+  
+  h2 {
+    margin-top: var(--space-4xl) !important;
+    margin-bottom: var(--space-xl) !important;
+  }
+  
+  h3 {
+    margin-top: var(--space-3xl) !important;
+    margin-bottom: var(--space-lg) !important;
+  }
+}
+
+/* ========================================
+   COMPONENTES ESPECÍFICOS
+======================================== */
+
+/* InfoBox estilo Medium callouts */
+div[class*="InfoBox"] {
+  margin: var(--space-2xl) 0 !important;
+  padding: var(--space-xl) !important;
+  border-radius: var(--radius-lg) !important;
+  border-width: 1px !important;
+  font-size: var(--text-base) !important;
+  line-height: var(--leading-relaxed) !important;
+}
+
+/* ToolsGrid cards limpias */
+div[class*="ToolsGrid"] {
+  margin: var(--space-3xl) 0 !important;
+  gap: var(--space-xl) !important;
+  
+  .tool-card {
+    padding: var(--space-xl) !important;
+    border-radius: var(--radius-lg) !important;
+    border-width: 1px !important;
+    transition: all var(--transition-normal) !important;
+  }
+}
+
+/* TableOfContents sidebar */
+nav[class*="TableOfContents"] {
+  margin-bottom: var(--space-3xl) !important;
+  padding: var(--space-xl) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* ========================================
+   MEJORAS DE ACCESIBILIDAD
+======================================== */
+
+/* Focus mejorado para navegación por teclado */
+button:focus,
+[role="button"]:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Reducir movimiento para usuarios con preferencias */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Contraste mejorado para texto pequeño */
+.text-sm,
+.text-xs,
+[class*="meta"] {
+  font-weight: 500;
+}
+
+/* ========================================
+   MODO OSCURO OPTIMIZADO
+======================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN MEJORADO
+======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --text-lg: 1rem;
+    --text-xl: 1.125rem;
+    --text-2xl: 1.25rem;
+    --text-3xl: 1.5rem;
+    --text-4xl: 1.875rem;
+    --text-5xl: 2.25rem;
+  }
+  
+  article[class*="ArticleContainer"] {
+    padding: 0 var(--space-lg) !important;
+  }
+  
+  h1 {
+    font-size: clamp(var(--text-2xl), 6vw, var(--text-4xl)) !important;
+  }
+  
+  p {
+    font-size: var(--text-base) !important;
+    line-height: var(--leading-relaxed) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  article[class*="ArticleContainer"] {
+    padding: 0 var(--space-md) !important;
+  }
+  
+  div[class*="ActionBar"] {
+    padding: var(--space-lg) 0 var(--space-2xl) 0 !important;
+    margin-bottom: var(--space-2xl) !important;
+  }
+  
+  header[class*="ArticleHeader"] {
+    margin-bottom: var(--space-3xl) !important;
+  }
+}
+
+/* ========================================
+   UTILIDADES ESPECÍFICAS DEL BLOG
+======================================== */
+
+/* Ocultar elementos innecesarios en el contexto de lectura */
+.blog-navigation,
+.sidebar-ads,
+.social-widgets {
+  display: none;
+}
+
+/* Mejorar la legibilidad del texto */
+.reading-content {
+  text-align: left;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+/* Espaciado consistente para secciones */
+.article-section {
+  margin: var(--space-3xl) 0;
+}
+
+.article-section:first-child {
+  margin-top: 0;
+}
+
+.article-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Enlaces en contenido con estilo Medium */
+.article-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+  text-underline-offset: 0.125em;
+  transition: all var(--transition-fast);
+}
+
+.article-content a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Imágenes responsive en artículos */
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: var(--space-2xl) 0;
+}
+
+/* Tablas estilo Medium */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-2xl) 0;
+  font-size: var(--text-sm);
+}
+
+.article-content th,
+.article-content td {
+  padding: var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.article-content th {
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* ========================================
+   PRINT STYLES
+======================================== */
+
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .no-print,
+  div[class*="ActionBar"],
+  nav[class*="TableOfContents"] {
+    display: none !important;
+  }
+  
+  article {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/* ========================================
+   UTILIDADES
+======================================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+
+/* ========================================
+   SCROLLBAR PERSONALIZADO
+======================================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ========================================
+   SELECCIÓN DE TEXTO
+======================================== */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   FOCUS STYLES
+======================================== */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ========================================
+   ADVANCED CUSTOM CURSOR SYSTEM
+   Inspired by Thomas Le Corre's design
+   Optimized for performance and UX
+======================================== */
+
+/* Base cursor - ultra-smooth movement */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease-out, height 0.2s ease-out, background 0.15s ease-out;
+  mix-blend-mode: difference;
+  opacity: 1;
+  will-change: transform, width, height, background, opacity;
+}
+
+/* Inner dot for precision */
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 1;
+}
+
+/* Hide on touch devices with proper detection */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  body {
+    cursor: auto !important;
+  }
+  
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
+}
+
+/* Navigation menu - elegant small dot */
+.custom-cursor.cursor-menu {
+  width: 6px;
+  height: 6px;
+  background: #0ea5e9;
+  mix-blend-mode: normal;
+  opacity: 0.9;
+}
+
+.custom-cursor.cursor-menu::before {
+  width: 1px;
+  height: 1px;
+  background: #fff;
+  opacity: 0.8;
+}
+
+/* Hover state - refined and subtle */
+.custom-cursor.cursor-hover {
+  width: 32px;
+  height: 32px;
+  background: rgba(14, 165, 233, 0.08);
+  border: 1.5px solid rgba(14, 165, 233, 0.6);
+  mix-blend-mode: normal;
+  backdrop-filter: blur(2px);
+}
+
+.custom-cursor.cursor-hover::before {
+  width: 4px;
+  height: 4px;
+  background: #0ea5e9;
+  opacity: 0.9;
+}
+
+/* View state - premium feel */
+.custom-cursor.cursor-view {
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.85);
+  border: none;
+  border-radius: 50%;
+  mix-blend-mode: normal;
+  backdrop-filter: blur(4px);
+}
+
+.custom-cursor.cursor-view::before {
+  content: '→';
+  font-size: 16px;
+  color: #fff;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+/* External link - distinctive */
+.custom-cursor.cursor-external {
+  width: 40px;
+  height: 40px;
+  background: rgba(14, 165, 233, 0.92);
+  border: none;
+  border-radius: 50%;
+  mix-blend-mode: normal;
+  backdrop-filter: blur(3px);
+}
+
+.custom-cursor.cursor-external::before {
+  content: '↗';
+  font-size: 14px;
+  color: #fff;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+
+
+/* Disabled state - clear feedback */
+.custom-cursor.cursor-disabled {
+  width: 28px;
+  height: 28px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.6);
+  mix-blend-mode: normal;
+}
+
+.custom-cursor.cursor-disabled::before {
+  content: '×';
+  font-size: 14px;
+  color: #ef4444;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* Global cursor overrides - comprehensive */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+input, textarea, select {
+  cursor: none !important;
+}
+
+button, a, [role="button"], .clickable,
+.work-card, .github-repo, [data-cursor],
+nav a, header a, .nav-link {
+  cursor: none !important;
+}
+
+/* Ensure no SVG or URL cursors override our system */
+*:hover {
+  cursor: none !important;
+}
+
+/* Smooth transitions and animations */
+.custom-cursor.cursor-hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.custom-cursor.cursor-enter {
+  animation: cursorEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes cursorEnter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Click feedback */
+.custom-cursor.cursor-click {
+  transform: translate(-50%, -50%) scale(0.85);
+  transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Subtle pulse for interactive elements */
+.custom-cursor.cursor-hover,
+.custom-cursor.cursor-external,
+.custom-cursor.cursor-view {
+  animation: cursorBreath 3s ease-in-out infinite;
+}
+
+@keyframes cursorBreath {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* CSS Variables */
+:root {
+  --primary: #007bff;
+  --primary-dark: #0056b3;
+  --primary-light: #66b3ff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  
+  /* Semantic colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #868e96;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04);
+  
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-muted: #8c8c8c;
+  }
+  
+  .custom-cursor {
+    background: #fff;
+    mix-blend-mode: difference;
+  }
+  
+  .custom-cursor::before {
+    background: #000;
+  }
+  
+  .custom-cursor.cursor-menu {
+    background: #38bdf8;
+    mix-blend-mode: normal;
+    opacity: 0.95;
+  }
+  
+  .custom-cursor.cursor-menu::before {
+    background: #0a0a0a;
+    opacity: 0.9;
+  }
+  
+  .custom-cursor.cursor-hover {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.7);
+    backdrop-filter: blur(3px);
+  }
+  
+  .custom-cursor.cursor-hover::before {
+    background: #38bdf8;
+    opacity: 0.95;
+  }
+  
+  .custom-cursor.cursor-view {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+  }
+  
+  .custom-cursor.cursor-view::before {
+    color: #0a0a0a;
+    opacity: 0.9;
+  }
+  
+  .custom-cursor.cursor-external {
+    background: rgba(56, 189, 248, 0.94);
+    backdrop-filter: blur(4px);
+  }
+  
+  .custom-cursor.cursor-disabled {
+    background: rgba(248, 113, 113, 0.12);
+    border-color: rgba(248, 113, 113, 0.7);
+  }
+  
+  .custom-cursor.cursor-disabled::before {
+    color: #f87171;
+  }
+}
+
+/* Theme-based cursor (for data-theme attribute) */
+[data-theme="dark"] .custom-cursor {
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+[data-theme="dark"] .custom-cursor::before {
+  background: #000;
+}
+
+[data-theme="dark"] .custom-cursor.cursor-menu {
+  background: #38bdf8;
+  mix-blend-mode: normal;
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .custom-cursor.cursor-menu::before {
+  background: #0a0a0a;
+  opacity: 0.9;
+}
+
+[data-theme="dark"] .custom-cursor.cursor-hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+[data-theme="dark"] .custom-cursor.cursor-hover::before {
+  background: #38bdf8;
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .custom-cursor.cursor-view {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .custom-cursor.cursor-view::before {
+  color: #0a0a0a;
+  opacity: 0.9;
+}
+
+[data-theme="dark"] .custom-cursor.cursor-external {
+  background: rgba(56, 189, 248, 0.94);
+  backdrop-filter: blur(4px);
+}
+
+[data-theme="dark"] .custom-cursor.cursor-disabled {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.7);
+}
+
+[data-theme="dark"] .custom-cursor.cursor-disabled::before {
+  color: #f87171;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  :root {
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  * {
+    cursor: auto !important;
+  }
+} 

@@ -1,0 +1,20 @@
+# Gatsby routing for SPA
+/*  /index.html  200
+
+# Security redirects - Block potentially malicious paths
+/.env*  /404  404
+/.git*  /404  404
+/wp-admin/*  /404  404
+/wp-login.php  /404  404
+/admin/*  /404  404
+/administrator/*  /404  404
+/.well-known/security.txt  /.well-known/security.txt  200
+
+# SEO redirects for old URLs (if any)
+# /old-path  /new-path  301
+
+# Force HTTPS
+http://miquelxarau.netlify.app/*  https://miquelxarau.netlify.app/:splat  301!
+
+# API rate limiting for contact forms (if implemented)
+/api/*  /api/:splat  200  Rate-Limit: 100/hour 

@@ -1,14 +1,25 @@
+// Definir 'global' y 'module' solo si no existen (para evitar errores en lint y entornos SSR)
+if (typeof global === 'undefined') {
+  var global = {};
+}
+if (typeof module === 'undefined') {
+  var module = {};
+}
+
+// Corregir uso de 'module' no definido
+global.module = global.module || {};
+
 module.exports = {
   pathPrefix: '/', // Prefix for all links. If you deploy your site to example.com/portfolio your pathPrefix should be "portfolio"
 
   siteTitle: 'Miquel Xarau', // Navigation and Site Title
-  siteTitleAlt: 'mxg - design & code', // Alternative Site title for SEO
+  siteTitleAlt: 'mxg - Ingeniería de Software', // Alternative Site title for SEO
   siteTitleShort: 'mxg', // short_name for manifest
-  siteHeadline: 'UX/UI Designer - Fullstack developer', // Headline for schema.org JSONLD
+  siteHeadline: 'Diseñador UX/UI, desarrollador FullStack, focalizado en IA y Ciberseguridad.', // Headline for schema.org JSONLD
   siteUrl: 'https://mxglab.com', // Domain of your site. No trailing slash!
-  siteLanguage: 'en', // Language Tag on <html> element
+  siteLanguage: 'es', // Language Tag on <html> element
   siteLogo: '/logos/logo.png', // Used for SEO and manifest
-  siteDescription: 'Miquel Xarau - Design and development portfolio',
+  siteDescription: 'Miquel Xarau - Diseñador UX/UI, desarrollador FullStack, focalizado en IA y Ciberseguridad.',
   author: 'Miquel Xarau', // Author for schema.org JSONLD
 
   // siteFBAppID: '123456789', // Facebook App ID - Optional

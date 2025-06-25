@@ -1,0 +1,17 @@
+Contact: mailto:security@miquelxarau.com
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: en, es
+Canonical: https://miquelxarau.netlify.app/.well-known/security.txt
+Policy: https://miquelxarau.netlify.app/security-policy
+
+# Security Policy
+# 
+# If you discover a security vulnerability in this portfolio website,
+# please report it responsibly:
+#
+# 1. DO NOT open a public issue
+# 2. Send details to the contact email above
+# 3. Include steps to reproduce the issue
+# 4. Allow reasonable time for response before disclosure
+#
+# Thank you for helping keep this site secure! 
