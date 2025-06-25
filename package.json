@@ -28,6 +28,10 @@
     "security-check": "node scripts/check-security-status.js",
     "false-positives": "node scripts/check-false-positives.js",
     "update-github": "node scripts/update-github-data.js",
+    "deploy": "npm run build && npx netlify deploy --prod",
+    "deploy-all": "node scripts/deploy-all.js",
+    "commit-deploy": "git add . && git commit -m \"🚀 AUTO DEPLOY: $(date +'%Y-%m-%d %H:%M')\" && git push origin master && npm run deploy",
+    "quick-deploy": "npm run deploy-all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
