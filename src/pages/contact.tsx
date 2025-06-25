@@ -539,7 +539,7 @@ const Contact: React.FC = () => {
                   <FaMapMarkerAlt />
                 </div>
                 <h3 className="info-title">Ubicación</h3>
-                <p className="info-value">Barcelona, España<br />Remoto global</p>
+                <p className="info-value">Barcelona, Spain<br />Remoto global</p>
               </div>
               
               <div className="info-item">

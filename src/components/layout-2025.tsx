@@ -1059,7 +1059,7 @@ function Layout2025({ children, location }: LayoutProps) {
               <div className="contact-info">
                 <div className="contact-item">
                   <FiMapPin />
-                  <span>Barcelona, España</span>
+                  <span>Barcelona, Spain</span>
                 </div>
                 <div className="contact-item">
                   <FiClock />
@@ -1207,7 +1207,7 @@ function Layout2025({ children, location }: LayoutProps) {
             <FooterInfo $theme={theme} $designSystem={designSystem}>
               <div className="info-item">
                 <HiOutlineLocationMarker />
-                <span>Barcelona, España</span>
+                <span>Barcelona, Spain</span>
               </div>
               <div className="info-item">
                 <HiOutlineClock />
