@@ -29,21 +29,7 @@ const PROJECTS_QUERY = graphql`
           from
           desc
           images
-          cover {
-            childImageSharp {
-              gatsbyImageData(
-                width: 400
-                height: 300
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-                quality: 75
-                transformOptions: {
-                  fit: COVER
-                  cropFocus: CENTER
-                }
-              )
-            }
-          }
+          cover
         }
       }
     }
@@ -72,11 +58,7 @@ interface ProjectFromYaml {
   from?: string
   desc?: string
   images?: string
-  cover?: {
-    childImageSharp?: {
-      gatsbyImageData?: any
-    }
-  }
+  cover?: string
 }
 
 // 🎬 Animaciones para el carrusel
@@ -980,14 +962,13 @@ const FeaturedWorksCarousel: React.FC<FeaturedWorksCarouselProps> = ({ className
                           />
                         }
                         
-                        // Mostrar imagen si no hay video
-                        if (project.cover?.childImageSharp?.gatsbyImageData) {
+                        // Mostrar imagen si no hay video y hay cover
+                        if (project.cover && project.cover.endsWith('.jpg')) {
                           return (
-                    <GatsbyImage
-                      image={project.cover.childImageSharp.gatsbyImageData}
+                            <img
+                              src={project.cover}
                               alt={`${project.title} - Preview`}
-                      style={{ width: '100%', height: '100%' }}
-                              objectFit="cover"
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />
                           )
                         }

@@ -1079,11 +1079,7 @@ interface ProjectTemplateProps {
       link?: string
       desc?: string
       images?: string
-      cover?: {
-        childImageSharp?: {
-          gatsbyImageData?: IGatsbyImageData
-        }
-      }
+      cover?: string
     } | null
     projectImages: {
       edges: Array<{
@@ -1138,11 +1134,7 @@ interface ProjectTemplateProps {
           slug: string
           category?: string
           from?: string
-          cover?: {
-            childImageSharp?: {
-              gatsbyImageData?: IGatsbyImageData
-            }
-          }
+          cover?: string
         }
       }>
     }
@@ -1292,12 +1284,9 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
 
   // 🖼️ Función para obtener la mejor imagen de fondo
   const getBestBackgroundImage = (): string | undefined => {
-    // 1. Usar imagen de cover si existe
-    if (project.cover?.childImageSharp?.gatsbyImageData) {
-      const image = project.cover.childImageSharp.gatsbyImageData
-      if (image.images?.fallback?.src) {
-        return image.images.fallback.src
-      }
+    // 1. Usar imagen de cover si existe y es string (URL)
+    if (project.cover && typeof project.cover === 'string') {
+      return project.cover
     }
 
     // 2. Usar la primera imagen del proyecto si existe
@@ -1354,7 +1343,7 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
     }
   }, [projectFolderName, projectImages.length, projectVideos.length, projectDocuments.length])
 
-  const coverImage = project.cover?.childImageSharp?.gatsbyImageData
+  const coverImage = null // cover es ahora un string, no un objeto con childImageSharp
   const backgroundImage = getBestBackgroundImage()
 
   return (
@@ -1555,17 +1544,7 @@ export const query = graphql`
       link
       desc
       images
-      cover {
-        childImageSharp {
-          gatsbyImageData(
-            width: 1200
-            height: 750
-            placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
-            quality: 90
-          )
-        }
-      }
+      cover
     }
     projectImages: allFile(
       filter: {
@@ -1633,21 +1612,7 @@ export const query = graphql`
           slug
           category
           from
-          cover {
-            childImageSharp {
-              gatsbyImageData(
-                width: 400
-                height: 300
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-                quality: 90
-                transformOptions: {
-                  fit: COVER
-                  cropFocus: CENTER
-                }
-              )
-            }
-          }
+          cover
         }
       }
     }

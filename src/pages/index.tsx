@@ -531,11 +531,7 @@ interface HomePageProps {
           title: string
           slug: string
           desc: string
-          cover?: {
-            childImageSharp?: {
-              gatsbyImageData?: IGatsbyImageData
-            }
-          }
+          cover?: string
         }
       }>
     }
@@ -844,16 +840,7 @@ export const query = graphql`
           title
           slug
           desc
-          cover {
-            childImageSharp {
-              gatsbyImageData(
-                width: 800
-                height: 600
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
+          cover
         }
       }
     }

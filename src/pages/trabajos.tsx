@@ -112,11 +112,7 @@ interface TrabajosPageProps {
           color?: string
           desc?: string
           images?: string
-          cover?: {
-            childImageSharp?: {
-              gatsbyImageData?: IGatsbyImageData
-            }
-          }
+          cover?: string
         }
       }>
     }
@@ -1501,7 +1497,7 @@ const TrabajosPage: React.FC<TrabajosPageProps> = ({ data }) => {
                 const { title, slug, category, from, cover, desc, color, images } = node
                 const technologies = extractTechnologies(category)
                 const projectColor = getProjectColor(category, color)
-                const image = cover?.childImageSharp?.gatsbyImageData
+                const image = null // cover es ahora un string, no un objeto con childImageSharp
 
                 // Función helper para obtener subtítulo con las 3 primeras skills
                 const getProjectSubtitle = (category?: string, from?: string): string => {
@@ -1673,22 +1669,7 @@ export const query = graphql`
           color
           desc
           images
-          cover {
-            childImageSharp {
-              gatsbyImageData(
-                width: 800
-                height: 500
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-                quality: 90
-                transformOptions: {
-                  fit: COVER
-                  cropFocus: CENTER
-                }
-                breakpoints: [400, 600, 800, 1200]
-              )
-            }
-          }
+          cover
         }
       }
     }
