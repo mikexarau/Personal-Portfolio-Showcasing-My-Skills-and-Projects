@@ -29,7 +29,8 @@ import {
   HiOutlineClock,
   HiOutlineCode,
   HiOutlineMail,
-  HiOutlineExternalLink
+  HiOutlineExternalLink,
+  HiOutlineGlobeAlt
 } from 'react-icons/hi'
 import { Helmet } from 'react-helmet'
 // import Navbar2025 from './navbar-2025'
@@ -653,11 +654,20 @@ const MobileMenuOverlay = styled.div<{ $isOpen: boolean; $designSystem: any }>`
   }
 `
 
-// 📱 Main Content Area
+// 📱 Main Content Area - MOBILE UX OPTIMIZADO
 const Main = styled.main<{ $theme: any; $designSystem: any }>`
   flex: 1;
   padding-top: ${props => props.$designSystem.spacing[20]};
   background: ${props => props.$theme.colors.bg.primary};
+  
+  /* 📱 MOBILE: Mejor gestión del espacio superior */
+  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
+    padding-top: ${props => props.$designSystem.spacing[16]}; /* Menos padding en móvil */
+  }
+  
+  @media (max-width: 480px) {
+    padding-top: ${props => props.$designSystem.spacing[14]}; /* Aún menos en pantallas pequeñas */
+  }
 `
 
 // 🦶 Footer - Minimalista y moderno
@@ -1150,6 +1160,16 @@ function Layout2025({ children, location }: LayoutProps) {
                   title="GitHub"
                 >
                   <SiGithub />
+                </SocialLink>
+                <SocialLink 
+                  href="https://mikexarau.github.io/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                  title="GitHub Pages"
+                >
+                  <HiOutlineGlobeAlt />
                 </SocialLink>
                 <SocialLink 
                   href="https://linkedin.com/in/miquelxarau" 

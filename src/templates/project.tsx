@@ -343,26 +343,51 @@ const ElegantContent = styled.div<{ $theme: any; $designSystem: any }>`
     }
   }
   
-  /* 📱 MOBILE: Ajustes específicos */
+  /* 📱 MOBILE: Ajustes específicos con padding mejorado */
   @media (max-width: 768px) {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem; /* Más padding superior para evitar cortes */
+    
+    .content-inner {
+      padding-top: 1rem; /* Espacio adicional para el título */
+    }
     
     .project-title {
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
+      font-size: clamp(1.5rem, 8vw, 2.2rem); /* Tamaño más conservador */
+      line-height: 1.3; /* Mejor line-height para títulos largos */
+      margin-bottom: 0.75rem; /* Menos espacio abajo */
+      word-break: break-word; /* Permite romper palabras largas */
+      hyphens: auto; /* Hifenado automático en idiomas que lo soporten */
     }
     
     .project-subtitle {
       font-size: ${props => props.$designSystem?.typography?.scale?.base || '1rem'};
+      line-height: 1.5; /* Mejor legibilidad */
+      margin-bottom: 1rem;
     }
     
     .meta-elegant {
       gap: 0.5rem;
       font-size: ${props => props.$designSystem?.typography?.scale?.xs || '0.75rem'};
+      margin-bottom: 1.5rem; /* Mejor espaciado */
     }
     
     .primary-action {
       padding: 0.625rem 1.5rem;
       font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
+    }
+  }
+  
+  /* 📱 MOBILE EXTRA PEQUEÑO: Ajustes adicionales */
+  @media (max-width: 480px) {
+    padding: 2.5rem 0.75rem; /* Aún más padding superior */
+    
+    .content-inner {
+      padding-top: 1.5rem; /* Espacio extra para pantallas muy pequeñas */
+    }
+    
+    .project-title {
+      font-size: clamp(1.25rem, 9vw, 1.8rem); /* Título más pequeño en pantallas tiny */
+      line-height: 1.4;
     }
   }
 `

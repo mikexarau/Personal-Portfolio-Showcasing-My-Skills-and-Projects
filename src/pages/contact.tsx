@@ -414,6 +414,13 @@ const Contact: React.FC = () => {
       url: 'https://github.com/mikexarau'
     },
     {
+      name: 'Portfolio Web',
+      handle: 'mikexarau.github.io',
+      icon: FaExternalLinkAlt,
+      color: '#4F46E5',
+      url: 'https://mikexarau.github.io/'
+    },
+    {
       name: 'X',
       handle: '@miquelxarau',
       icon: FaXTwitter,

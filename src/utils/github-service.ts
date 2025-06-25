@@ -204,8 +204,15 @@ export function getGitHubRepositories(limit?: number): GitHubRepo[] {
     return []
   }
 
+  // Filtrar repositorios excluidos (Test, draft, etc.)
+  const filteredRepos = GITHUB_REPOSITORIES.filter(repo => 
+    !['Test', 'test', 'TEST'].includes(repo.name) &&
+    !repo.name.toLowerCase().includes('draft') &&
+    !repo.name.toLowerCase().includes('temp')
+  )
+
   // Asegurar que todos los repos tengan topics
-  const reposWithTopics = GITHUB_REPOSITORIES.map(repo => ({
+  const reposWithTopics = filteredRepos.map(repo => ({
     ...repo,
     topics: repo.topics && repo.topics.length > 0 
       ? repo.topics 
