@@ -807,21 +807,17 @@ const ProjectYearBadge = styled.div<{ $theme: any; $designSystem: any; $year: st
   transform: translate(0, 0) scale(1);
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    /* 📱 MOBILE FIX: Posición dentro de la card para evitar overflow:hidden */
-    top: 8px;
-    right: 8px;
+    top: -4px;
+    right: -4px;
     padding: 3px 8px;
     font-size: 9px;
-    z-index: 25; /* Mayor z-index para móvil */
   }
   
   @media (max-width: 480px) {
-    /* 📱 MOBILE PEQUEÑO: Aún más dentro para asegurar visibilidad */
-    top: 6px;
-    right: 6px;
+    top: -3px;
+    right: -3px;
     padding: 2px 6px;
     font-size: 8px;
-    z-index: 30; /* Máximo z-index para pantallas pequeñas */
   }
 `
 
