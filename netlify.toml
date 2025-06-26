@@ -50,10 +50,24 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# ⚡ FIX WORKBOX: Videos sin range requests para evitar errores 206
 [[headers]]
   for = "*.mp4"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=31536000, no-transform"
+    Accept-Ranges = "none"
+
+[[headers]]
+  for = "*.webm"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, no-transform"
+    Accept-Ranges = "none"
+
+[[headers]]
+  for = "*.mov"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, no-transform"
+    Accept-Ranges = "none"
 
 # Redirect rules (backup for _redirects file)
 [[redirects]]

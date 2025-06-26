@@ -444,28 +444,7 @@ const ModalControls = styled.div<{ $theme: any }>`
   }
 `
 
-const MediaTypeIcon = styled.div<{ $theme: any; $designSystem: any }>`
-  position: absolute;
-  top: ${props => props.$designSystem.spacing[2]};
-  left: ${props => props.$designSystem.spacing[2]};
-  width: 28px;
-  height: 28px;
-  background: ${props => props.$theme.colors.bg.primary}F0;
-  backdrop-filter: blur(10px);
-  border-radius: ${props => props.$designSystem.radius.full};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${props => props.$theme.colors.text.secondary};
-  font-size: 12px;
-  font-family: ${props => props.$designSystem.typography.fonts.sans};
-  transition: all ${props => props.$designSystem.animation.duration.fast} ${props => props.$designSystem.animation.easing.smooth};
-  
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-`
+// ✅ MediaTypeIcon removido para mejorar UX limpia
 
 // 🎯 Componente principal
 const ProjectGallery: React.FC<ProjectGalleryProps> = ({ 

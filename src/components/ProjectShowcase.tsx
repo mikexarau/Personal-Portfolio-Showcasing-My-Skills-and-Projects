@@ -24,66 +24,43 @@ const MediaSection = styled.div<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🖼️ CONTENEDOR DE IMAGEN SIMPLIFICADO Y EFECTIVO
+// 🖼️ CONTENEDOR DE IMAGEN OPTIMIZADO
 const ImageContainer = styled.div<{ $theme: any; $designSystem: any; $isIPB?: boolean }>`
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: ${props => props.$designSystem.radius['xl']};
+  border-radius: ${props => props.$designSystem.radius.xl};
   overflow: hidden;
   background: ${props => props.$theme.colors.bg.secondary};
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.1),
+    0 8px 20px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   
-  /* 🎯 RESPETA LAS PROPORCIONES ORIGINALES */
+  &:hover {
+    box-shadow: 
+      0 30px 60px -12px rgba(0, 0, 0, 0.15),
+      0 12px 30px -5px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  
   .gatsby-image-wrapper {
     width: 100% !important;
     height: auto !important;
-    
-    img {
-      width: 100% !important;
-      height: auto !important;
-      object-fit: contain !important;
-      object-position: center !important;
-      transition: ${props => props.$isIPB ? 'none' : 'transform 0.3s ease'} !important;
-      display: block !important;
-      background: ${props => props.$theme.colors.bg.secondary} !important;
-    }
   }
   
-  /* Imagen fallback - también respeta proporciones */
-  > img {
+  img {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
-    display: block;
-    background: ${props => props.$theme.colors.bg.secondary};
-    transition: ${props => props.$isIPB ? 'none' : 'transform 0.3s ease'};
   }
   
-  /* 📱 Optimización para móviles */
   @media (max-width: 768px) {
     border-radius: ${props => props.$designSystem.radius.lg};
-    max-width: 100%;
     
-    .gatsby-image-wrapper img,
-    > img {
-      border-radius: ${props => props.$designSystem.radius.lg};
+    &:hover {
+      transform: translateY(-2px);
     }
-  }
-  
-  /* 🎯 Estados verticales, horizontales y cuadrados para imágenes */
-  &.aspect-portrait {
-    max-width: 600px; /* Más estrecho para verticales */
-  }
-  
-  &.aspect-landscape {
-    max-width: 1200px; /* Ancho completo para horizontales */
-  }
-  
-  &.aspect-square {
-    max-width: 800px; /* Tamaño medio para cuadrados */
   }
 `
 
@@ -143,122 +120,114 @@ const IPBImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🎥 CONTENEDOR DE VIDEO OPTIMIZADO - SIN ASPECT RATIO FORZADO
+// 🎥 CONTENEDOR DE VIDEO OPTIMIZADO
 const VideoContainer = styled.div<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: ${props => props.$designSystem.radius['xl']};
+  border-radius: ${props => props.$designSystem.radius.xl};
   overflow: hidden;
   background: ${props => props.$theme.colors.bg.secondary};
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.1),
+    0 8px 20px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   
-  /* 📐 PERMITE QUE EL VIDEO DETERMINE SU PROPIA ALTURA */
+  &:hover {
+    box-shadow: 
+      0 30px 60px -12px rgba(0, 0, 0, 0.15),
+      0 12px 30px -5px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  
   video {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
-    transition: transform 0.3s ease;
     display: block;
-    background: ${props => props.$theme.colors.bg.secondary};
-    border-radius: ${props => props.$designSystem.radius['xl']};
   }
   
-  /* 📱 Optimización para móviles */
   @media (max-width: 768px) {
     border-radius: ${props => props.$designSystem.radius.lg};
-    max-width: 100%;
     
-    video {
-      border-radius: ${props => props.$designSystem.radius.lg};
+    &:hover {
+      transform: translateY(-2px);
     }
-  }
-  
-  /* 🎯 Estados verticales, horizontales y cuadrados */
-  &.aspect-portrait {
-    max-width: 600px; /* Más estrecho para verticales */
-  }
-  
-  &.aspect-landscape {
-    max-width: 1200px; /* Ancho completo para horizontales */
-  }
-  
-  &.aspect-square {
-    max-width: 800px; /* Tamaño medio para cuadrados */
   }
 `
 
-// 📄 CONTENEDOR DE DOCUMENTO SIMPLIFICADO
+// 📄 CONTENEDOR DE DOCUMENTOS OPTIMIZADO
 const DocumentContainer = styled.div<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: ${props => props.$designSystem.spacing[8]};
-  background: ${props => props.$theme.colors.bg.secondary};
-  border: 1px solid ${props => props.$theme.colors.border.primary};
+  padding: ${props => props.$designSystem.spacing[12]};
   border-radius: ${props => props.$designSystem.radius.xl};
+  background: linear-gradient(135deg, 
+    ${props => props.$theme.colors.bg.primary}, 
+    ${props => props.$theme.colors.bg.secondary}
+  );
+  border: 1px solid ${props => props.$theme.colors.border.primary};
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 30px 60px -12px rgba(0, 0, 0, 0.15),
+      0 12px 30px -5px rgba(0, 0, 0, 0.08);
+  }
   
   .document-icon {
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: ${props => props.$designSystem.spacing[4]};
   }
   
   .document-title {
+    font-family: ${props => props.$designSystem.typography.fonts.sans};
+    font-size: ${props => props.$designSystem.typography.scale.lg};
     font-weight: ${props => props.$designSystem.typography.weight.semibold};
     color: ${props => props.$theme.colors.text.primary};
     margin-bottom: ${props => props.$designSystem.spacing[2]};
   }
   
   .document-meta {
+    font-family: ${props => props.$designSystem.typography.fonts.sans};
     font-size: ${props => props.$designSystem.typography.scale.sm};
     color: ${props => props.$theme.colors.text.secondary};
-    margin-bottom: ${props => props.$designSystem.spacing[4]};
+    margin-bottom: ${props => props.$designSystem.spacing[6]};
   }
   
   .document-action {
-    display: inline-block;
-    padding: ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[4]};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${props => props.$designSystem.spacing[2]};
+    padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
     background: ${props => props.$theme.colors.interactive.primary};
-    color: white;
-    text-decoration: none;
-    border-radius: ${props => props.$designSystem.radius.lg};
+    color: ${props => props.$theme.colors.text.inverse};
+    border: none;
+    border-radius: ${props => props.$designSystem.radius.full};
+    font-family: ${props => props.$designSystem.typography.fonts.sans};
     font-size: ${props => props.$designSystem.typography.scale.sm};
+    font-weight: ${props => props.$designSystem.typography.weight.medium};
+    text-decoration: none;
+    cursor: pointer;
     transition: all 0.3s ease;
     
     &:hover {
-      background: ${props => props.$theme.colors.interactive.primaryHover};
-      transform: translateY(-1px);
+      background: ${props => props.$theme.colors.interactive.secondary};
+      transform: translateY(-2px);
     }
   }
   
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  @media (max-width: 768px) {
+    padding: ${props => props.$designSystem.spacing[8]};
+    border-radius: ${props => props.$designSystem.radius.lg};
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
-`
-
-// 🏷️ INDICADOR DE TIPO DE MEDIA MINIMALISTA
-const MediaIndicator = styled.div<{ $theme: any; $designSystem: any; $type: 'image' | 'video' | 'document' }>`
-  position: absolute;
-  top: ${props => props.$designSystem.spacing[3]};
-  right: ${props => props.$designSystem.spacing[3]};
-  padding: ${props => props.$designSystem.spacing[1]} ${props => props.$designSystem.spacing[3]};
-  background: ${props => props.$theme.colors.bg.primary}E6;
-  backdrop-filter: blur(10px);
-  border-radius: ${props => props.$designSystem.radius.full};
-  font-size: ${props => props.$designSystem.typography.scale.xs};
-  font-weight: ${props => props.$designSystem.typography.weight.medium};
-  color: ${props => props.$theme.colors.text.secondary};
-  z-index: 10;
-  
-  ${props => props.$type === 'image' && `color: ${props.$theme?.colors?.success?.primary || '#10b981'};`}
-  ${props => props.$type === 'video' && `color: ${props.$theme?.colors?.warning?.primary || '#f59e0b'};`}
-  ${props => props.$type === 'document' && `color: ${props.$theme?.colors?.info?.primary || '#3b82f6'};`}
 `
 
 // 🎯 TIPOS DE INTERFAZ SIMPLIFICADOS
@@ -573,12 +542,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
               $isIPB={isIPBProject}
               id={`image-container-${media.id}`}
             >
-              {!isIPBProject && (
-                <MediaIndicator $theme={theme} $designSystem={designSystem} $type="image">
-                  Imagen
-                </MediaIndicator>
-              )}
-              
               {media.childImageSharp?.gatsbyImageData ? (
                 <GatsbyImage
                   image={media.childImageSharp.gatsbyImageData}
@@ -590,20 +553,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
                   src={media.publicURL}
                   alt={`${projectTitle} - ${media.name}`}
                   loading="lazy"
-                  onLoad={(e) => {
-                    // 📐 Aplicar clase de aspect ratio para imágenes fallback (refinamiento)
-                    const img = e.currentTarget
-                    const container = document.getElementById(`image-container-${media.id}`)
-                    if (container && img.naturalWidth && img.naturalHeight) {
-                      const dynamicAspectClass = getAspectRatioClass(img)
-                      applyAspectRatioClass(`image-container-${media.id}`, dynamicAspectClass)
-                      
-                      // 🐛 Debug en desarrollo
-                      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                        console.log(`🖼️ Imagen refinada ${media.name}: ${img.naturalWidth}x${img.naturalHeight} → ${dynamicAspectClass}`)
-                      }
-                    }
-                  }}
                 />
               ) : (
                 <div style={{
@@ -628,10 +577,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
               $designSystem={designSystem}
               id={`video-container-${media.id}`}
             >
-              <MediaIndicator $theme={theme} $designSystem={designSystem} $type="video">
-                Video
-              </MediaIndicator>
-              
               <video
                 ref={(el) => setVideoRef(media.id, el)}
                 data-video-id={media.id}
@@ -641,25 +586,6 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
                 playsInline
                 controls={false}
                 preload="metadata"
-                onLoadedMetadata={(e) => {
-                  // 📐 Aplicar clase de aspect ratio cuando se carguen los metadatos (refinamiento)
-                  const video = e.currentTarget
-                  const container = document.getElementById(`video-container-${media.id}`)
-                  if (container && video.videoWidth && video.videoHeight) {
-                    const dynamicAspectClass = getAspectRatioClass(video)
-                    applyAspectRatioClass(`video-container-${media.id}`, dynamicAspectClass)
-                    
-                    // 🐛 Debug en desarrollo
-                    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                      console.log(`🎥 Video refinado ${media.name}: ${video.videoWidth}x${video.videoHeight} → ${dynamicAspectClass}`)
-                    }
-                  }
-                }}
-                onError={(e) => {
-                  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                    console.warn('Error cargando video:', media.publicURL)
-                  }
-                }}
               />
             </VideoContainer>
           )}

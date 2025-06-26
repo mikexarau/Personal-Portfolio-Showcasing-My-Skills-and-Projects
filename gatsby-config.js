@@ -190,6 +190,20 @@ module.exports = {
     //     }
     //   }
     // },
-    'gatsby-plugin-netlify',
+    
+    // ⚡ CONFIGURACIÓN MEJORADA PARA EVITAR ERRORES DE WORKBOX
+    {
+      resolve: 'gatsby-plugin-netlify',
+      options: {
+        // Evitar que workbox procese archivos multimedia
+        headers: {
+          "/*.mp4": ["Accept-Ranges: none"],
+          "/*.webm": ["Accept-Ranges: none"], 
+          "/*.mov": ["Accept-Ranges: none"],
+        },
+        // Configurar service worker personalizado
+        generateMatchPathRewrites: false,
+      },
+    },
   ],
 };

@@ -39,7 +39,8 @@
 
 # Videos with optimized caching  
 *.mp4
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=31536000, no-transform
+  Accept-Ranges: none
 
 # Fonts with long-term caching
 *.woff2

@@ -59,6 +59,21 @@ export const wrapRootElement = ({ element }) => {
 export const onClientEntry = () => {
   // Performance optimizations
   if (typeof window !== 'undefined') {
+    // ⚡ DESHABILITAR WORKBOX PARA EVITAR ERRORES 206
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          // Solo deshabilitar workbox, mantener otros service workers
+          if (registration.scope.includes('workbox') || 
+              registration.scope.includes('sw.js') ||
+              registration.scope.includes('offline')) {
+            registration.unregister()
+            console.log('🛑 Workbox service worker deshabilitado para evitar errores 206')
+          }
+        }
+      })
+    }
+    
     // Preload critical resources
     const preloadFont = document.createElement('link')
     preloadFont.rel = 'preload'
