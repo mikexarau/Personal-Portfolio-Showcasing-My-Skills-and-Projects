@@ -447,12 +447,12 @@ const ModalControls = styled.div<{ $theme: any }>`
 // ✅ MediaTypeIcon removido para mejorar UX limpia
 
 // 🎯 Componente principal
-const ProjectGallery: React.FC<ProjectGalleryProps> = ({ 
+const ProjectGallery = ({ 
   projectImages, 
   projectVideos, 
   projectDocuments, 
   projectTitle 
-}) => {
+}: ProjectGalleryProps) => {
   const { theme, designSystem } = useTheme2025()
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedMedia, setSelectedMedia] = useState<MediaFile | null>(null)

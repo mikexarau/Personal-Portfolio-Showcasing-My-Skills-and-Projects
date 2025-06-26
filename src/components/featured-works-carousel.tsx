@@ -308,8 +308,7 @@ const WorkImage = styled.div<{ $designSystem: any }>`
     /* Renderizado de alta calidad */
     image-rendering: optimizeQuality !important;
     -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-  }
+    }
   
   /* Videos con especificidad máxima */
   video {

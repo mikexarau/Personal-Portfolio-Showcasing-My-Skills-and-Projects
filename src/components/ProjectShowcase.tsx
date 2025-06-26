@@ -264,12 +264,12 @@ interface ProjectShowcaseProps {
 }
 
 // 🚀 COMPONENTE PRINCIPAL OPTIMIZADO CON SCROLL DETECTION
-const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
+const ProjectShowcase = ({
   projectImages,
   projectVideos,
   projectDocuments,
   projectTitle
-}) => {
+}: ProjectShowcaseProps) => {
   const { theme, designSystem } = useTheme2025()
   
   // 🎯 Referencias para videos y observer
@@ -305,9 +305,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
             // 🎥 Video entra en viewport - reproducir
             video.currentTime = 0 // Reiniciar desde el principio
             video.play().catch((error) => {
-              if (process.env.NODE_ENV === 'development') {
-                console.log(`🎥 No se pudo reproducir video ${videoId}:`, error.message)
-              }
+                          // Video autoplay puede estar bloqueado, se ignora silenciosamente
             })
           } else {
             // ⏸️ Video sale del viewport - pausar inmediatamente
@@ -329,10 +327,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
       }
     })
 
-    // 🐛 Debug en desarrollo
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`🎯 Observer configurado para ${videosToObserve.length} videos`)
-    }
+    // Observer configurado
 
     return () => {
       if (observerRef.current) {
@@ -475,9 +470,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
     React.useEffect(() => {
       console.log(`📸 ProjectShowcase ${projectTitle} - Total media:`, allMedia.length)
       console.log(`   🖼️ Imágenes recibidas: ${projectImages.length}`)
-      console.log(`   🎥 Videos recibidos: ${projectVideos.length}`)
-      console.log(`   📄 Documentos recibidos: ${projectDocuments.length}`)
-    }, []) // Solo ejecutar al montar
+      }, []) // Solo ejecutar al montar
   }
 
   if (allMedia.length === 0) {

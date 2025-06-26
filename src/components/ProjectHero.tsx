@@ -204,11 +204,11 @@ interface ProjectHeroProps {
   }>;
 }
 
-const ProjectHero: React.FC<ProjectHeroProps> = ({
+const ProjectHero = ({
   title,
   subtitle,
   actions = []
-}) => {
+}: ProjectHeroProps) => {
   const { theme, designSystem } = useTheme2025()
 
   return (
