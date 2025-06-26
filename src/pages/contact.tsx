@@ -422,10 +422,10 @@ const Contact: React.FC = () => {
     },
     {
       name: 'X',
-      handle: '@miquelxarau',
+      handle: '@mikixarau',
       icon: FaXTwitter,
       color: '#000000',
-      url: 'https://x.com/miquelxarau'
+      url: 'https://x.com/mikixarau'
     },
     {
       name: 'Behance',
