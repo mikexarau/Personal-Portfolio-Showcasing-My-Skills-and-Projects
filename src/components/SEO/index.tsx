@@ -44,9 +44,8 @@ const SEO = ({ title, desc, banner, pathname, node, individual }: Props) => {
     url: `${siteUrl}${pathname || ''}`,
   }
 
-  // schema.org in JSONLD format
-  // https://developers.google.com/search/docs/guides/intro-structured-data
-  // You can fill out the 'author', 'creator' with more data or another type (e.g. 'Organization')
+  // 🎯 Schema.org structured data for enhanced SEO
+  // Comprehensive JSON-LD implementation for portfolio website
 
   const schemaOrgWebPage = {
     '@context': 'http://schema.org',
@@ -176,8 +175,22 @@ const SEO = ({ title, desc, banner, pathname, node, individual }: Props) => {
         <html lang={siteLanguage} />
         <meta name="description" content={seo.description} />
         <meta name="image" content={seo.image} />
-        <meta name="mxg" content="Portfolio mxg" />
-        {/* Insert schema.org data conditionally (webpage/article) + everytime (breadcrumbs) */}
+        <meta name="author" content={author} />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="theme-color" content="#001730" />
+        <meta name="msapplication-TileColor" content="#001730" />
+        <link rel="canonical" href={seo.url} />
+        
+        {/* 🎯 Enhanced SEO meta tags */}
+        <meta name="keywords" content="Miquel Xarau, UX/UI Design, FullStack Development, IA, Ciberseguridad, Portfolio, Web Development, React, TypeScript" />
+        <meta name="copyright" content={`© ${new Date().getFullYear()} ${author}`} />
+        <meta name="language" content={siteLanguage} />
+        <meta name="rating" content="General" />
+        <meta name="distribution" content="Global" />
+        <meta name="revisit-after" content="7 days" />
+        
+        {/* 🎯 Structured data JSON-LD */}
         {!individual && <script type="application/ld+json">{JSON.stringify(schemaOrgWebPage)}</script>}
         {individual && <script type="application/ld+json">{JSON.stringify(schemaArticle)}</script>}
         <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>

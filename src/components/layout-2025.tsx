@@ -38,6 +38,7 @@ import { Helmet } from 'react-helmet'
 // import SocialProof2025 from './social-proof-2025'
 import '../styles/global-unified-2025.css'
 import CustomCursor from './CustomCursor'
+import CookieBanner from './CookieBanner'
 
 // 🌐 Global Styles - Modern and Clean
 const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
@@ -1149,6 +1150,33 @@ function Layout2025({ children, location }: LayoutProps) {
             </FooterSection>
             
             <FooterSection $theme={theme} $designSystem={designSystem}>
+              <h4>Legal</h4>
+              <FooterLinks $theme={theme} $designSystem={designSystem}>
+                <FooterLink 
+                  href="/privacy-policy/"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                >
+                  Política de Privacidad
+                </FooterLink>
+                <FooterLink 
+                  href="/cookie-policy/"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                >
+                  Política de Cookies
+                </FooterLink>
+                <FooterLink 
+                  href="/legal-notice/"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                >
+                  Aviso Legal
+                </FooterLink>
+              </FooterLinks>
+            </FooterSection>
+            
+            <FooterSection $theme={theme} $designSystem={designSystem}>
               <h4>Redes Sociales</h4>
               <SocialLinks $theme={theme} $designSystem={designSystem}>
                 <SocialLink 
@@ -1229,6 +1257,7 @@ function Layout2025({ children, location }: LayoutProps) {
       />
       
       <CustomCursor />
+      <CookieBanner />
     </LayoutContainer>
   )
 }
