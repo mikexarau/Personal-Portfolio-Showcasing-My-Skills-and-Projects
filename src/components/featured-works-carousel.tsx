@@ -801,7 +801,7 @@ const LazyVideoComponent: React.FC<{
   )
 }
 
-const FeaturedWorksCarousel: React.FC<FeaturedWorksCarouselProps> = ({ className }) => {
+const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
   const { theme, designSystem, isDark } = useTheme2025()
   const data = useStaticQuery(PROJECTS_QUERY)
   

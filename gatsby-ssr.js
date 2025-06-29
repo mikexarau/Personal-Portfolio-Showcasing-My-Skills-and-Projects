@@ -1,6 +1,14 @@
 import React from 'react'
 import { ThemeProvider2025 } from './src/utils/theme-context-2025'
 
+// 🔧 Hacer React y hooks disponibles globalmente para SSR
+if (typeof window === 'undefined') {
+  global.React = React
+  global.useState = React.useState
+  global.useEffect = React.useEffect
+  global.useRef = React.useRef
+}
+
 // 🎨 Wrap all pages with ThemeProvider (SSR)
 export const wrapRootElement = ({ element }) => {
   return (

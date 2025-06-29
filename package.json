@@ -27,7 +27,8 @@
     "deploy-all": "node scripts/deploy-all.js",
     "commit-deploy": "git add . && git commit -m \"🚀 AUTO DEPLOY: $(date +'%Y-%m-%d %H:%M')\" && git push origin master && npm run deploy",
     "quick-deploy": "npm run deploy-all",
-    "optimize": "node scripts/auto-cleanup-2025.js && node scripts/cleanup-markdown-2025.js"
+    "optimize": "node scripts/auto-cleanup-2025.js && node scripts/cleanup-markdown-2025.js",
+    "unify": "node scripts/unify-index-pages-2025.js"
   },
   "dependencies": {
     "gatsby": "5.13.7",

@@ -375,8 +375,6 @@ const WorkContent = styled.div<{ $theme: any; $designSystem: any }>`
   }
 `
 
-
-
 const LoadingCard = styled.div<{ $theme: any; $designSystem: any; $cardWidth: number }>`
   width: ${props => props.$cardWidth}px;
   flex-shrink: 0;
@@ -414,7 +412,7 @@ interface GitHubCarouselProps {
   className?: string
 }
 
-const GitHubCarousel: React.FC<GitHubCarouselProps> = ({ className }) => {
+const GitHubCarousel = ({ className }: { className?: string }) => {
   const { theme, designSystem, isDark } = useTheme2025()
   const [repositories, setRepositories] = useState<GitHubRepo[]>([])
   const [loading, setLoading] = useState(true)
@@ -542,9 +540,7 @@ const GitHubCarousel: React.FC<GitHubCarouselProps> = ({ className }) => {
                       )}
                     </div>
                   </div>
-                  
 
-                  
                   {repo.topics && repo.topics.length > 0 ? (
                     <div className="repo-technologies">
                       {repo.topics.slice(0, 4).map((topic: string, index: number) => (
@@ -620,7 +616,6 @@ const GitHubCarousel: React.FC<GitHubCarouselProps> = ({ className }) => {
                   </div>
                 </WorkContent>
               </CardVisual>
-              
 
             </CarouselCard>
           ))}

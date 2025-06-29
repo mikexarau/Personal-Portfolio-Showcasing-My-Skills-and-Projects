@@ -34,10 +34,6 @@ const subtleFloat = keyframes`
   50% { transform: translateY(-2px); }
 `
 
-const shimmer = keyframes`
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-`
 
 // 🏗️ Layout ultra compacto y sofisticado
 const PageContainer = styled.div<{ $theme: any; $designSystem: any }>`

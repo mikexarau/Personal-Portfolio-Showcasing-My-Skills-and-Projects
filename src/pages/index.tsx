@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql } from 'gatsby'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import styled, { keyframes, css } from 'styled-components'
 import Layout2025 from '../components/layout-2025'
 import SEO from '../components/SEO'
@@ -9,25 +8,13 @@ import FeaturedWorksCarousel from '../components/featured-works-carousel'
 import { 
   ModernButton,
   ModernSection,
-  ModernBadge,
   ModernCard
 } from '../components/ui-components-2025'
 import { 
   FiArrowRight,
-  FiCode,
-  FiUsers,
-  FiAward,
-  FiTrendingUp,
-  FiDownload,
-  FiLayers,
-  FiGithub,
-  FiZap,
   FiMail,
   FiEye,
-  FiLinkedin,
-  FiMapPin,
-  FiGlobe
-} from 'react-icons/fi'
+  FiLinkedin} from 'react-icons/fi'
 import GitHubCarousel from '../components/github-carousel'
 
 // 🎬 Animaciones inspiradas en Le Corre y Pangram Pangram
@@ -689,6 +676,8 @@ function HomePage2025({ data, location }: HomePageProps) {
             </HeroContent>
           </Container>
         </HeroSection>
+
+
 
         {/* 🎯 Featured Works section - SIN HEADER COMO THOMAS LE CORRE */}
         <FeaturedWorksSection $theme={theme} $designSystem={designSystem}>
