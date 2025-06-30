@@ -68,7 +68,7 @@ const BannerActions = styled.div<{ $designSystem: any }>`
 
 const Button = styled.button<{ $variant: 'primary' | 'secondary' | 'minimal'; $theme: any; $designSystem: any }>`
   padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[5]};
-  border-radius: ${props => props.$designSystem.radius.lg};
+  border-radius: ${props => props.$designSystem.radius.full};
   font-family: ${props => props.$designSystem.typography.fonts.sans};
   font-size: ${props => props.$designSystem.typography.scale.sm};
   font-weight: ${props => props.$designSystem.typography.weight.medium};

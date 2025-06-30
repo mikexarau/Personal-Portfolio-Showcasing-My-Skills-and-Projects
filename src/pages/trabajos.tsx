@@ -443,7 +443,7 @@ const CategoryFilter = styled.button<{ $active: boolean; $color: string; $theme:
   justify-content: space-between;
   padding: ${props => props.$designSystem?.spacing?.[4] || '1rem'} ${props => props.$designSystem?.spacing?.[5] || '1.25rem'};
   border: 2px solid ${props => props.$active ? props.$color : props.$theme?.colors?.border?.primary || '#e5e7eb'};
-  border-radius: ${props => props.$designSystem?.radius?.xl || '0.75rem'};
+  border-radius: ${props => props.$designSystem?.radius?.full || '9999px'};
   background: ${props => props.$active ? `${props.$color}10` : props.$theme?.colors?.bg?.primary || '#ffffff'};
   color: ${props => props.$active ? props.$color : props.$theme?.colors?.text?.secondary || '#64748b'};
   font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
@@ -1027,7 +1027,7 @@ const TechTag = styled.span<{ $color: string; $theme: any; $designSystem: any }>
   background: ${props => props.$theme.colors.bg.primaryDark};
   color: ${props => props.$theme.colors.text.tertiary};
   border: 1px solid ${props => props.$theme.colors.border.secondary};
-  border-radius: ${props => props.$designSystem.radius.sm};
+  border-radius: ${props => props.$designSystem.radius.full};
   font-size: ${props => props.$designSystem.typography.scale.xs};
   font-weight: ${props => props.$designSystem.typography.weight.medium};
   font-family: ${props => props.$designSystem.typography.fonts.sans};

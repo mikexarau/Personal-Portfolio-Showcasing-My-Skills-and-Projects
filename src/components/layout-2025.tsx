@@ -110,7 +110,7 @@ const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
   *:focus-visible {
     outline: 2px solid ${props => props.$theme.colors.interactive.primary};
     outline-offset: 2px;
-    border-radius: ${props => props.$designSystem.radius.sm};
+    border-radius: ${props => props.$designSystem.radius.full};
   }
   
   /* Remove focus outline for mouse users */
@@ -572,7 +572,7 @@ const MobileMenuToggle = styled.button<{ $theme: any; $designSystem: any }>`
   height: 44px;
   background: transparent;
   border: 1px solid ${props => props.$theme.colors.border.primary};
-  border-radius: ${props => props.$designSystem.radius.sm};
+  border-radius: ${props => props.$designSystem.radius.full};
   color: ${props => props.$theme.colors.text.primary};
   cursor: pointer;
   transition: all ${props => props.$designSystem.animation.duration.fast} ${props => props.$designSystem.animation.easing.smooth};
