@@ -29,37 +29,6 @@ const fadeInUp = keyframes`
   }
 `
 
-const slideInRight = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-
-const slideInLeft = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
-
-const subtleFloat = keyframes`
-  0%, 100% { 
-    transform: translateY(0px);
-  }
-  50% { 
-    transform: translateY(-4px);
-  }
-`
-
 const textReveal = keyframes`
   0% {
     opacity: 0;
@@ -72,28 +41,6 @@ const textReveal = keyframes`
 `
 
 // 🎯 Animaciones tipográficas ultra limpias - ENFOQUE MINIMALISTA
-const cleanFadeOut = keyframes`
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-`
-
-const cleanFadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-
 // 🎯 Animación ultra fluida y armoniosa - SMOOTH TRANSITION
 const smoothWordChange = keyframes`
   0% {
@@ -304,138 +251,6 @@ const DescriptionText = styled.p<{ $theme: any; $designSystem: any }>`
 `
 
 // 🎯 Botones de acción principales - CENTRADOS
-const ActionButtons = styled.div<{ $designSystem: any }>`
-  display: flex;
-  gap: ${props => props.$designSystem.spacing[6]};
-  justify-content: center;
-  animation: ${fadeInUp} 1s ${props => props.$designSystem.animation.easing.smooth} 0.9s both;
-  
-  @media (max-width: 640px) {
-    gap: ${props => props.$designSystem.spacing[4]};
-  }
-  
-  @media (max-width: 475px) {
-    flex-direction: column;
-    gap: ${props => props.$designSystem.spacing[3]};
-    width: 100%;
-    max-width: 300px;
-  }
-`
-
-const PrimaryButton = styled.button<{ $theme: any; $designSystem: any }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${props => props.$designSystem.spacing[2]};
-  padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
-  background: #000000;
-  color: #ffffff;
-  border: none;
-  border-radius: ${props => props.$designSystem.radius.full};
-  font-family: ${props => props.$designSystem.typography.fonts.sans};
-  font-size: ${props => props.$designSystem.typography.scale.sm};
-  font-weight: ${props => props.$designSystem.typography.weight.medium};
-  cursor: pointer;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.smooth};
-  text-decoration: none;
-  
-  &:hover {
-    background: #1a1a1a;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.3);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-`
-
-const SecondaryButton = styled.button<{ $theme: any; $designSystem: any }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${props => props.$designSystem.spacing[2]};
-  padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
-  background: transparent;
-  color: ${props => props.$theme.colors.text?.primary};
-  border: 1px solid ${props => props.$theme.colors.border?.primary};
-  border-radius: ${props => props.$designSystem.radius.full};
-  font-family: ${props => props.$designSystem.typography.fonts.sans};
-  font-size: ${props => props.$designSystem.typography.scale.sm};
-  font-weight: ${props => props.$designSystem.typography.weight.medium};
-  cursor: pointer;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.smooth};
-  text-decoration: none;
-  
-  &:hover {
-    background: ${props => props.$theme.colors.bg?.secondary};
-    border-color: #000000;
-    color: #000000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
-  }
-`
-
-// 🎯 Botón negro para CTA principal
-const BlackButton = styled.a<{ $theme: any; $designSystem: any }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${props => props.$designSystem.spacing[3]};
-  padding: ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[8]};
-  background: #000000;
-  color: #ffffff;
-  border: none;
-  border-radius: ${props => props.$designSystem.radius.full};
-  font-family: ${props => props.$designSystem.typography.fonts.sans};
-  font-size: ${props => props.$designSystem.typography.scale.base};
-  font-weight: ${props => props.$designSystem.typography.weight.medium};
-  text-decoration: none;
-  cursor: pointer;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.smooth};
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    transition: left 0.5s ease;
-  }
-  
-  &:hover {
-    background: #1a1a1a;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px -6px rgba(0, 0, 0, 0.4);
-    
-    &::before {
-      left: 100%;
-    }
-    
-    svg:last-child {
-      transform: translateX(4px);
-    }
-  }
-  
-  svg {
-    transition: transform ${props => props.$designSystem.animation.duration.fast} ease;
-  }
-  
-  @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
-    font-size: ${props => props.$designSystem.typography.scale.sm};
-  }
-`
-
-// 🎯 Stats data - MOVIDOS AL FOOTER
-const stats = [
-  { number: '5+', label: 'Años' },
-  { number: '50+', label: 'Proyectos' },
-  { number: '15+', label: 'Clientes' },
-  { number: '99%', label: 'Éxito' }
-]
 
 // 🎯 Featured Works Section - REDUCIDO ESPACIADO PARA MEJOR FLUIDEZ
 const FeaturedWorksSection = styled.section<{ $theme: any; $designSystem: any }>`
@@ -543,8 +358,8 @@ const useAdvancedAnimatedWords = () => {
   
   const [animatingWord, setAnimatingWord] = useState<'first' | 'second' | null>(null)
   
-  // Índices actuales para cada conjunto
-  const [indices, setIndices] = useState({
+  // Índices actuales para cada conjunto (solo necesitamos el setter)
+  const [, setIndices] = useState({
     first: 0,
     second: 0
   })
@@ -624,7 +439,7 @@ const useAdvancedAnimatedWords = () => {
   }
 }
 
-function HomePage2025({ data, location }: HomePageProps) {
+function HomePage2025({ data: _data, location }: HomePageProps) {
   const { theme, designSystem } = useTheme2025()
   const { currentWords, animatingWord } = useAdvancedAnimatedWords()
 
