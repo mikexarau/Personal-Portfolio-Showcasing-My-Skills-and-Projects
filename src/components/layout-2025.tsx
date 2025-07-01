@@ -39,6 +39,7 @@ import { Helmet } from 'react-helmet'
 import '../styles/global-unified-2025.css'
 import CustomCursor from './CustomCursor'
 import CookieBanner from './CookieBanner'
+import ScrollProgress from './ScrollProgress'
 import { CRITICAL_A11Y_CSS } from '../utils/accessibility-performance-2025'
 
 // 🌐 Global Styles - Modern and Clean
@@ -676,7 +677,7 @@ const Main = styled.main<{ $theme: any; $designSystem: any }>`
 const Footer = styled.footer<{ $theme: any; $designSystem: any }>`
   background: ${props => props.$theme.colors.bg.secondary};
   border-top: 1px solid ${props => props.$theme.colors.border.primary};
-  padding: ${props => props.$designSystem.spacing[16]} 0 ${props => props.$designSystem.spacing[8]} 0;
+  padding: ${props => props.$designSystem.spacing[12]} 0 ${props => props.$designSystem.spacing[6]} 0;
   margin-top: auto;
 `
 
@@ -692,19 +693,61 @@ const FooterContent = styled.div<{ $theme: any; $designSystem: any }>`
 
 const FooterGrid = styled.div<{ $theme: any; $designSystem: any }>`
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: ${props => props.$designSystem.spacing[12]};
-  margin-bottom: ${props => props.$designSystem.spacing[12]};
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: ${props => props.$designSystem.spacing[6]};
+  margin-bottom: ${props => props.$designSystem.spacing[10]};
+  
+  @media (max-width: ${props => props.$designSystem.breakpoints.xl}) {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: ${props => props.$designSystem.spacing[5]};
+    
+    /* Fusionar Legal y Redes Sociales en desktop large */
+    .footer-legal-section {
+      grid-column: 3;
+    }
+    
+    .footer-social-section {
+      grid-column: 3;
+      margin-top: ${props => props.$designSystem.spacing[6]};
+    }
+  }
   
   @media (max-width: ${props => props.$designSystem.breakpoints.lg}) {
     grid-template-columns: 1fr 1fr;
-    gap: ${props => props.$designSystem.spacing[8]};
+    gap: ${props => props.$designSystem.spacing[6]};
+    
+    .footer-brand {
+      grid-column: 1 / -1;
+      margin-bottom: ${props => props.$designSystem.spacing[4]};
+    }
+    
+    .footer-links-section {
+      grid-column: 1;
+    }
+    
+    .footer-legal-section {
+      grid-column: 2;
+    }
+    
+    .footer-social-section {
+      grid-column: 1 / -1;
+      margin-top: ${props => props.$designSystem.spacing[4]};
+      text-align: center;
+    }
   }
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     grid-template-columns: 1fr;
-    gap: ${props => props.$designSystem.spacing[8]};
+    gap: ${props => props.$designSystem.spacing[6]};
     text-align: center;
+    
+    .footer-brand,
+    .footer-links-section,
+    .footer-legal-section,
+    .footer-social-section {
+      grid-column: 1;
+      margin-top: 0;
+    }
   }
 `
 
@@ -799,12 +842,12 @@ const FooterBottom = styled.div<{ $theme: any; $designSystem: any }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: ${props => props.$designSystem.spacing[8]};
+  padding-top: ${props => props.$designSystem.spacing[6]};
   border-top: 1px solid ${props => props.$theme.colors.border.primary};
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     flex-direction: column;
-    gap: ${props => props.$designSystem.spacing[4]};
+    gap: ${props => props.$designSystem.spacing[3]};
     text-align: center;
   }
 `
@@ -818,7 +861,7 @@ const Copyright = styled.p<{ $theme: any; $designSystem: any }>`
 const FooterInfo = styled.div<{ $theme: any; $designSystem: any }>`
   display: flex;
   align-items: center;
-  gap: ${props => props.$designSystem.spacing[6]};
+  gap: ${props => props.$designSystem.spacing[4]};
   color: ${props => props.$theme.colors.text.tertiary};
   font-size: ${props => props.$designSystem.typography.scale.sm};
   
@@ -831,11 +874,13 @@ const FooterInfo = styled.div<{ $theme: any; $designSystem: any }>`
     display: flex;
     align-items: center;
     gap: ${props => props.$designSystem.spacing[2]};
+    white-space: nowrap;
     
     svg {
       width: 14px;
       height: 14px;
       color: ${props => props.$theme.colors.interactive.primary};
+      flex-shrink: 0;
     }
   }
 `
@@ -1117,14 +1162,22 @@ function Layout2025({ children, location }: LayoutProps) {
       <Footer $theme={theme} $designSystem={designSystem}>
         <FooterContent $theme={theme} $designSystem={designSystem}>
           <FooterGrid $theme={theme} $designSystem={designSystem}>
-            <FooterBrand $theme={theme} $designSystem={designSystem}>
+            <FooterBrand 
+              $theme={theme} 
+              $designSystem={designSystem}
+              className="footer-brand"
+            >
               <h3>Miquel Xarau</h3>
               <p>
                 Diseñador UX/UI y desarrollador fullstack especializado en IA y ciberseguridad.
               </p>
             </FooterBrand>
             
-            <FooterSection $theme={theme} $designSystem={designSystem}>
+            <FooterSection 
+              $theme={theme} 
+              $designSystem={designSystem}
+              className="footer-links-section"
+            >
               <h4>Enlaces</h4>
               <FooterLinks $theme={theme} $designSystem={designSystem}>
                 <FooterLink 
@@ -1165,7 +1218,11 @@ function Layout2025({ children, location }: LayoutProps) {
               </FooterLinks>
             </FooterSection>
             
-            <FooterSection $theme={theme} $designSystem={designSystem}>
+            <FooterSection 
+              $theme={theme} 
+              $designSystem={designSystem}
+              className="footer-legal-section"
+            >
               <h4>Legal</h4>
               <FooterLinks $theme={theme} $designSystem={designSystem}>
                 <FooterLink 
@@ -1192,8 +1249,12 @@ function Layout2025({ children, location }: LayoutProps) {
               </FooterLinks>
             </FooterSection>
             
-            <FooterSection $theme={theme} $designSystem={designSystem}>
-              <h4>Redes Sociales</h4>
+            <FooterSection 
+              $theme={theme} 
+              $designSystem={designSystem}
+              className="footer-social-section"
+            >
+              <h4>Conecta</h4>
               <SocialLinks $theme={theme} $designSystem={designSystem}>
                 <SocialLink 
                   href="https://github.com/mikexarau" 
@@ -1270,6 +1331,11 @@ function Layout2025({ children, location }: LayoutProps) {
         $isOpen={isMobileMenuOpen} 
         $designSystem={designSystem} 
         onClick={closeMobileMenu}
+      />
+      
+      <ScrollProgress 
+        variant="default"
+        hideOnPages={['/']}
       />
       
       <CustomCursor />

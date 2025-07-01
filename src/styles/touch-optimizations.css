@@ -1,0 +1,396 @@
+/* 🎯 OPTIMIZACIONES TÁCTILES - Sistema UX Mobile 2025 */
+
+/* ===== DETECCIÓN DE DISPOSITIVOS TÁCTILES ===== */
+
+/* 🔥 Eliminar todos los hovers en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  /* Resetear hovers globalmente */
+  *:hover,
+  *:focus:hover,
+  *:active:hover {
+    /* Eliminar transformaciones */
+    transform: none !important;
+    
+    /* Mantener colores originales */
+    background-color: inherit !important;
+    color: inherit !important;
+    border-color: inherit !important;
+    box-shadow: inherit !important;
+    
+    /* Eliminar efectos visuales */
+    opacity: inherit !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* 🎯 Carruseles - eliminar hover pause */
+  .carousel-track:hover {
+    animation-play-state: running !important;
+  }
+  
+  /* 🎯 Cards - eliminar efectos hover */
+  .carousel-card:hover,
+  .project-card:hover,
+  .work-card:hover {
+    transform: none !important;
+  }
+  
+  /* 🎯 Botones - mantener solo states táctiles */
+  button:hover,
+  .button:hover,
+  .btn:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+  
+  /* 🎯 Enlaces - eliminar underlines y efectos */
+  a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  
+  /* 🎯 Videos - eliminar controles hover */
+  video:hover {
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* ===== OPTIMIZACIONES PARA TOUCH TARGETS ===== */
+
+/* 🎯 Mínimos touch targets (44px según Apple Guidelines) */
+button,
+.button,
+.btn,
+a,
+input,
+select,
+textarea,
+[role="button"],
+[tabindex] {
+  min-height: 44px;
+  min-width: 44px;
+  
+  @media (max-width: 768px) {
+    min-height: 48px; /* Más grande en móvil pequeño */
+    min-width: 48px;
+  }
+}
+
+/* 🎯 Espaciado entre elementos táctiles */
+@media (max-width: 768px) {
+  .touch-targets {
+    gap: 12px; /* Mínimo 8px entre targets */
+  }
+  
+  .button-group button,
+  .button-group .button {
+    margin: 6px;
+  }
+}
+
+/* ===== ESTADOS TÁCTILES NATIVOS ===== */
+
+/* 🔥 Eliminar highlight azul por defecto */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 🎯 Permitir selección en elementos de texto */
+p, span, h1, h2, h3, h4, h5, h6, 
+.selectable-text,
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* 🎯 Estados :active para feedback táctil */
+button:active,
+.button:active,
+.btn:active,
+a:active,
+[role="button"]:active {
+  transform: scale(0.98) !important;
+  opacity: 0.8;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* ===== MICROINTERACCIONES TÁCTILES ===== */
+
+/* 🌊 Ripple containers */
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* 🎯 Spring animations para elementos táctiles */
+@keyframes touchSpring {
+  0% { transform: scale(1) translateZ(0); }
+  50% { transform: scale(0.95) translateZ(0); }
+  100% { transform: scale(1) translateZ(0); }
+}
+
+.touch-spring:active {
+  animation: touchSpring 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 🎯 Feedback visual para long press */
+@keyframes longPressGlow {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  70% { 
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.touch-long-press {
+  animation: longPressGlow 0.6s ease-out;
+}
+
+/* ===== CARRUSELES TÁCTILES ===== */
+
+/* 🎯 Smooth scrolling para carruseles */
+.carousel-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
+}
+
+/* 🎯 Indicadores de swipe */
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.swipe-indicator.left {
+  left: 16px;
+}
+
+.swipe-indicator.right {
+  right: 16px;
+}
+
+.swipe-indicator.active {
+  background: rgba(59, 130, 246, 0.8);
+  opacity: 1;
+}
+
+/* ===== OPTIMIZACIONES DE RENDIMIENTO MÓVIL ===== */
+
+@media (max-width: 768px) {
+  /* 🔥 Reducir animaciones complejas */
+  .reduce-motion {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* 🎯 Optimizar transforms para GPU */
+  .gpu-optimized {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* 🎯 Reducir blur y filtros costosos */
+  .backdrop-blur,
+  .filter-blur {
+    backdrop-filter: none !important;
+    filter: none !important;
+  }
+  
+  /* 🎯 Simplificar sombras */
+  .complex-shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* ===== ACCESSIBILITY TÁCTIL ===== */
+
+/* 🎯 Focus visible para navegación por teclado en touch devices */
+.touch-focus:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* 🎯 Estados de carga táctiles */
+.touch-loading {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.touch-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #3b82f6;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: touchSpin 1s linear infinite;
+}
+
+@keyframes touchSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== PULL-TO-REFRESH BEHAVIOR ===== */
+
+.pull-to-refresh {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pull-to-refresh-indicator {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  transition: top 0.3s ease;
+  z-index: 1000;
+}
+
+.pull-to-refresh-indicator.active {
+  top: 20px;
+}
+
+/* ===== SWIPE GESTURES FEEDBACK ===== */
+
+.swipe-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-feedback::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.swipe-feedback.swiping::before {
+  left: 100%;
+}
+
+/* ===== HAPTIC FEEDBACK SIMULADO ===== */
+
+.haptic-light {
+  animation: hapticLightPulse 0.1s ease;
+}
+
+.haptic-medium {
+  animation: hapticMediumPulse 0.15s ease;
+}
+
+.haptic-heavy {
+  animation: hapticHeavyPulse 0.2s ease;
+}
+
+@keyframes hapticLightPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes hapticMediumPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes hapticHeavyPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ===== SCROLL SNAP PARA CARRUSELES ===== */
+
+.carousel-snap {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 16px;
+}
+
+.carousel-snap > * {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ===== RESPONSIVE TOUCH TARGETS ===== */
+
+@media (max-width: 375px) {
+  /* iPhone SE y pantallas muy pequeñas */
+  button, .button, .btn {
+    min-height: 52px;
+    min-width: 52px;
+    font-size: 16px; /* Evitar zoom en iOS */
+  }
+  
+  input, select, textarea {
+    font-size: 16px; /* Evitar zoom en iOS */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Tablets */
+  button, .button, .btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* ===== DARK MODE ADAPTATIONS ===== */
+
+@media (prefers-color-scheme: dark) {
+  .touch-spring:active {
+    opacity: 0.7; /* Menos opacidad en dark mode */
+  }
+  
+  .swipe-indicator {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .swipe-indicator.active {
+    background: rgba(59, 130, 246, 0.9);
+  }
+} 

@@ -123,14 +123,15 @@ export const unifiedTokens = {
   },
 
   // 🔘 Border radius - Consistente y moderno
+  // REGLA CRÍTICA DEL DESIGN SYSTEM: Todos los botones DEBEN usar 'full'
   radius: {
     none: '0',
     sm: '0.25rem',
-    md: '0.5rem',
-    lg: '0.75rem',
-    xl: '1rem',
+    md: '0.5rem',     // Para formularios
+    lg: '0.75rem',    // Para cards y contenedores
+    xl: '1rem',       // Para secciones grandes
     '2xl': '1.5rem',
-    full: '9999px'
+    full: '9999px'    // ⚠️ OBLIGATORIO para todos los botones
   },
 
   // 🌟 Shadows - Suaves y realistas
@@ -265,7 +266,7 @@ export const unifiedButton = css<{
   justify-content: center;
   gap: ${unifiedTokens.spacing[2]};
   border: none;
-  border-radius: ${unifiedTokens.radius.lg};
+  border-radius: ${unifiedTokens.radius.full};
   font-family: ${unifiedTokens.typography.fonts.body};
   font-weight: ${unifiedTokens.typography.weight.medium};
   text-decoration: none;

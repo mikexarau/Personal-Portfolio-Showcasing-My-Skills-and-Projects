@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
 import { useLazyLoadingCleanup } from '../utils/lazy-loading-system'
+import { useTouchInteractions } from '../utils/useTouchInteractions'
+import TouchInteractions from './TouchInteractions'
 import logger from '../utils/logger'
 import { 
   FaGithub,
@@ -43,20 +45,31 @@ const CarouselTrack = styled.div<{
   $designSystem: any; 
   $cardWidth: number;
   $totalCards: number;
+  $isPaused: boolean;
+  $shouldDisableHover: boolean;
 }>`
   display: flex;
   gap: ${props => props.$designSystem.spacing[4]};
   width: ${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards * 2}px;
   animation: slideLoopRight ${props => props.$totalCards * 3}s linear infinite;
+  animation-play-state: ${props => props.$isPaused ? 'paused' : 'running'};
   
-  &:hover {
-    animation-play-state: paused;
-  }
+  /* 🔥 Solo aplicar hover pause en desktop */
+  ${props => !props.$shouldDisableHover && css`
+    &:hover {
+      animation-play-state: paused;
+    }
+  `}
   
   /* Mejorar la performance del scroll */
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  
+  /* 🎯 Optimizaciones táctiles */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
   
   @keyframes slideLoopRight {
     100% {
@@ -64,6 +77,13 @@ const CarouselTrack = styled.div<{
     }
     0% {
       transform: translateX(-${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards}px);
+    }
+  }
+  
+  /* 🔥 Eliminar hover effects en móvil */
+  @media (hover: none) and (pointer: coarse) {
+    &:hover {
+      animation-play-state: running !important;
     }
   }
 `

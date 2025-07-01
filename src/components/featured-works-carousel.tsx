@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
+import { useTouchInteractions } from '../utils/useTouchInteractions'
+import TouchInteractions from './TouchInteractions'
 import { 
   FiArrowRight,
   FiCalendar,
   FiCode,
   FiEye,
-  FiExternalLink
+  FiExternalLink,
+  FiChevronLeft,
+  FiChevronRight
 } from 'react-icons/fi'
 
 // Query para obtener todos los proyectos del YAML
@@ -109,20 +113,31 @@ const CarouselTrack = styled.div<{
   $designSystem: any; 
   $cardWidth: number;
   $totalCards: number;
+  $isPaused: boolean;
+  $shouldDisableHover: boolean;
 }>`
   display: flex;
   gap: ${props => props.$designSystem.spacing[4]};
   width: ${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards * 2}px;
   animation: slideLoop ${props => props.$totalCards * 3}s linear infinite;
+  animation-play-state: ${props => props.$isPaused ? 'paused' : 'running'};
   
-  &:hover {
-    animation-play-state: paused;
-  }
+  /* 🔥 Solo aplicar hover pause en desktop */
+  ${props => !props.$shouldDisableHover && css`
+    &:hover {
+      animation-play-state: paused;
+    }
+  `}
   
   /* Mejorar la performance del scroll */
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  
+  /* 🎯 Optimizaciones táctiles */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
   
   @keyframes slideLoop {
     100% {
@@ -130,6 +145,13 @@ const CarouselTrack = styled.div<{
     }
     0% {
       transform: translateX(0);
+    }
+  }
+  
+  /* 🔥 Eliminar hover effects en móvil */
+  @media (hover: none) and (pointer: coarse) {
+    &:hover {
+      animation-play-state: running !important;
     }
   }
 `
@@ -140,6 +162,7 @@ const CarouselCard = styled.div<{
   $designSystem: any; 
   $isDark: boolean;
   $cardWidth: number;
+  $shouldDisableHover: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -154,38 +177,40 @@ const CarouselCard = styled.div<{
   isolation: auto;
   will-change: auto;
   
-  /* Hover effect unificado: toda la card (visual + info) se mueve junta */
-  &:hover {
-    /* 🔥 MOBILE FIX: No usar transform en mobile que interfiere con badge z-index */
-    @media (min-width: ${props => props.$designSystem.breakpoints.md}) {
-      transform: translateY(-8px);
-    }
-    
-    .card-visual {
-      .work-image {
-        transform: scale(1.05);
+  /* 🔥 Solo aplicar hover effects en desktop */
+  ${props => !props.$shouldDisableHover && css`
+    &:hover {
+      /* 🔥 MOBILE FIX: No usar transform en mobile que interfiere con badge z-index */
+      @media (min-width: ${props.$designSystem.breakpoints.md}) {
+        transform: translateY(-8px);
       }
+      
+      .card-visual {
+        .work-image {
+          transform: scale(1.05);
+        }
 
-      .work-overlay {
-        opacity: 1;
-      }
-      
-      .work-content {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      
-      /* 🔥 Badge hover effect sin interferencia */
-      .work-badge {
-        @media (min-width: ${props => props.$designSystem.breakpoints.md}) {
-          transform: translateY(-4px) translateZ(999px) !important;
+        .work-overlay {
+          opacity: 1;
         }
-        @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-          transform: translateZ(999px) scale(1.05) !important;
+        
+        .work-content {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        
+        /* 🔥 Badge hover effect sin interferencia */
+        .work-badge {
+          @media (min-width: ${props.$designSystem.breakpoints.md}) {
+            transform: translateY(-4px) translateZ(999px) !important;
+          }
+          @media (max-width: ${props.$designSystem.breakpoints.md}) {
+            transform: translateZ(999px) scale(1.05) !important;
+          }
         }
       }
     }
-  }
+  `}
   
   /* 🔥 MOBILE: Asegurar que no haya stacking context issues */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
@@ -193,6 +218,29 @@ const CarouselCard = styled.div<{
     isolation: auto !important;
     will-change: auto !important;
     transform: none !important;
+  }
+  
+  /* 🔥 Eliminar hover effects en dispositivos táctiles */
+  @media (hover: none) and (pointer: coarse) {
+    &:hover {
+      transform: none !important;
+      
+      .card-visual {
+        .work-image {
+          transform: none !important;
+        }
+        .work-overlay {
+          opacity: 0 !important;
+        }
+        .work-content {
+          transform: translateY(16px) !important;
+          opacity: 0 !important;
+        }
+        .work-badge {
+          transform: translateZ(999px) !important;
+        }
+      }
+    }
   }
 `
 
@@ -836,6 +884,48 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
   const projects: ProjectFromYaml[] = data?.allProjectsYaml?.edges?.map((edge: any) => edge.node) || []
   const videoFiles = data?.allFile?.nodes || []
   
+  // 🎯 Touch interactions para carrusel
+  const {
+    isTouchDevice,
+    shouldDisableHover,
+    isSwipeLeft,
+    isSwipeRight,
+    triggerHapticFeedback
+  } = useTouchInteractions({
+    swipeThreshold: 80,
+    velocityThreshold: 0.4,
+    hapticFeedback: true
+  })
+  
+  // 🎯 Estado para pausar carrusel
+  const [isPaused, setIsPaused] = useState(false)
+  
+  // 🎯 Manejar gestos de swipe
+  useEffect(() => {
+    if (isSwipeLeft || isSwipeRight) {
+      // Pausar temporalmente el carrusel durante swipe
+      setIsPaused(true)
+      triggerHapticFeedback('medium')
+      
+      // Reanudar después de 2 segundos
+      setTimeout(() => setIsPaused(false), 2000)
+    }
+  }, [isSwipeLeft, isSwipeRight, triggerHapticFeedback])
+  
+  // 🎯 Pausar carrusel en touch para mejor UX
+  const handleTouchStart = () => {
+    if (isTouchDevice) {
+      setIsPaused(true)
+    }
+  }
+  
+  const handleTouchEnd = () => {
+    if (isTouchDevice) {
+      // Reanudar después de 1 segundo
+      setTimeout(() => setIsPaused(false), 1000)
+    }
+  }
+  
   // Duplicar projects para efecto loop infinito
   const allProjects = [...projects, ...projects]
   
@@ -937,14 +1027,34 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
 
   return (
     <CarouselContainer $theme={theme} $designSystem={designSystem} className={className}>
-      <CarouselWrapper $designSystem={designSystem}>        
-        {/* Track del carrusel */}
-        <CarouselTrack
-          $theme={theme}
+      <TouchInteractions
+        onSwipeLeft={() => {
+          setIsPaused(true)
+          triggerHapticFeedback('light')
+          setTimeout(() => setIsPaused(false), 1500)
+        }}
+        onSwipeRight={() => {
+          setIsPaused(true)
+          triggerHapticFeedback('light') 
+          setTimeout(() => setIsPaused(false), 1500)
+        }}
+        enableRipple={false}
+        enableSpring={false}
+      >
+        <CarouselWrapper 
           $designSystem={designSystem}
-          $cardWidth={cardWidth}
-          $totalCards={projects.length}
-        >
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >        
+          {/* Track del carrusel */}
+          <CarouselTrack
+            $theme={theme}
+            $designSystem={designSystem}
+            $cardWidth={cardWidth}
+            $totalCards={projects.length}
+            $isPaused={isPaused}
+            $shouldDisableHover={shouldDisableHover}
+          >
           {allProjects.map((project, index) => (
             <CarouselCard 
               key={`${project.id}-${index}`}
@@ -952,6 +1062,7 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
               $designSystem={designSystem}
               $isDark={isDark}
               $cardWidth={cardWidth}
+              $shouldDisableHover={shouldDisableHover}
             >
               {/* Card visual con enlace */}
               <CardVisual 
@@ -1056,8 +1167,9 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
               </CardInfo>
             </CarouselCard>
           ))}
-        </CarouselTrack>
-      </CarouselWrapper>
+          </CarouselTrack>
+        </CarouselWrapper>
+      </TouchInteractions>
     </CarouselContainer>
   )
 }

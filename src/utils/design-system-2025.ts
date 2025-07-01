@@ -140,17 +140,18 @@ export const designSystem2025 = {
   },
 
   // 🔘 Border Radius - Más variedad, inspirado en Pangram
+  // REGLA CRÍTICA: Todos los botones DEBEN usar 'full' para máxima consistencia
   radius: {
     none: '0',
     xs: '0.125rem',   // 2px
     sm: '0.375rem',   // 6px
     base: '0.5rem',   // 8px
-    md: '0.75rem',    // 12px
-    lg: '1rem',       // 16px
-    xl: '1.5rem',     // 24px
+    md: '0.75rem',    // 12px - Para formularios
+    lg: '1rem',       // 16px - Para cards
+    xl: '1.5rem',     // 24px - Para contenedores
     '2xl': '2rem',    // 32px
     '3xl': '2.5rem',  // 40px
-    full: '9999px'
+    full: '9999px'    // ⚠️ OBLIGATORIO para todos los botones
   },
 
   // 🌊 Shadows - Sistema expandido con más opciones
