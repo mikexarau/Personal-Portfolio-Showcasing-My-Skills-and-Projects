@@ -579,7 +579,16 @@ const ProjectShowcase = ({
                 playsInline
                 controls={false}
                 preload="metadata"
-              />
+                aria-label={`Video showcase: ${media.name}`}
+                title={`Video del proyecto - ${media.name}`}
+              >
+                <track 
+                  kind="captions" 
+                  srcLang="es" 
+                  label="Español"
+                  default
+                />
+              </video>
             </VideoContainer>
           )}
 

@@ -795,8 +795,16 @@ const LazyVideoComponent: React.FC<{
       playsInline
       loop
       onError={handleVideoError}
+      aria-label={`Video promocional del proyecto ${projectTitle}`}
+      title={`Proyecto ${projectTitle} - Preview`}
     >
       <source src={videoUrl} type="video/mp4" />
+      <track 
+        kind="captions" 
+        srcLang="es" 
+        label="Español"
+        default
+      />
     </WorkVideo>
   )
 }

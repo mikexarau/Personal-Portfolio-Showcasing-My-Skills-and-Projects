@@ -202,6 +202,8 @@ export const OptimizedVideo: React.FC<OptimizedVideoProps> = ({
           onLoadedData={handleLoadedData}
           onError={handleError}
           onCanPlay={handleCanPlay}
+          aria-label="Video optimizado con carga inteligente"
+          title="Video del proyecto"
           className={`w-full h-auto transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
@@ -217,6 +219,13 @@ export const OptimizedVideo: React.FC<OptimizedVideoProps> = ({
               type={source.type} 
             />
           ))}
+          
+          <track 
+            kind="captions" 
+            srcLang="es" 
+            label="Español"
+            default
+          />
           
           {/* Mensaje de fallback */}
           <div className="p-4 bg-gray-100 text-center">

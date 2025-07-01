@@ -39,6 +39,7 @@ import { Helmet } from 'react-helmet'
 import '../styles/global-unified-2025.css'
 import CustomCursor from './CustomCursor'
 import CookieBanner from './CookieBanner'
+import { CRITICAL_A11Y_CSS } from '../utils/accessibility-performance-2025'
 
 // 🌐 Global Styles - Modern and Clean
 const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
@@ -882,6 +883,8 @@ function Layout2025({ children, location }: LayoutProps) {
   return (
     <LayoutContainer $theme={theme}>
       <GlobalStyle $theme={theme} $designSystem={designSystem} />
+      {/* Estilos críticos de accesibilidad */}
+      <style dangerouslySetInnerHTML={{ __html: CRITICAL_A11Y_CSS }} />
       <Helmet>
         <title>Miquel Xarau - Portfolio</title>
         <meta name="description" content="Miquel Xarau's portfolio showcasing his skills and projects" />
@@ -890,6 +893,11 @@ function Layout2025({ children, location }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://miquelxarau.com" />
       </Helmet>
+      
+      {/* Skip link para accesibilidad */}
+      <Link to="#main-content" className="skip-link">
+        Saltar al contenido principal
+      </Link>
       
       <Header $theme={theme} $isScrolled={isScrolled} $designSystem={designSystem}>
         <Nav $theme={theme} $designSystem={designSystem}>
@@ -971,7 +979,12 @@ function Layout2025({ children, location }: LayoutProps) {
             <Link to="/" className="logo" onClick={closeMobileMenu}>
               Miquel Xarau
             </Link>
-            <button className="close-btn" onClick={closeMobileMenu}>
+            <button 
+              className="close-btn" 
+              onClick={closeMobileMenu}
+              aria-label="Cerrar menú de navegación"
+              title="Cerrar menú"
+            >
               <FiX />
             </button>
           </MobileMenuHeader>
@@ -1091,6 +1104,7 @@ function Layout2025({ children, location }: LayoutProps) {
       </MobileMenu>
 
       <Main 
+        id="main-content"
         $theme={theme} 
         $designSystem={designSystem}
         className={location?.pathname?.includes('blog') || location?.pathname?.includes('devsecops') || location?.pathname?.includes('penetration') || location?.pathname?.includes('smart-contract') || location?.pathname?.includes('threat-detection') || location?.pathname?.includes('ai-powered') || location?.pathname?.includes('application-security') ? 'blog-page' : ''}

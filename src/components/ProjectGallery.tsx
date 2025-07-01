@@ -532,7 +532,16 @@ const ProjectGallery = ({
                         console.warn(`Error loading video: ${media.name}`, e)
                         e.currentTarget.style.display = 'none'
                       }}
-                    />
+                      aria-label={`Video del proyecto ${projectTitle}: ${media.name}`}
+                      title={`Video del proyecto ${projectTitle}`}
+                    >
+                      <track 
+                        kind="captions" 
+                        srcLang="es" 
+                        label="Español"
+                        default
+                      />
+                    </VideoElement>
                   ) : media.isImage && media.childImageSharp?.gatsbyImageData ? (
                     <ImageElement>
                       <GatsbyImage
@@ -553,7 +562,11 @@ const ProjectGallery = ({
                     </UnsupportedFileElement>
                   )}
                   
-                  <button className="expand-button">
+                  <button 
+                    className="expand-button"
+                    aria-label={`Ampliar ${media.isVideo ? 'video' : 'imagen'}: ${media.name}`}
+                    title={`Ver ${media.isVideo ? 'video' : 'imagen'} en pantalla completa`}
+                  >
                     <FiMaximize2 />
                   </button>
                 </div>
@@ -577,11 +590,19 @@ const ProjectGallery = ({
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <ModalControls $theme={theme}>
               {selectedMedia.isVideo && (
-                <button onClick={togglePlay}>
+                <button 
+                  onClick={togglePlay}
+                  aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
+                  title={isPlaying ? 'Pausar' : 'Reproducir'}
+                >
                   {isPlaying ? <FiPause /> : <FiPlay />}
                 </button>
               )}
-              <button onClick={closeModal}>
+              <button 
+                onClick={closeModal}
+                aria-label="Cerrar modal"
+                title="Cerrar vista completa"
+              >
                 <FiX />
               </button>
             </ModalControls>
@@ -596,7 +617,16 @@ const ProjectGallery = ({
                 onError={(e) => {
                   console.warn(`Error loading video in modal: ${selectedMedia.name}`, e)
                 }}
-              />
+                aria-label={`Video en pantalla completa del proyecto ${projectTitle}: ${selectedMedia.name}`}
+                title={`Video del proyecto ${projectTitle}`}
+              >
+                <track 
+                  kind="captions" 
+                  srcLang="es" 
+                  label="Español"
+                  default
+                />
+              </video>
             ) : selectedMedia.isImage && selectedMedia.childImageSharp?.gatsbyImageData ? (
               (() => {
                 const image = getImage(selectedMedia.childImageSharp.gatsbyImageData)

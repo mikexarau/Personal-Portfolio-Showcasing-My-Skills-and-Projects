@@ -439,10 +439,11 @@ const ElegantMainContent = styled.div<{ $theme: any; $designSystem: any }>`
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
     padding: 2rem;
-    background: ${props => props.$theme?.colors?.bg?.secondary || '#f8fafc'};
+    background: ${props => props.$theme?.colors?.bg?.primary || '#ffffff'};
     border-radius: ${props => props.$designSystem?.borderRadius?.xl || '1rem'};
-    border: 1px solid ${props => props.$theme?.colors?.border?.primary || '#e5e7eb'};
+    border: 2px solid ${props => props.$theme?.colors?.border?.primary || '#d1d5db'};
     margin-top: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
   
   .detail-item {
@@ -457,8 +458,8 @@ const ElegantMainContent = styled.div<{ $theme: any; $designSystem: any }>`
   
   .detail-label {
     font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
-    color: ${props => props.$theme?.colors?.text?.tertiary || '#9ca3af'};
-    font-weight: ${props => props.$designSystem?.typography?.weight?.medium || '500'};
+    color: ${props => props.$theme?.colors?.text?.secondary || '#4b5563'};
+    font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -478,16 +479,19 @@ const ElegantMainContent = styled.div<{ $theme: any; $designSystem: any }>`
   
   .tech-badge {
     padding: 0.375rem 0.875rem;
-    background: ${props => props.$theme?.colors?.interactive?.primary || '#3b82f6'}15;
-    color: ${props => props.$theme?.colors?.interactive?.primary || '#3b82f6'};
+    background: ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'};
+    color: ${props => props.$theme?.colors?.text?.inverse || '#ffffff'};
+    border: 1px solid ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'};
     border-radius: ${props => props.$designSystem?.borderRadius?.full || '9999px'};
     font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
-    font-weight: ${props => props.$designSystem?.typography?.weight?.medium || '500'};
+    font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
     transition: all 0.2s ease;
     
     &:hover {
-      background: ${props => props.$theme?.colors?.interactive?.primary || '#3b82f6'}25;
+      background: ${props => props.$theme?.colors?.interactive?.hover || '#1e40af'};
+      border-color: ${props => props.$theme?.colors?.interactive?.hover || '#1e40af'};
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'}40;
     }
   }
   
