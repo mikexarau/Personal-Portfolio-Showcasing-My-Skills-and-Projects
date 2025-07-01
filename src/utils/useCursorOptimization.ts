@@ -96,6 +96,7 @@ export const useSmoothCursorPosition = () => {
 // Device detection for cursor behavior
 export const useDeviceDetection = () => {
   const isTouchDevice = useCallback((): boolean => {
+    // 🔒 SSR Protection
     if (typeof window === 'undefined') return false;
     
     return (
@@ -107,18 +108,21 @@ export const useDeviceDetection = () => {
   }, []);
 
   const isMobile = useCallback((): boolean => {
+    // 🔒 SSR Protection
     if (typeof window === 'undefined') return false;
     
     return window.innerWidth <= 768;
   }, []);
 
   const supportsHover = useCallback((): boolean => {
+    // 🔒 SSR Protection - Default to true for SSR
     if (typeof window === 'undefined') return true;
     
     return window.matchMedia('(hover: hover)').matches;
   }, []);
 
   const prefersReducedMotion = useCallback((): boolean => {
+    // 🔒 SSR Protection - Default to false for SSR
     if (typeof window === 'undefined') return false;
     
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -57,7 +57,7 @@ const BannerText = styled.div<{ $theme: any; $designSystem: any }>`
 const BannerActions = styled.div<{ $designSystem: any }>`
   display: flex;
   gap: ${props => props.$designSystem.spacing[3]};
-  align-items: center;
+  flex-shrink: 0;
   
   @media (max-width: 768px) {
     flex-direction: column;
@@ -66,50 +66,37 @@ const BannerActions = styled.div<{ $designSystem: any }>`
   }
 `
 
-const Button = styled.button<{ $variant: 'primary' | 'secondary' | 'minimal'; $theme: any; $designSystem: any }>`
+const BannerButton = styled.button<{ $variant: 'primary' | 'secondary'; $theme: any; $designSystem: any }>`
   padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[5]};
-  border-radius: ${props => props.$designSystem.radius.full};
+  border-radius: ${props => props.$designSystem.radius.md};
   font-family: ${props => props.$designSystem.typography.fonts.sans};
   font-size: ${props => props.$designSystem.typography.scale.sm};
   font-weight: ${props => props.$designSystem.typography.weight.medium};
-  border: none;
   cursor: pointer;
+  border: none;
   transition: all 0.2s ease;
   
-  ${props => props.$variant === 'primary' && `
+  ${props => props.$variant === 'primary' ? `
     background: ${props.$theme.colors.interactive.primary};
     color: ${props.$theme.colors.text.inverse};
     
     &:hover {
-      background: ${props.$theme.colors.interactive.secondary};
+      background: ${props.$theme.colors.interactive.hover};
       transform: translateY(-1px);
     }
-  `}
-  
-  ${props => props.$variant === 'secondary' && `
-    background: ${props.$theme.colors.bg.secondary};
-    color: ${props.$theme.colors.text.primary};
+  ` : `
+    background: transparent;
+    color: ${props.$theme.colors.text.secondary};
     border: 1px solid ${props.$theme.colors.border.primary};
     
     &:hover {
-      background: ${props.$theme.colors.bg.tertiary};
-    }
-  `}
-  
-  ${props => props.$variant === 'minimal' && `
-    background: transparent;
-    color: ${props.$theme.colors.text.tertiary};
-    padding: ${props.$designSystem.spacing[2]} ${props.$designSystem.spacing[3]};
-    
-    &:hover {
-      color: ${props.$theme.colors.text.secondary};
       background: ${props.$theme.colors.bg.secondary};
+      color: ${props.$theme.colors.text.primary};
     }
   `}
   
   @media (max-width: 768px) {
-    width: 100%;
-    padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[4]};
+    padding: ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]};
   }
 `
 
@@ -119,113 +106,96 @@ const PreferencesModal = styled.div<{ $isOpen: boolean; $theme: any; $designSyst
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: ${props => props.$isOpen ? 'flex' : 'none'};
-  align-items: center;
-  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   z-index: 1001;
-  padding: ${props => props.$designSystem.spacing[4]};
-`
-
-const ModalContent = styled.div<{ $theme: any; $designSystem: any }>`
-  background: ${props => props.$theme.colors.bg.primary};
-  border-radius: ${props => props.$designSystem.radius.xl};
-  padding: ${props => props.$designSystem.spacing[8]};
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  
-  @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[6]};
-  }
-`
-
-const ModalTitle = styled.h3<{ $theme: any; $designSystem: any }>`
-  font-family: ${props => props.$designSystem.typography.fonts.display};
-  font-size: ${props => props.$designSystem.typography.scale['2xl']};
-  font-weight: ${props => props.$designSystem.typography.weight.bold};
-  color: ${props => props.$theme.colors.text.primary};
-  margin-bottom: ${props => props.$designSystem.spacing[6]};
-`
-
-const CookieCategory = styled.div<{ $designSystem: any }>`
-  margin-bottom: ${props => props.$designSystem.spacing[6]};
-  padding-bottom: ${props => props.$designSystem.spacing[4]};
-  border-bottom: 1px solid ${props => props.$designSystem.colors?.border?.primary || '#e5e5e5'};
-  
-  &:last-child {
-    border-bottom: none;
-  }
-`
-
-const CategoryHeader = styled.div<{ $designSystem: any }>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: ${props => props.$designSystem.spacing[3]};
+  justify-content: center;
+  padding: ${props => props.$designSystem.spacing[4]};
+  opacity: ${props => props.$isOpen ? 1 : 0};
+  visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
+  transition: all 0.3s ease;
 `
 
-const CategoryTitle = styled.h4<{ $theme: any; $designSystem: any }>`
-  font-size: ${props => props.$designSystem.typography.scale.lg};
-  font-weight: ${props => props.$designSystem.typography.weight.semibold};
-  color: ${props => props.$theme.colors.text.primary};
-  margin: 0;
+const PreferencesContent = styled.div<{ $theme: any; $designSystem: any }>`
+  background: ${props => props.$theme.colors.bg.primary};
+  border-radius: ${props => props.$designSystem.radius.lg};
+  padding: ${props => props.$designSystem.spacing[8]};
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  
+  h3 {
+    margin: 0 0 ${props => props.$designSystem.spacing[6]} 0;
+    color: ${props => props.$theme.colors.text.primary};
+    font-size: ${props => props.$designSystem.typography.scale.xl};
+    font-weight: ${props => props.$designSystem.typography.weight.semibold};
+  }
 `
 
-const Toggle = styled.input<{ $theme: any }>`
-  appearance: none;
-  width: 44px;
-  height: 24px;
-  background: ${props => props.$theme.colors.bg.tertiary};
-  border-radius: 12px;
-  position: relative;
+const PreferenceGroup = styled.div<{ $designSystem: any }>`
+  margin-bottom: ${props => props.$designSystem.spacing[6]};
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+`
+
+const PreferenceLabel = styled.label<{ $theme: any; $designSystem: any }>`
+  display: flex;
+  align-items: flex-start;
+  gap: ${props => props.$designSystem.spacing[3]};
+  margin-bottom: ${props => props.$designSystem.spacing[4]};
   cursor: pointer;
-  transition: background 0.2s ease;
   
-  &:checked {
-    background: ${props => props.$theme.colors.interactive.primary};
+  input {
+    margin-top: 2px;
+    accent-color: ${props => props.$theme.colors.interactive.primary};
   }
   
-  &:before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: white;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.2s ease;
-  }
-  
-  &:checked:before {
-    transform: translateX(20px);
-  }
-  
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  .label-content {
+    flex: 1;
+    
+    .label-title {
+      font-weight: ${props => props.$designSystem.typography.weight.medium};
+      color: ${props => props.$theme.colors.text.primary};
+      margin-bottom: ${props => props.$designSystem.spacing[1]};
+    }
+    
+    .label-description {
+      font-size: ${props => props.$designSystem.typography.scale.sm};
+      color: ${props => props.$theme.colors.text.secondary};
+      line-height: ${props => props.$designSystem.typography.leading.relaxed};
+    }
   }
 `
 
-const CategoryDescription = styled.p<{ $theme: any; $designSystem: any }>`
-  font-size: ${props => props.$designSystem.typography.scale.sm};
-  color: ${props => props.$theme.colors.text.secondary};
-  margin: 0;
-  line-height: ${props => props.$designSystem.typography.leading.relaxed};
+const PreferencesActions = styled.div<{ $designSystem: any }>`
+  display: flex;
+  gap: ${props => props.$designSystem.spacing[3]};
+  margin-top: ${props => props.$designSystem.spacing[8]};
+  justify-content: flex-end;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
-// 🎯 Tipos de preferencias
+// 🎯 Types
 interface CookiePreferences {
   necessary: boolean
   analytics: boolean
   functional: boolean
 }
 
-// 🎯 Componente Principal
+// 🎯 Loading placeholder to prevent hydration issues
+const CookieBannerPlaceholder: React.FC = () => null
+
+// 🎯 Componente Principal - SSR Protected
 const CookieBanner: React.FC = () => {
-  const { theme, designSystem } = useTheme2025()
+  const { theme, designSystem, isClient } = useTheme2025()
   const [isVisible, setIsVisible] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -234,8 +204,10 @@ const CookieBanner: React.FC = () => {
     functional: false
   })
 
-  // 🔍 Verificar si ya hay consentimiento guardado
+  // 🔒 SSR Protection: Only show banner after hydration
   useEffect(() => {
+    if (!isClient) return
+
     const savedConsent = localStorage.getItem('cookie-consent')
     const savedPreferences = localStorage.getItem('cookie-preferences')
     
@@ -250,10 +222,12 @@ const CookieBanner: React.FC = () => {
         console.warn('Error parsing saved cookie preferences')
       }
     }
-  }, [])
+  }, [isClient])
 
-  // 💾 Guardar preferencias
+  // 💾 Guardar preferencias - only on client
   const savePreferences = (prefs: CookiePreferences) => {
+    if (!isClient) return
+
     localStorage.setItem('cookie-consent', 'true')
     localStorage.setItem('cookie-preferences', JSON.stringify(prefs))
     localStorage.setItem('cookie-consent-date', new Date().toISOString())
@@ -292,148 +266,141 @@ const CookieBanner: React.FC = () => {
     savePreferences(onlyNecessary)
   }
 
-  // ⚙️ Guardar preferencias personalizadas
+  // ⚙️ Mostrar preferencias
+  const showPreferencesModal = () => {
+    setShowPreferences(true)
+  }
+
+  // 💾 Guardar preferencias personalizadas
   const saveCustomPreferences = () => {
     savePreferences(preferences)
   }
 
-  // 🔄 Actualizar preferencia individual
-  const updatePreference = (key: keyof CookiePreferences, value: boolean) => {
-    setPreferences(prev => ({
-      ...prev,
-      [key]: value
-    }))
+  // 🚫 Don't render during SSR
+  if (!isClient) {
+    return <CookieBannerPlaceholder />
   }
 
-  if (!isVisible) return null
+  // Si no está visible, no renderizar
+  if (!isVisible) {
+    return null
+  }
 
   return (
     <>
       <BannerContainer $isVisible={isVisible} $theme={theme} $designSystem={designSystem}>
         <BannerContent $designSystem={designSystem}>
           <BannerText $theme={theme} $designSystem={designSystem}>
-            <strong>🍪 Respeto tu privacidad.</strong> Este sitio utiliza cookies únicamente para analíticas 
-            anónimas y mejorar tu experiencia. No comparto tus datos personales. 
-            <br />
-            <a href="/privacy-policy" target="_blank">Ver política de privacidad</a> | 
-            <a href="/cookie-policy" target="_blank"> Política de cookies</a>
+            Utilizamos cookies para mejorar tu experiencia de navegación, analizar el tráfico del sitio y personalizar el contenido. 
+            Al hacer clic en "Aceptar todas", consientes el uso de todas las cookies. 
+            Puedes gestionar tus preferencias en cualquier momento.{' '}
+            <a href="/cookie-policy/">Política de Cookies</a> | <a href="/privacy-policy/">Privacidad</a>
           </BannerText>
           
           <BannerActions $designSystem={designSystem}>
-            <Button 
-              $variant="minimal" 
-              $theme={theme} 
+            <BannerButton
+              $variant="secondary"
+              $theme={theme}
               $designSystem={designSystem}
-              onClick={() => setShowPreferences(true)}
+              onClick={showPreferencesModal}
             >
-              Personalizar
-            </Button>
-            <Button 
-              $variant="secondary" 
-              $theme={theme} 
+              Preferencias
+            </BannerButton>
+            <BannerButton
+              $variant="secondary"
+              $theme={theme}
               $designSystem={designSystem}
               onClick={rejectOptional}
             >
               Solo necesarias
-            </Button>
-            <Button 
-              $variant="primary" 
-              $theme={theme} 
+            </BannerButton>
+            <BannerButton
+              $variant="primary"
+              $theme={theme}
               $designSystem={designSystem}
               onClick={acceptAll}
             >
               Aceptar todas
-            </Button>
+            </BannerButton>
           </BannerActions>
         </BannerContent>
       </BannerContainer>
 
-      {/* Modal de Preferencias */}
       <PreferencesModal $isOpen={showPreferences} $theme={theme} $designSystem={designSystem}>
-        <ModalContent $theme={theme} $designSystem={designSystem}>
-          <ModalTitle $theme={theme} $designSystem={designSystem}>
-            Preferencias de Cookies
-          </ModalTitle>
-
-          <CookieCategory $designSystem={designSystem}>
-            <CategoryHeader $designSystem={designSystem}>
-              <CategoryTitle $theme={theme} $designSystem={designSystem}>
-                Cookies Necesarias
-              </CategoryTitle>
-              <Toggle 
-                type="checkbox" 
+        <PreferencesContent $theme={theme} $designSystem={designSystem}>
+          <h3>Preferencias de Cookies</h3>
+          
+          <PreferenceGroup $designSystem={designSystem}>
+            <PreferenceLabel $theme={theme} $designSystem={designSystem}>
+              <input
+                type="checkbox"
                 checked={preferences.necessary}
-                disabled={true}
-                $theme={theme}
+                disabled
+                readOnly
               />
-            </CategoryHeader>
-            <CategoryDescription $theme={theme} $designSystem={designSystem}>
-              Estas cookies son esenciales para el funcionamiento básico del sitio web. 
-              No se pueden desactivar ya que permiten la navegación y funcionalidades básicas.
-            </CategoryDescription>
-          </CookieCategory>
+              <div className="label-content">
+                <div className="label-title">Cookies Necesarias</div>
+                <div className="label-description">
+                  Estas cookies son esenciales para el funcionamiento básico del sitio web y no se pueden desactivar.
+                </div>
+              </div>
+            </PreferenceLabel>
+          </PreferenceGroup>
 
-          <CookieCategory $designSystem={designSystem}>
-            <CategoryHeader $designSystem={designSystem}>
-              <CategoryTitle $theme={theme} $designSystem={designSystem}>
-                Cookies de Analíticas
-              </CategoryTitle>
-              <Toggle 
-                type="checkbox" 
+          <PreferenceGroup $designSystem={designSystem}>
+            <PreferenceLabel $theme={theme} $designSystem={designSystem}>
+              <input
+                type="checkbox"
                 checked={preferences.analytics}
-                onChange={(e) => updatePreference('analytics', e.target.checked)}
-                $theme={theme}
+                onChange={(e) => setPreferences(prev => ({ ...prev, analytics: e.target.checked }))}
               />
-            </CategoryHeader>
-            <CategoryDescription $theme={theme} $designSystem={designSystem}>
-              Nos ayudan a entender cómo los visitantes interactúan con el sitio web mediante 
-              la recopilación y el informe de información de forma anónima. Utilizamos Google Analytics 
-              con IP anonimizada y configuración privacy-first.
-            </CategoryDescription>
-          </CookieCategory>
+              <div className="label-content">
+                <div className="label-title">Cookies de Análisis</div>
+                <div className="label-description">
+                  Nos ayudan a entender cómo los visitantes interactúan con el sitio web mediante la recopilación y notificación de información de forma anónima.
+                </div>
+              </div>
+            </PreferenceLabel>
+          </PreferenceGroup>
 
-          <CookieCategory $designSystem={designSystem}>
-            <CategoryHeader $designSystem={designSystem}>
-              <CategoryTitle $theme={theme} $designSystem={designSystem}>
-                Cookies Funcionales
-              </CategoryTitle>
-              <Toggle 
-                type="checkbox" 
+          <PreferenceGroup $designSystem={designSystem}>
+            <PreferenceLabel $theme={theme} $designSystem={designSystem}>
+              <input
+                type="checkbox"
                 checked={preferences.functional}
-                onChange={(e) => updatePreference('functional', e.target.checked)}
-                $theme={theme}
+                onChange={(e) => setPreferences(prev => ({ ...prev, functional: e.target.checked }))}
               />
-            </CategoryHeader>
-            <CategoryDescription $theme={theme} $designSystem={designSystem}>
-              Permiten al sitio web recordar tus preferencias (como modo oscuro/claro) 
-              para una experiencia más personalizada.
-            </CategoryDescription>
-          </CookieCategory>
+              <div className="label-content">
+                <div className="label-title">Cookies Funcionales</div>
+                <div className="label-description">
+                  Permiten al sitio web proporcionar una funcionalidad y personalización mejoradas, como recordar tus preferencias.
+                </div>
+              </div>
+            </PreferenceLabel>
+          </PreferenceGroup>
 
-          <BannerActions $designSystem={designSystem}>
-            <Button 
-              $variant="secondary" 
-              $theme={theme} 
+          <PreferencesActions $designSystem={designSystem}>
+            <BannerButton
+              $variant="secondary"
+              $theme={theme}
               $designSystem={designSystem}
               onClick={() => setShowPreferences(false)}
             >
               Cancelar
-            </Button>
-            <Button 
-              $variant="primary" 
-              $theme={theme} 
+            </BannerButton>
+            <BannerButton
+              $variant="primary"
+              $theme={theme}
               $designSystem={designSystem}
               onClick={saveCustomPreferences}
             >
-              Guardar preferencias
-            </Button>
-          </BannerActions>
-        </ModalContent>
+              Guardar Preferencias
+            </BannerButton>
+          </PreferencesActions>
+        </PreferencesContent>
       </PreferencesModal>
     </>
   )
 }
-
-// 🌍 Usar gtag sin declaración conflictiva
 
 export default CookieBanner 

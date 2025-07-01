@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
 import { useLazyLoadingCleanup } from '../utils/lazy-loading-system'
-import { logger } from '../utils/logger'
+import logger from '../utils/logger'
 import { 
   FaGithub,
   FaExternalLinkAlt,

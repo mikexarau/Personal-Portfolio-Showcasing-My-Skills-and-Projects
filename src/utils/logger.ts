@@ -14,89 +14,99 @@ interface LogEntry {
 }
 
 class Logger {
-  private isDevelopment = process.env.NODE_ENV === 'development';
   private logs: LogEntry[] = [];
+  private isClient: boolean = false;
 
-  private createLogEntry(level: LogLevel, message: string, context?: string, data?: any): LogEntry {
-    return {
+  constructor() {
+    // 🔒 SSR Protection: Only initialize browser features after hydration
+    if (typeof window !== 'undefined') {
+      this.isClient = true;
+      // Inicializar características del navegador solo en el cliente
+      this.initializeBrowserFeatures();
+    }
+  }
+
+  private initializeBrowserFeatures() {
+    if (!this.isClient) return;
+
+    // Cargar logs guardados del localStorage solo en el cliente
+    try {
+      const savedLogs = localStorage.getItem('portfolio-logs');
+      if (savedLogs) {
+        this.logs = JSON.parse(savedLogs);
+      }
+    } catch (error) {
+      console.warn('Error loading saved logs:', error);
+    }
+  }
+
+  private saveToStorage() {
+    if (!this.isClient) return;
+
+    try {
+      const recentLogs = this.logs.slice(-100); // Mantener solo los últimos 100 logs
+      localStorage.setItem('portfolio-logs', JSON.stringify(recentLogs));
+    } catch (error) {
+      console.warn('Error saving logs to localStorage:', error);
+    }
+  }
+
+  private log(level: LogLevel, message: string, context?: string, data?: any) {
+    const entry: LogEntry = {
       timestamp: new Date().toISOString(),
       level,
       message,
       context,
       data
     };
-  }
 
-  private shouldLog(level: LogLevel): boolean {
-    // En producción, solo logear errores
-    if (!this.isDevelopment) {
-      return level === 'error';
-    }
-    return true;
-  }
-
-  private formatMessage(entry: LogEntry): string {
-    const prefix = `[${entry.timestamp}] [${entry.level.toUpperCase()}]`;
-    const context = entry.context ? ` [${entry.context}]` : '';
-    return `${prefix}${context} ${entry.message}`;
-  }
-
-  debug(message: string, context?: string, data?: any): void {
-    if (!this.shouldLog('debug')) return;
-    
-    const entry = this.createLogEntry('debug', message, context, data);
     this.logs.push(entry);
     
-    if (this.isDevelopment) {
-      console.debug(this.formatMessage(entry), data || '');
+    // 🔒 Solo guardar en localStorage si estamos en el cliente
+    if (this.isClient) {
+      this.saveToStorage();
+    }
+
+    // Output to console in development
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      const consoleMethod = level === 'error' ? 'error' : level === 'warn' ? 'warn' : 'log';
+      const prefix = context ? `[${context}]` : '';
+      console[consoleMethod](`${prefix} ${message}`, data || '');
     }
   }
 
-  info(message: string, context?: string, data?: any): void {
-    if (!this.shouldLog('info')) return;
-    
-    const entry = this.createLogEntry('info', message, context, data);
-    this.logs.push(entry);
-    
-    if (this.isDevelopment) {
-      console.info(this.formatMessage(entry), data || '');
+  info(message: string, context?: string, data?: any) {
+    this.log('info', message, context, data);
+  }
+
+  warn(message: string, context?: string, data?: any) {
+    this.log('warn', message, context, data);
+  }
+
+  error(message: string, context?: string, data?: any) {
+    this.log('error', message, context, data);
+  }
+
+  debug(message: string, context?: string, data?: any) {
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      this.log('debug', message, context, data);
     }
   }
 
-  warn(message: string, context?: string, data?: any): void {
-    if (!this.shouldLog('warn')) return;
-    
-    const entry = this.createLogEntry('warn', message, context, data);
-    this.logs.push(entry);
-    
-    if (this.isDevelopment) {
-      console.warn(this.formatMessage(entry), data || '');
+  getLogs(): LogEntry[] {
+    return [...this.logs];
+  }
+
+  clearLogs() {
+    this.logs = [];
+    if (this.isClient) {
+      localStorage.removeItem('portfolio-logs');
     }
   }
 
-  error(message: string, context?: string, data?: any): void {
-    const entry = this.createLogEntry('error', message, context, data);
-    this.logs.push(entry);
-    
-    // Los errores siempre se muestran
-    console.error(this.formatMessage(entry), data || '');
-    
-    // En producción, podrías enviar a un servicio de monitoreo
-    if (!this.isDevelopment) {
-      this.reportError(entry);
-    }
-  }
-
-  private reportError(entry: LogEntry): void {
-    // Aquí podrías integrar con servicios como Sentry, LogRocket, etc.
-    // Por ahora, solo almacenamos localmente
-    try {
-      const errors = JSON.parse(localStorage.getItem('portfolio_errors') || '[]');
-      errors.push(entry);
-      localStorage.setItem('portfolio_errors', JSON.stringify(errors.slice(-50))); // Mantener últimos 50 errores
-    } catch (e) {
-      // Silenciar errores de localStorage
-    }
+  // 🎯 Method to export logs for debugging
+  exportLogs(): string {
+    return JSON.stringify(this.logs, null, 2);
   }
 
   // Métodos específicos para casos comunes
@@ -111,23 +121,9 @@ class Logger {
   performanceLog(metric: string, value: number, unit: string = 'ms'): void {
     this.info(`Performance: ${metric} = ${value}${unit}`, 'PERFORMANCE');
   }
-
-  // Obtener logs para debugging
-  getLogs(level?: LogLevel): LogEntry[] {
-    if (level) {
-      return this.logs.filter(log => log.level === level);
-    }
-    return [...this.logs];
-  }
-
-  // Limpiar logs
-  clearLogs(): void {
-    this.logs = [];
-  }
 }
 
-// Instancia singleton
-export const logger = new Logger();
+// 🎯 Singleton instance with SSR protection
+const logger = new Logger();
 
-// Exports para compatibilidad
 export default logger; 

@@ -89,7 +89,7 @@ const OptimizedVideoElement = styled.video<{ $theme: any }>`
   }
 `
 
-// 🎯 **SOLUCIÓN 3: MEJOR LOADING STATE CON SKELETON**
+// 🎯 **SOLUCIÓN 3: LOADING STATE CON DIMENSIONES CONSISTENTES**
 const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
   display: ${props => props.$isVisible ? 'flex' : 'none'};
   align-items: center;
@@ -103,23 +103,42 @@ const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
   );
   background-size: 400% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
-  min-height: 250px;
+  
+  /* 🎯 DIMENSIONES CONSISTENTES CON VIDEO */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Ratio estándar para consistencia */
+  min-height: 200px;
+  max-height: 400px;
+  
   border-radius: inherit;
   position: relative;
   
   &::before {
     content: '▶';
-    font-size: 48px;
+    font-size: clamp(24px, 4vw, 48px); /* Responsive play icon */
     color: ${props => props.$theme.colors.text.secondary}60;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2;
   }
   
+  /* 🎯 SHIMMER EFFECT MÁS SUTIL */
   @keyframes shimmer {
     0% { background-position: -400% 0; }
     100% { background-position: 400% 0; }
+  }
+  
+  /* 📱 MOBILE: Ajustes responsivos */
+  @media (max-width: 768px) {
+    min-height: 150px;
+    max-height: 300px;
+    
+    &::before {
+      font-size: 32px;
+    }
   }
 `
 
@@ -131,12 +150,22 @@ class VideoPerformanceManager {
   private playPromises: Map<string, Promise<void>> = new Map()
   private throttleTimeout: NodeJS.Timeout | null = null
   private isProcessing = false
+  private isCarouselMode = false // Flag para detectar si estamos en modo carousel
 
   static getInstance(): VideoPerformanceManager {
     if (!VideoPerformanceManager.instance) {
       VideoPerformanceManager.instance = new VideoPerformanceManager()
     }
     return VideoPerformanceManager.instance
+  }
+
+  // 🎯 MÉTODO PARA MANEJAR VIDEOS DE CAROUSEL DIFERENTE
+  setCarouselMode(enabled: boolean) {
+    this.isCarouselMode = enabled
+    if (enabled) {
+      // En modo carousel, usamos settings más agresivos
+      console.log('VideoPerformanceManager: Activando modo carousel')
+    }
   }
 
   // 🚀 **SIMPLIFIED INTERSECTION OBSERVER**
@@ -228,21 +257,59 @@ class VideoPerformanceManager {
     await Promise.allSettled(playPromises)
   }
 
-  // 📝 **REGISTRAR VIDEO EN EL MANAGER**
+  // 📝 **REGISTRAR VIDEO CON DETECCIÓN INTELIGENTE**
   registerVideo(videoId: string, video: HTMLVideoElement) {
+    console.log(`Registrando video: ${videoId}`)
     this.videoQueue.set(videoId, video)
     
     // Crear observer si no existe
     if (!this.observer) {
       this.observer = this.createOptimizedObserver()
     }
-    
-    // Observar video con delay para asegurar montaje
-    requestAnimationFrame(() => {
+
+    // 🎯 DETECCIÓN INMEDIATA PARA VIDEOS CACHED
+    const performImmediateCheck = () => {
+      if (!video.parentElement) {
+        console.log(`Video ${videoId} no tiene parent - retrasando check`)
+        return
+      }
+      
+      const rect = video.getBoundingClientRect()
+      const isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100
+      
+      console.log(`Video ${videoId} - Visible: ${isVisible}, ReadyState: ${video.readyState}`)
+      
+      // Si el video ya está listo y visible, reproducir inmediatamente
+      if (isVisible && video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
+        console.log(`Video ${videoId} CACHED y visible - reproduciendo inmediatamente`)
+        
+        // Reset y play inmediato para videos cached
+        video.currentTime = 0
+        video.muted = true
+        video.playsInline = true
+        
+        const playPromise = video.play().catch((error) => {
+          console.log(`Video ${videoId} autoplay prevented:`, error)
+        })
+        
+        this.playPromises.set(videoId, playPromise)
+      }
+      
+      // Siempre observar para futuros cambios
       if (this.observer && video.parentElement) {
         this.observer.observe(video)
       }
-    })
+    }
+
+    // 🚀 MÚLTIPLES INTENTOS PARA ASEGURAR DETECCIÓN
+    // Inmediato
+    requestAnimationFrame(performImmediateCheck)
+    
+    // Backup después de 100ms
+    setTimeout(performImmediateCheck, 100)
+    
+    // Backup final después de 300ms
+    setTimeout(performImmediateCheck, 300)
   }
 
   // 🗑️ **LIMPIAR VIDEO DEL MANAGER**
@@ -299,7 +366,7 @@ interface OptimizedVideoProps {
   onError?: (error: any) => void
 }
 
-// 🎬 **COMPONENTE PRINCIPAL OPTIMIZADO**
+// 🎬 **COMPONENTE PRINCIPAL OPTIMIZADO CON FIX DE RELOAD**
 const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
   src,
   videoId,
@@ -315,16 +382,57 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const managerRef = useRef<VideoPerformanceManager>()
+  const hasCheckedReadyState = useRef(false)
 
-  // 🎯 Inicializar manager
+  // 🎯 Inicializar manager con reset en reload
   useEffect(() => {
     managerRef.current = VideoPerformanceManager.getInstance()
+    
+    // 🚀 RESET MANAGER EN RELOAD para evitar estado stale
+    if (!hasCheckedReadyState.current) {
+      managerRef.current.cleanup()
+      managerRef.current = VideoPerformanceManager.getInstance()
+    }
+    
     return () => {
       if (managerRef.current) {
         managerRef.current.unregisterVideo(videoId)
       }
     }
   }, [videoId])
+
+  // 🎯 FIX CRÍTICO: Verificar si video ya está listo después de reload
+  useEffect(() => {
+    if (videoRef.current && !hasCheckedReadyState.current) {
+      const video = videoRef.current
+      hasCheckedReadyState.current = true
+      
+      // Verificar si el video ya está listo (cached)
+      if (video.readyState >= 3) { // HAVE_FUTURE_DATA o superior
+        console.log(`Video ${videoId} ya está listo (cached)`)
+        setIsLoading(false)
+        onLoad?.()
+      }
+    }
+  }, [videoId, onLoad])
+
+  // 🚀 TIMEOUT DE SEGURIDAD para casos edge
+  useEffect(() => {
+    const safetyTimeout = setTimeout(() => {
+      if (isLoading && videoRef.current) {
+        const video = videoRef.current
+        console.warn(`Video ${videoId} timeout - forzando carga`)
+        
+        // Verificar estado del video
+        if (video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
+          setIsLoading(false)
+          onLoad?.()
+        }
+      }
+    }, 3000) // 3 segundos de timeout
+
+    return () => clearTimeout(safetyTimeout)
+  }, [isLoading, videoId, onLoad])
 
   // 📝 Registrar video cuando esté listo
   useEffect(() => {
@@ -337,10 +445,15 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
       video.playsInline = true
       video.loop = loop
       
-      // Registrar en el manager
-      managerRef.current.registerVideo(videoId, video)
+      // 🎯 DELAY PARA ASEGURAR DOM READY
+      const registerTimeout = setTimeout(() => {
+        if (managerRef.current && video.parentElement) {
+          managerRef.current.registerVideo(videoId, video)
+        }
+      }, 100)
       
       return () => {
+        clearTimeout(registerTimeout)
         if (managerRef.current) {
           managerRef.current.unregisterVideo(videoId)
         }
@@ -348,17 +461,25 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
     }
   }, [videoId, muted, loop])
 
-  // 🎯 Handlers optimizados
+  // 🎯 Handlers optimizados con mejor detección
   const handleLoadedData = useCallback(() => {
+    console.log(`Video ${videoId} loaded data`)
     setIsLoading(false)
     onLoad?.()
-  }, [onLoad])
+  }, [videoId, onLoad])
+
+  const handleCanPlay = useCallback(() => {
+    console.log(`Video ${videoId} can play`)
+    setIsLoading(false)
+    onLoad?.()
+  }, [videoId, onLoad])
 
   const handleError = useCallback((error: any) => {
+    console.error(`Video ${videoId} error:`, error)
     setHasError(true)
     setIsLoading(false)
     onError?.(error)
-  }, [onError])
+  }, [videoId, onError])
 
   if (hasError) {
     return (
@@ -394,10 +515,10 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
         loop={loop}
         onLoadedData={handleLoadedData}
         onError={handleError}
-        onCanPlay={handleLoadedData}
-        onCanPlayThrough={() => setIsLoading(false)}
+        onCanPlay={handleCanPlay}
+        onCanPlayThrough={handleCanPlay}
+        onLoadedMetadata={handleCanPlay}
         aria-label={`Video ${videoId}`}
-        poster={`${src.replace(/\.(mp4|webm|mov)$/, '')}-poster.jpg`}
         style={{ display: isLoading ? 'none' : 'block' }}
       >
         <source src={src} type="video/webm" />

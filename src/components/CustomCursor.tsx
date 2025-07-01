@@ -13,6 +13,7 @@ interface CursorState {
 
 const CustomCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = useState(false);
   const [position, setPosition] = useState<CursorPosition>({ x: 0, y: 0 });
   const [cursorState, setCursorState] = useState<CursorState>({ 
     type: 'default', 
@@ -21,11 +22,16 @@ const CustomCursor: React.FC = () => {
 
   const { getElementCursorState } = useCursorStateDetection();
 
-  // Detect touch devices
-  const isTouchDevice = useCallback(() => {
-    if (typeof window === 'undefined') return false;
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  // 🔒 SSR Protection: Only render after hydration
+  useEffect(() => {
+    setIsClient(true);
   }, []);
+
+  // Detect touch devices - only on client
+  const isTouchDevice = useCallback(() => {
+    if (!isClient || typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, [isClient]);
 
   // Ultra-smooth cursor movement - direct position updates
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -79,9 +85,9 @@ const CustomCursor: React.FC = () => {
     }
   }, [isTouchDevice]);
 
-  // Setup all event listeners
+  // Setup all event listeners - ONLY after hydration
   useEffect(() => {
-    if (isTouchDevice()) {
+    if (!isClient || isTouchDevice()) {
       setCursorState({ type: 'default', visible: false });
       return;
     }
@@ -101,10 +107,10 @@ const CustomCursor: React.FC = () => {
       document.removeEventListener('mouseout', handleMouseOut);
       document.removeEventListener('click', handleClick);
     };
-  }, [handleMouseMove, handleMouseEnter, handleMouseLeave, handleMouseOver, handleMouseOut, handleClick, isTouchDevice]);
+  }, [isClient, handleMouseMove, handleMouseEnter, handleMouseLeave, handleMouseOver, handleMouseOut, handleClick, isTouchDevice]);
 
-  // Don't render on touch devices
-  if (isTouchDevice()) {
+  // 🚫 Don't render during SSR or on touch devices
+  if (!isClient || isTouchDevice()) {
     return null;
   }
 

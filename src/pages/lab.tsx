@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import Layout2025 from '../components/layout-2025'
 import SEO from '../components/SEO'
 import { useTheme2025 } from '../utils/theme-context-2025'
-import { logger } from '../utils/logger'
+import logger from '../utils/logger'
 import { 
   PageHeader, 
   ModernSection,

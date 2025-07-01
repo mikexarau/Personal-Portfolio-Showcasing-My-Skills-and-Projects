@@ -3,7 +3,6 @@ import { Link, useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import styled, { keyframes } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
-// import { useLazyVideo, lazyLoadingSystem } from '../utils/lazy-loading-system' // Deshabilitado temporalmente
 import { 
   FiArrowRight,
   FiCalendar,
@@ -708,8 +707,8 @@ interface FeaturedWorksCarouselProps {
   className?: string
 }
 
-// 🎥 Componente de video directo - Sin lazy loading inicial
-const LazyVideoComponent: React.FC<{
+// 🎥 COMPONENTE UNIFICADO - USA EL SISTEMA OPTIMIZADO
+const UnifiedVideoComponent: React.FC<{
   videoUrl: string
   projectId: string 
   index: number
@@ -718,61 +717,63 @@ const LazyVideoComponent: React.FC<{
   const { theme, designSystem } = useTheme2025()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hasError, setHasError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isClient, setIsClient] = useState(false)
 
-  // Auto-configurar video cuando se monta
+  // 🚀 PROTECCIÓN SSR - Solo ejecutar en cliente
   useEffect(() => {
-    if (!videoRef.current) return
+    setIsClient(true)
+  }, [])
+
+
+
+
+    // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
+  useEffect(() => {
+    if (!isClient || !videoRef.current) return
 
     const video = videoRef.current
     
-    // Configurar video inmediatamente
+    // Configuración básica
     video.muted = true
     video.playsInline = true
     video.loop = true
-    
-    // Cargar video inmediatamente si es uno de los primeros
-    if (index < 6) {
-      video.load()
-      
-      // Intentar reproducir después de un pequeño delay
-      setTimeout(() => {
-        video.play().catch(() => {
-          console.log('Autoplay prevented for video:', projectId)
-        })
-      }, 100)
-    }
+    video.preload = 'metadata'
+    video.setAttribute('webkit-playsinline', 'true')
+    video.controls = false
 
-    // Observer para videos que no son prioritarios
-    if (index >= 6) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              video.load()
-              video.play().catch(() => {
-                console.log('Autoplay prevented for video:', projectId)
+    // Observer simple
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsLoading(false)
+            
+            // AUTOPLAY DIRECTO - SIN VERIFICACIONES COMPLICADAS
+            setTimeout(() => {
+              video.currentTime = 0
+              video.play().then(() => {
+                console.log(`✅ Carousel video ${projectId} playing`)
+              }).catch(() => {
+                console.log(`⚠️ Carousel video ${projectId} autoplay blocked`)
               })
-              observer.unobserve(entry.target)
-            }
-          })
-        },
-        { 
-          threshold: 0.1,
-          rootMargin: '100px 0px'
-        }
-      )
+            }, 100)
+            
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '50px' }
+    )
 
-      observer.observe(video)
+    observer.observe(video)
 
-      return () => {
-        observer.disconnect()
-      }
+    return () => {
+      observer.disconnect()
     }
-  }, [projectId, index])
+  }, [projectId, isClient])
 
-  const handleVideoError = () => {
-    setHasError(true)
-  }
+
 
   if (hasError) {
     return (
@@ -785,27 +786,46 @@ const LazyVideoComponent: React.FC<{
     )
   }
 
+  // 🚀 SSR SAFE: Mostrar placeholder hasta que el cliente esté listo
+  if (!isClient) {
+    return (
+      <VideoLoadingPlaceholder 
+        $theme={theme} 
+        $designSystem={designSystem}
+      >
+        <FiEye size={48} />
+      </VideoLoadingPlaceholder>
+    )
+  }
+
   return (
-    <WorkVideo 
-      ref={videoRef}
-      $designSystem={designSystem}
-      data-video-id={`featured-${projectId}-${index}`}
-      preload={index < 6 ? "metadata" : "none"}
-      muted
-      playsInline
-      loop
-      onError={handleVideoError}
-      aria-label={`Video promocional del proyecto ${projectTitle}`}
-      title={`Proyecto ${projectTitle} - Preview`}
-    >
-      <source src={videoUrl} type="video/mp4" />
-      <track 
-        kind="captions" 
-        srcLang="es" 
-        label="Español"
-        default
-      />
-    </WorkVideo>
+    <>
+      {isLoading && (
+        <VideoLoadingPlaceholder 
+          className="loading"
+          $theme={theme} 
+          $designSystem={designSystem}
+        >
+          <FiEye size={48} />
+        </VideoLoadingPlaceholder>
+      )}
+      
+      <WorkVideo 
+        ref={videoRef}
+        $designSystem={designSystem}
+        data-video-id={`carousel-${projectId}-${index}`}
+        preload="metadata"
+        muted
+        playsInline
+        loop
+        style={{ display: isLoading ? 'none' : 'block' }}
+        aria-label={`Video promocional del proyecto ${projectTitle}`}
+        title={`Proyecto ${projectTitle} - Preview`}
+      >
+        <source src={videoUrl} type="video/mp4" />
+        <source src={videoUrl.replace('.mp4', '.webm')} type="video/webm" />
+      </WorkVideo>
+    </>
   )
 }
 
@@ -961,7 +981,7 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
                         const videoUrl = getProjectVideo(project)
                         
                         if (videoUrl) {
-                          return <LazyVideoComponent 
+                          return <UnifiedVideoComponent 
                             videoUrl={videoUrl}
                             projectId={project.id}
                             index={index}

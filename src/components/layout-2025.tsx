@@ -850,19 +850,21 @@ interface LayoutProps {
 
 // 🏗️ Main Layout Component
 function Layout2025({ children, location }: LayoutProps) {
-  const { theme, designSystem, isDark, toggleTheme } = useTheme2025()
+  const { theme, designSystem, isDark, toggleTheme, isClient } = useTheme2025()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  // Handle scroll effect
+  // Handle scroll effect - ONLY after hydration
   useEffect(() => {
+    if (!isClient) return
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isClient])
 
   // Handle mobile menu
   const toggleMobileMenu = () => {

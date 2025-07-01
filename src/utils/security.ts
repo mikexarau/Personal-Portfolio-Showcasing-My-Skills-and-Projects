@@ -172,6 +172,60 @@ export const secureLog = (message: string, data?: any) => {
   }
 }
 
+export const sanitizeInput = (input: string): string => {
+  return input
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+=/gi, '')
+    .trim()
+}
+
+export const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return emailRegex.test(email)
+}
+
+export const validateURL = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
+}
+
+export const isSecureContext = (): boolean => {
+  // 🔒 SSR Protection
+  if (typeof window === 'undefined') return true // Assume secure during SSR
+  
+  return window.isSecureContext || location.protocol === 'https:'
+}
+
+export const checkCSPViolation = (callback: (event: SecurityPolicyViolationEvent) => void): void => {
+  // 🔒 SSR Protection - Only add listeners on client
+  if (typeof document === 'undefined') return
+  
+  document.addEventListener('securitypolicyviolation', callback)
+}
+
+export const removeCSPViolationListener = (callback: (event: SecurityPolicyViolationEvent) => void): void => {
+  // 🔒 SSR Protection
+  if (typeof document === 'undefined') return
+  
+  document.removeEventListener('securitypolicyviolation', callback)
+}
+
+export const getSecurityHeadersNew = () => {
+  return {
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'",
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+  }
+}
+
 export default {
   SECURITY_CONFIG,
   sanitizeHtml,
@@ -183,5 +237,12 @@ export default {
   createThrottle,
   createRateLimiter,
   validateFileUpload,
-  secureLog
+  secureLog,
+  sanitizeInput,
+  validateEmail,
+  validateURL,
+  isSecureContext,
+  checkCSPViolation,
+  removeCSPViolationListener,
+  getSecurityHeadersNew
 } 

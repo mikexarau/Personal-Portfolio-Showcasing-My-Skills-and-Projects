@@ -15,6 +15,7 @@ interface Theme2025ContextType {
   designSystem: typeof designSystem2025
   isDark: boolean
   toggleTheme: () => void
+  isClient: boolean
 }
 
 // 🎨 Light Theme - Clean and Professional (UNIFIED)
@@ -67,12 +68,20 @@ const darkTheme: Theme2025 = {
 // 🎭 Theme Context
 const Theme2025Context = createContext<Theme2025ContextType | undefined>(undefined)
 
-// 🎯 Theme Provider - Simplified and Unified
+// 🎯 Theme Provider - SSR Protected
 export function ThemeProvider2025({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   
-  // 💾 Persist theme preference
+  // 🔒 SSR Protection: Mark when hydration is complete
   useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  // 💾 Persist theme preference - ONLY after hydration
+  useEffect(() => {
+    if (!isClient) return
+
     const savedTheme = localStorage.getItem('theme-2025')
     if (savedTheme) {
       setIsDark(savedTheme === 'dark')
@@ -81,11 +90,12 @@ export function ThemeProvider2025({ children }: { children: React.ReactNode }) {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
       setIsDark(prefersDark)
     }
-  }, [])
+  }, [isClient])
 
   useEffect(() => {
+    if (!isClient) return
     localStorage.setItem('theme-2025', isDark ? 'dark' : 'light')
-  }, [isDark])
+  }, [isDark, isClient])
 
   const toggleTheme = () => {
     setIsDark(prev => !prev)
@@ -99,7 +109,8 @@ export function ThemeProvider2025({ children }: { children: React.ReactNode }) {
         theme: currentTheme,
         designSystem: designSystem2025,
         isDark,
-        toggleTheme
+        toggleTheme,
+        isClient
       }}
     >
       {children}
