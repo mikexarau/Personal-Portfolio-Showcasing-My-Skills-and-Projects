@@ -9,7 +9,7 @@ import { useTheme2025 } from '../utils/theme-context-2025'
 import { 
   PageHeader, 
   ModernSection 
-} from '../components/ui-components-2025'
+} from '../components/ui-components'
 import { skillsData } from '../utils/skills-data'
 import {
   FaLinkedin

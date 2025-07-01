@@ -8,7 +8,7 @@ import {
   PageHeader, 
   ModernSection,
   ModernCard
-} from '../components/ui-components-2025'
+} from '../components/ui-components'
 import { 
   FaGithub,
   FaFlask,
@@ -101,7 +101,19 @@ const ProjectsGrid = styled.div<{ $designSystem: any }>`
   }
 `
 
-const ProjectCard = styled(ModernCard)<{ $theme: any; $designSystem: any }>`
+const ProjectCard = styled.div<{ $theme: any; $designSystem: any }>`
+  background: ${props => props.$theme.colors.bg.secondary};
+  border: 1px solid ${props => props.$theme.colors.border.primary};
+  border-radius: ${props => props.$designSystem.radius.xl};
+  padding: ${props => props.$designSystem.spacing[6]};
+  transition: all ${props => props.$designSystem.animation.duration.normal} ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border-color: ${props => props.$theme.colors.interactive.primary}50;
+  }
   animation: ${fadeInUp} 0.6s ease-out;
   height: fit-content;
   
@@ -490,9 +502,6 @@ const Lab: React.FC = () => {
               {repositories.map((repo) => (
                 <ProjectCard
                   key={repo.id}
-                  hover
-                  padding="lg"
-                  $variant="elevated"
                   $theme={theme}
                   $designSystem={designSystem}
                 >

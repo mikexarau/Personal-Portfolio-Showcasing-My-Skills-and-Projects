@@ -5,7 +5,7 @@ import SEO from '../components/SEO'
 import { useTheme2025 } from '../utils/theme-context-2025'
 import { 
   PageHeader 
-} from '../components/ui-components-2025'
+} from '../components/ui-components'
 import { 
   FaBrain,
   FaShieldAlt,

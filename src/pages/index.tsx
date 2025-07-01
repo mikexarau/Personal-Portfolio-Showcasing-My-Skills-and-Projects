@@ -9,7 +9,7 @@ import {
   ModernButton,
   ModernSection,
   ModernCard
-} from '../components/ui-components-2025'
+} from '../components/ui-components'
 import { 
   FiArrowRight,
   FiMail,
