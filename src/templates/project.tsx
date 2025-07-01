@@ -1506,10 +1506,14 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
 
       </Container>
       
-      <Container $theme={theme} $designSystem={designSystem}>
-
-        {/* 🎯 CARRUSEL IDÉNTICO AL DE HOME */}
-        <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+      {/* 🎯 CARRUSEL OTROS TRABAJOS - ANCHO COMPLETO COMO HOME */}
+      <div style={{ 
+        marginTop: '4rem', 
+        marginBottom: '2rem',
+        background: theme.colors.bg.primary 
+      }}>
+        {/* Títulos con Container pero carrusel fuera para ancho completo */}
+        <Container $theme={theme} $designSystem={designSystem}>
           <h2 style={{ 
             textAlign: 'center', 
             marginBottom: '1rem',
@@ -1517,7 +1521,7 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
             fontWeight: '600',
             color: theme.colors.text.primary 
           }}>
-            Más proyectos
+            Otros trabajos
           </h2>
           <p style={{ 
             textAlign: 'center', 
@@ -1527,9 +1531,11 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
           }}>
             Explora otros trabajos destacados
           </p>
-          <FeaturedWorksCarousel />
-        </div>
-      </Container>
+        </Container>
+        
+        {/* Carrusel fuera del Container para ocupar todo el ancho */}
+        <FeaturedWorksCarousel />
+      </div>
     </Layout2025>
   )
 }
