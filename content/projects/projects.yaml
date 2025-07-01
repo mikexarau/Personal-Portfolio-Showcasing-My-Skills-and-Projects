@@ -201,4 +201,17 @@
 
   Creación de piezas audiovisuales para múltiples formatos: stories de Instagram, posts de Facebook, banners web y contenido para pantallas internas del sistema TRAM. Trabajo colaborativo que combinó creatividad, narrative storytelling y objetivos de comunicación pública, mejorando la percepción y uso del transporte sostenible en el área metropolitana de Barcelona.
 
-  Resultados: Las campañas aumentaron la concienciación sobre el fraude en el transporte público y mejoraron la imagen de marca del TRAM como medio de transporte moderno y accesible."  
+  Resultados: Las campañas aumentaron la concienciación sobre el fraude en el transporte público y mejoraron la imagen de marca del TRAM como medio de transporte moderno y accesible."
+
+- title: "Ebae"
+  title_detail: "Ecosistema digital completo para empresa de interiorismo y reformas"
+  from: "2020"
+  slug: "ebae"
+  category: "#UX/UI #Full-Stack #Lead UX #Interiorismo #E-commerce #Responsive"
+  color: "#8B4513"
+  images: "ebae"
+  cover: "./ebae/projects-ebae-001.mp4"
+  link: > # ignore newlines until "baseurl:"
+    <a href="https://ebae.es/" target="_blank" 
+    style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
+  desc: "Liderazgo completo del diseño UX/UI y desarrollo full-stack para Ebae, empresa barcelonesa especializada en interiorismo, reformas integrales y decoración de espacios residenciales y comerciales. Creación de identidad digital que refleja su filosofía 'Despreocupa't, tu ho somies, nosaltres ho creem'. El proyecto abarcó desde research e arquitectura de información hasta implementación de plataforma e-commerce con gestión de proyectos, portfolio interactivo, sistema de presupuestos online y blog corporativo 'Home Loving'. Desarrollo de experiencia de usuario optimizada para el proceso completo de reforma: desde la consulta inicial hasta la entrega final, incluyendo herramientas de visualización de proyectos y agenda de eventos 'Home Lovers'. Solución integral que posicionó a Ebae como referente digital en el sector del interiorismo catalán, mejorando significativamente la captación de clientes y la gestión de proyectos."  

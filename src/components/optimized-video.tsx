@@ -1,266 +1,330 @@
-import React, { useRef, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useLazyVideo } from '../utils/lazy-loading-system'
-import { useTheme2025 } from '../utils/theme-context-2025'
-import { FiPlay, FiLoader } from 'react-icons/fi'
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import styled from 'styled-components';
+import { useLazyVideo } from '../utils/lazy-loading-system';
+import { useTheme2025 } from '../utils/theme-context-2025';
+import { FiPlay, FiLoader } from 'react-icons/fi';
 
 interface OptimizedVideoProps {
-  src: string
-  id: string
-  poster?: string
-  className?: string
-  priority?: 'low' | 'normal' | 'high' | 'critical'
-  showControls?: boolean
-  aspectRatio?: 'landscape' | 'portrait' | 'square' | 'ultra-wide'
-  onError?: () => void
+  src: string;
+  poster?: string;
+  className?: string;
+  autoplay?: boolean;
+  muted?: boolean;
+  loop?: boolean;
+  controls?: boolean;
+  preload?: 'none' | 'metadata' | 'auto';
+  onLoadStart?: () => void;
+  onLoadEnd?: () => void;
+  fallbackImage?: string;
+  quality?: 'low' | 'medium' | 'high';
+  onClick?: () => void;
 }
 
-// 🎬 Container adaptativo según aspect ratio
-const VideoContainer = styled.div<{ 
-  $aspectRatio: string;
-  $theme: any;
-  $designSystem: any;
-}>`
-  position: relative;
-  width: 100%;
-  background: ${props => props.$theme.colors.bg.secondary};
-  border-radius: ${props => props.$designSystem.radius.lg};
-  overflow: hidden;
-  
-  /* Aspect ratios optimizados */
-  aspect-ratio: ${props => {
-    switch (props.$aspectRatio) {
-      case 'portrait': return '9 / 16'
-      case 'square': return '1 / 1'
-      case 'ultra-wide': return '21 / 9'
-      case 'landscape':
-      default: return '16 / 9'
-    }
-  }};
-  
-  /* Optimizaciones de rendering */
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  
-  @media (max-width: 768px) {
-    border-radius: ${props => props.$designSystem.radius.md};
-  }
-`
-
-// 🎥 Video element optimizado
-const Video = styled.video<{ $designSystem: any }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  
-  /* Suavizado para mejor calidad visual */
-  filter: brightness(1.02) contrast(1.05);
-  
-  /* Optimizaciones de performance */
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  
-  /* Estados del video */
-  &[data-loading="true"] {
-    opacity: 0;
-    transition: opacity ${props => props.$designSystem.animation.duration.normal} ease;
-  }
-  
-  &[data-loaded="true"] {
-    opacity: 1;
-  }
-`
-
-// 🔄 Loading placeholder
-const LoadingPlaceholder = styled.div<{ $theme: any; $designSystem: any }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: ${props => props.$designSystem.spacing[3]};
-  background: linear-gradient(135deg, 
-    ${props => props.$theme.colors.bg.secondary} 0%, 
-    ${props => props.$theme.colors.bg.tertiary} 100%
-  );
-  color: ${props => props.$theme.colors.text.secondary};
-  transition: opacity ${props => props.$designSystem.animation.duration.normal} ease;
-  
-  &[data-hidden="true"] {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .loading-icon {
-    animation: spin 1s linear infinite;
-    
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  }
-  
-  .loading-text {
-    font-size: ${props => props.$designSystem.typography.scale.sm};
-    font-weight: ${props => props.$designSystem.typography.weight.medium};
-  }
-`
-
-// ▶️ Play button overlay (para modo manual)
-const PlayButton = styled.button<{ $theme: any; $designSystem: any }>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  color: white;
-  cursor: pointer;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ease;
-  z-index: 2;
-  
-  &:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  
-  &[data-hidden="true"] {
-    opacity: 0;
-    pointer-events: none;
-  }
-`
-
-const OptimizedVideo: React.FC<OptimizedVideoProps> = ({
+/**
+ * Componente de Video Optimizado para Web
+ * 
+ * Características:
+ * - Lazy loading automático con Intersection Observer
+ * - Múltiples formatos (WebM + MP4) para mejor compatibilidad
+ * - Preload inteligente basado en conexión
+ * - Fallback progresivo para conexiones lentas
+ * - Indicador de carga visual
+ * - Optimización de memoria
+ */
+export const OptimizedVideo: React.FC<OptimizedVideoProps> = ({
   src,
-  id,
   poster,
-  className,
-  priority = 'normal',
-  showControls = false,
-  aspectRatio = 'landscape',
-  onError
+  className = '',
+  autoplay = false,
+  muted = true,
+  loop = false,
+  controls = false,
+  preload = 'metadata',
+  onLoadStart,
+  onLoadEnd,
+  fallbackImage,
+  quality = 'medium',
+  onClick
 }) => {
-  const { theme, designSystem } = useTheme2025()
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [showPlayButton, setShowPlayButton] = useState(!showControls)
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [canPlay, setCanPlay] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 🎯 Configuración optimizada según prioridad
-  const videoConfig = {
-    threshold: priority === 'critical' ? [0.2, 0.5, 0.8] : [0.1, 0.3, 0.5],
-    rootMargin: priority === 'critical' ? '100px 0px' : '50px 0px',
-    priority,
-    quality: priority === 'critical' ? 'high' as const : 'medium' as const,
-    autoplay: !showControls
-  }
+  // Detectar tipo de conexión para ajustar calidad
+  const getConnectionAwarePreload = useCallback(() => {
+    // @ts-ignore - Navigator.connection es experimental
+    const connection = (navigator as any).connection;
+    
+    if (connection) {
+      // Conexión lenta: solo metadata
+      if (connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g') {
+        return 'metadata';
+      }
+      // Conexión rápida: auto
+      if (connection.effectiveType === '4g') {
+        return preload === 'auto' ? 'auto' : 'metadata';
+      }
+    }
+    
+    return preload;
+  }, [preload]);
 
-  // 🎥 Aplicar lazy loading
-  useLazyVideo(videoRef.current, id, videoConfig)
-
-  // 📡 Manejar eventos del video
+  // Intersection Observer para lazy loading
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !isVisible) {
+            setIsVisible(true);
+            setIsLoading(true);
+            onLoadStart?.();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '50px' // Precargar 50px antes de ser visible
+      }
+    );
 
-    const handleLoadedData = () => {
-      setIsLoaded(true)
-      video.setAttribute('data-loaded', 'true')
-      video.removeAttribute('data-loading')
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
-    const handlePlay = () => {
-      setIsPlaying(true)
-      setShowPlayButton(false)
-    }
+    return () => observer.disconnect();
+  }, [isVisible, onLoadStart]);
 
-    const handlePause = () => {
-      setIsPlaying(false)
-      if (!showControls) setShowPlayButton(true)
-    }
+  // Obtener rutas de diferentes formatos y calidades
+  const getVideoSources = useCallback((baseSrc: string) => {
+    const basePath = baseSrc.replace('.mp4', '');
+    const qualitySuffix = quality === 'low' ? '-low' : quality === 'high' ? '-high' : '';
+    
+    return [
+      { 
+        src: `${basePath}${qualitySuffix}.webm`, 
+        type: 'video/webm; codecs="vp9,opus"',
+        format: 'webm'
+      },
+      { 
+        src: `${basePath}${qualitySuffix}.mp4`, 
+        type: 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"',
+        format: 'mp4'
+      },
+      // Fallback original
+      { 
+        src: baseSrc, 
+        type: 'video/mp4',
+        format: 'mp4-fallback'
+      }
+    ];
+  }, [quality]);
 
-    const handleError = () => {
-      onError?.()
-    }
+  // Handlers de eventos de video
+  const handleLoadedData = useCallback(() => {
+    setIsLoaded(true);
+    setIsLoading(false);
+    setCanPlay(true);
+    onLoadEnd?.();
+  }, [onLoadEnd]);
 
-    video.addEventListener('loadeddata', handleLoadedData)
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
-    video.addEventListener('error', handleError)
+  const handleError = useCallback(() => {
+    setError(true);
+    setIsLoading(false);
+    console.warn(`Error cargando video: ${src}`);
+  }, [src]);
 
-    return () => {
-      video.removeEventListener('loadeddata', handleLoadedData)
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-      video.removeEventListener('error', handleError)
-    }
-  }, [showControls, onError])
+  const handleCanPlay = useCallback(() => {
+    setCanPlay(true);
+  }, []);
 
-  const handlePlayClick = () => {
-    const video = videoRef.current
-    if (video) {
-      video.play().catch(console.warn)
-    }
+  const sources = getVideoSources(src);
+  const connectionAwarePreload = getConnectionAwarePreload();
+
+  // Renderizar imagen de fallback si hay error
+  if (error && fallbackImage) {
+    return (
+      <div className={`${className} relative`} ref={containerRef}>
+        <img 
+          src={fallbackImage} 
+          alt="Video no disponible"
+          className="w-full h-auto object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <span className="text-white text-sm">Video no disponible</span>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <VideoContainer 
-      $aspectRatio={aspectRatio}
-      $theme={theme}
-      $designSystem={designSystem}
-      className={className}
+    <div 
+      className={`${className} relative ${onClick ? 'cursor-pointer' : ''}`} 
+      ref={containerRef}
+      onClick={onClick}
     >
-      <Video
-        ref={videoRef}
-        $designSystem={designSystem}
-        data-video-id={id}
-        data-loading="true"
-        poster={poster}
-        controls={showControls}
-        preload="none"
-        onError={onError}
-      >
-        <source src={src} type="video/mp4" />
-        Tu navegador no soporta el elemento video.
-      </Video>
-
-      {/* Loading placeholder */}
-      <LoadingPlaceholder 
-        $theme={theme} 
-        $designSystem={designSystem}
-        data-hidden={isLoaded.toString()}
-      >
-        <FiLoader className="loading-icon" size={24} />
-        <span className="loading-text">Cargando video...</span>
-      </LoadingPlaceholder>
-
-      {/* Play button para modo manual */}
-      {showPlayButton && (
-        <PlayButton
-          $theme={theme}
-          $designSystem={designSystem}
-          onClick={handlePlayClick}
-          data-hidden={(!isLoaded || isPlaying).toString()}
-          aria-label="Reproducir video"
-        >
-          <FiPlay size={24} />
-        </PlayButton>
+      {/* Placeholder mientras carga */}
+      {(!isVisible || isLoading) && (
+        <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+          {isLoading ? (
+            <div className="flex items-center space-x-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+              <span className="text-gray-600 text-sm">Cargando video...</span>
+            </div>
+          ) : (
+            poster && (
+              <img 
+                src={poster} 
+                alt="Vista previa del video"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            )
+          )}
+        </div>
       )}
-    </VideoContainer>
-  )
+
+      {/* Video elemento */}
+      {isVisible && (
+        <video
+          ref={videoRef}
+          poster={poster}
+          autoPlay={autoplay && canPlay}
+          muted={muted}
+          loop={loop}
+          controls={controls}
+          preload={connectionAwarePreload}
+          onLoadedData={handleLoadedData}
+          onError={handleError}
+          onCanPlay={handleCanPlay}
+          className={`w-full h-auto transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            maxWidth: '100%',
+            height: 'auto'
+          }}
+        >
+          {sources.map((source, index) => (
+            <source 
+              key={`${source.format}-${index}`} 
+              src={source.src} 
+              type={source.type} 
+            />
+          ))}
+          
+          {/* Mensaje de fallback */}
+          <div className="p-4 bg-gray-100 text-center">
+            <p className="text-gray-600">
+              Tu navegador no soporta el elemento video.
+            </p>
+            {fallbackImage && (
+              <img 
+                src={fallbackImage} 
+                alt="Imagen alternativa"
+                className="mt-2 mx-auto max-w-full h-auto"
+              />
+            )}
+          </div>
+        </video>
+      )}
+
+      {/* Indicador de calidad */}
+      {process.env.NODE_ENV === 'development' && isVisible && (
+        <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+          {quality} | {connectionAwarePreload}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/**
+ * Hook para detectar soporte de formatos de video
+ */
+export const useVideoFormatSupport = () => {
+  const [support, setSupport] = useState({
+    webm: false,
+    mp4: false,
+    av1: false
+  });
+
+  useEffect(() => {
+    const video = document.createElement('video');
+    
+    setSupport({
+      webm: video.canPlayType('video/webm; codecs="vp9"') !== '',
+      mp4: video.canPlayType('video/mp4; codecs="avc1.42E01E"') !== '',
+      av1: video.canPlayType('video/mp4; codecs="av01"') !== ''
+    });
+  }, []);
+
+  return support;
+};
+
+/**
+ * Componente de Galería de Videos Optimizada
+ */
+interface VideoGalleryProps {
+  videos: Array<{
+    src: string;
+    poster?: string;
+    title?: string;
+    description?: string;
+  }>;
+  className?: string;
+  columns?: number;
 }
 
-export default OptimizedVideo 
+export const OptimizedVideoGallery: React.FC<VideoGalleryProps> = ({
+  videos,
+  className = '',
+  columns = 3
+}) => {
+  const [activeVideo, setActiveVideo] = useState<number | null>(null);
+
+  return (
+    <div className={`grid gap-4 ${className}`} 
+         style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+      {videos.map((video, index) => (
+        <div key={index} className="relative group">
+          <OptimizedVideo
+            src={video.src}
+            poster={video.poster}
+            className="w-full"
+            autoplay={false}
+            controls={activeVideo === index}
+            onClick={() => setActiveVideo(activeVideo === index ? null : index)}
+          />
+          
+          {video.title && (
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+              <h3 className="text-white font-semibold">{video.title}</h3>
+              {video.description && (
+                <p className="text-gray-300 text-sm mt-1">{video.description}</p>
+              )}
+            </div>
+          )}
+          
+          {/* Overlay de play */}
+          {activeVideo !== index && (
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-30">
+              <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 5v10l8-5-8-5z"/>
+                </svg>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default OptimizedVideo; 
