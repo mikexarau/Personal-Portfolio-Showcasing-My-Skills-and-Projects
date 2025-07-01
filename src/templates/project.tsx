@@ -392,138 +392,223 @@ const ElegantContent = styled.div<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 📝 ELEGANT MAIN CONTENT: Typography-focused sin iconos
+// 📝 ELEGANT MAIN CONTENT: Jerarquía Visual Mejorada - UX/UI Senior
 const ElegantMainContent = styled.div<{ $theme: any; $designSystem: any }>`
   max-width: 900px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 4rem 0; /* Mayor breathing room */
   
   .content-section {
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* Mayor separación entre secciones */
+    padding: 2rem 0; /* Padding interno para mejor delimitación */
+    border-bottom: 1px solid ${props => props.$theme?.colors?.border?.primary}15; /* Separador sutil */
     
     &:last-child {
       margin-bottom: 0;
+      border-bottom: none;
+    }
+    
+    &:first-child {
+      padding-top: 0; /* Primera sección sin padding superior */
     }
   }
   
   .section-title {
     font-family: ${props => props.$designSystem?.typography?.fonts?.display || 'system-ui, sans-serif'};
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.75rem, 4vw, 2.25rem); /* Mayor jerarquía tipográfica */
     font-weight: ${props => props.$designSystem?.typography?.weight?.bold || '700'};
     color: ${props => props.$theme?.colors?.text?.primary || '#000000'};
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
+    margin-bottom: 1.5rem; /* Mayor separación con contenido */
+    letter-spacing: -0.02em; /* Tracking más tight para títulos grandes */
+    line-height: 1.2; /* Line height óptimo para títulos */
+    position: relative;
+    
+    /* Subtle accent line para mayor jerarquía */
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: ${props => props.$theme?.colors?.interactive?.primary || '#3b82f6'};
+      margin-top: 0.75rem;
+      border-radius: 2px;
+    }
   }
   
   .lead-text {
-    font-size: ${props => props.$designSystem?.typography?.scale?.lg || '1.125rem'};
-    line-height: 1.7;
-    color: ${props => props.$theme?.colors?.text?.secondary || '#6b7280'};
-    margin-bottom: 1rem;
+    font-size: ${props => props.$designSystem?.typography?.scale?.xl || '1.25rem'}; /* Texto lead más prominente */
+    line-height: 1.8; /* Mejor legibilidad */
+    color: ${props => props.$theme?.colors?.text?.primary || '#374151'}; /* Más contraste */
+    margin-bottom: 2rem; /* Mayor separación */
+    font-weight: ${props => props.$designSystem?.typography?.weight?.medium || '500'}; /* Peso intermedio */
     
     strong {
       color: ${props => props.$theme?.colors?.text?.primary || '#000000'};
-      font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
+      font-weight: ${props => props.$designSystem?.typography?.weight?.bold || '700'}; /* Más peso al strong */
     }
   }
   
   .description-text {
-    font-size: ${props => props.$designSystem?.typography?.scale?.base || '1rem'};
-    line-height: 1.6;
+    font-size: ${props => props.$designSystem?.typography?.scale?.lg || '1.125rem'}; /* Texto más grande */
+    line-height: 1.75; /* Mejor legibilidad */
     color: ${props => props.$theme?.colors?.text?.secondary || '#6b7280'};
+    margin-top: 1rem; /* Separación del lead text */
   }
   
   .project-details-grid {
-  display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
-    background: ${props => props.$theme?.colors?.bg?.primary || '#ffffff'};
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Columnas más anchas */
+    gap: 2rem; /* Mayor espacio entre elementos */
+    padding: 3rem; /* Mayor padding interno */
+    background: ${props => props.$theme?.colors?.bg?.secondary || '#f8fafc'}; /* Fondo más suave */
     border-radius: ${props => props.$designSystem?.borderRadius?.xl || '1rem'};
-    border: 2px solid ${props => props.$theme?.colors?.border?.primary || '#d1d5db'};
-    margin-top: 1rem;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid ${props => props.$theme?.colors?.border?.primary || '#e5e7eb'}; /* Border más sutil */
+    margin-top: 2rem; /* Mayor separación superior */
+    box-shadow: 
+      0 10px 25px -5px rgb(0 0 0 / 0.1), 
+      0 10px 10px -5px rgb(0 0 0 / 0.04); /* Shadow más elegante */
+    transition: all 0.3s ease; /* Suave transición */
+    
+    &:hover {
+      box-shadow: 
+        0 20px 40px -10px rgb(0 0 0 / 0.15), 
+        0 10px 20px -5px rgb(0 0 0 / 0.08); /* Hover effect sutil */
+    }
   }
   
   .detail-item {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem; /* Mayor separación entre label y value */
+    padding: 1rem; /* Padding interno para cada item */
+    background: ${props => props.$theme?.colors?.bg?.primary || '#ffffff'}; /* Fondo para cada item */
+    border-radius: ${props => props.$designSystem?.borderRadius?.lg || '0.5rem'};
+    border: 1px solid ${props => props.$theme?.colors?.border?.primary}20; /* Border sutil */
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px); /* Hover lift effect */
+      box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.08);
+    }
     
     &.technologies-item {
       grid-column: 1 / -1;
+      padding: 1.5rem; /* Mayor padding para technologies */
     }
   }
   
   .detail-label {
-    font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
-    color: ${props => props.$theme?.colors?.text?.secondary || '#4b5563'};
-    font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
+    font-size: ${props => props.$designSystem?.typography?.scale?.xs || '0.75rem'};
+    color: ${props => props.$theme?.colors?.text?.tertiary || '#6b7280'};
+    font-weight: ${props => props.$designSystem?.typography?.weight?.bold || '700'};
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em; /* Mayor tracking para mejor legibilidad */
+    margin-bottom: 0.25rem;
   }
   
   .detail-value {
-    font-weight: ${props => props.$designSystem?.typography?.weight?.bold || '700'};
+    font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
     color: ${props => props.$theme?.colors?.text?.primary || '#000000'};
-    font-size: ${props => props.$designSystem?.typography?.scale?.base || '1rem'};
+    font-size: ${props => props.$designSystem?.typography?.scale?.lg || '1.125rem'}; /* Valor más prominente */
+    line-height: 1.4;
   }
   
   .technologies-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 0.75rem; /* Mayor espacio entre badges */
+    margin-top: 1rem; /* Mayor separación superior */
   }
   
   .tech-badge {
-    padding: 0.375rem 0.875rem;
+    padding: 0.5rem 1rem; /* Mayor padding para mejor clickeabilidad */
     background: ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'};
     color: ${props => props.$theme?.colors?.text?.inverse || '#ffffff'};
     border: 1px solid ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'};
-    border-radius: ${props => props.$designSystem?.borderRadius?.full || '9999px'};
+    border-radius: ${props => props.$designSystem?.borderRadius?.lg || '0.5rem'}; /* Menos redondeado, más moderno */
     font-size: ${props => props.$designSystem?.typography?.scale?.sm || '0.875rem'};
-    font-weight: ${props => props.$designSystem?.typography?.weight?.semibold || '600'};
-    transition: all 0.2s ease;
+    font-weight: ${props => props.$designSystem?.typography?.weight?.medium || '500'};
+    transition: all 0.3s ease;
+    cursor: default;
     
     &:hover {
       background: ${props => props.$theme?.colors?.interactive?.hover || '#1e40af'};
       border-color: ${props => props.$theme?.colors?.interactive?.hover || '#1e40af'};
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'}40;
+      transform: translateY(-2px) scale(1.02); /* Efecto más suave */
+      box-shadow: 0 8px 20px ${props => props.$theme?.colors?.interactive?.primary || '#1d4ed8'}30; /* Shadow más elegante */
+    }
+  }
+  
+  /* 💻 TABLET: Ajustes intermedios */
+  @media (max-width: 1024px) {
+    padding: 3rem 0;
+    
+    .content-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem 0;
+    }
+    
+    .project-details-grid {
+      padding: 2rem;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
   }
   
   /* 📱 MOBILE: Optimizaciones específicas */
   @media (max-width: 768px) {
-    padding: 1.5rem 0;
+    padding: 2rem 0; /* Menor padding en móvil */
     
     .content-section {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      padding: 1rem 0;
     }
     
     .section-title {
-      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      font-size: clamp(1.5rem, 5vw, 1.75rem); /* Mejor escalado */
+      
+      &::after {
+        width: 40px; /* Accent line más pequeña en móvil */
+        height: 2px;
+      }
     }
     
     .lead-text {
+      font-size: ${props => props.$designSystem?.typography?.scale?.lg || '1.125rem'}; /* Mantener tamaño en móvil */
+      margin-bottom: 1.5rem;
+    }
+    
+    .description-text {
       font-size: ${props => props.$designSystem?.typography?.scale?.base || '1rem'};
     }
     
     .project-details-grid {
       padding: 1.5rem;
       gap: 1rem;
-  grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* Una sola columna en móvil */
+      margin-top: 1.5rem;
     }
     
-    .detail-item.technologies-item {
-      grid-column: 1;
+    .detail-item {
+      padding: 0.75rem;
+      
+      &.technologies-item {
+        grid-column: 1;
+        padding: 1rem;
+      }
+    }
+    
+    .detail-value {
+      font-size: ${props => props.$designSystem?.typography?.scale?.base || '1rem'};
+    }
+    
+    .technologies-grid {
+      gap: 0.5rem;
     }
     
     .tech-badge {
       font-size: ${props => props.$designSystem?.typography?.scale?.xs || '0.75rem'};
-      padding: 0.25rem 0.75rem;
+      padding: 0.375rem 0.75rem;
     }
   }
 `
@@ -1514,23 +1599,30 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
       }}>
         {/* Títulos con Container pero carrusel fuera para ancho completo */}
         <Container $theme={theme} $designSystem={designSystem}>
-          <h2 style={{ 
-            textAlign: 'center', 
-            marginBottom: '1rem',
-            fontSize: '2rem',
-            fontWeight: '600',
-            color: theme.colors.text.primary 
+          <div style={{ 
+            textAlign: 'center',
+            maxWidth: '800px',
+            margin: '0 auto',
+            marginBottom: '3rem'
           }}>
-            Otros trabajos
-          </h2>
-          <p style={{ 
-            textAlign: 'center', 
-            marginBottom: '3rem',
-            color: theme.colors.text.secondary,
-            fontSize: '1.1rem'
-          }}>
-            Explora otros trabajos destacados
-          </p>
+            <h2 style={{ 
+              marginBottom: '1rem',
+              fontSize: '2rem',
+              fontWeight: '600',
+              color: theme.colors.text.primary,
+              lineHeight: '1.2'
+            }}>
+              Otros trabajos
+            </h2>
+            <p style={{ 
+              color: theme.colors.text.secondary,
+              fontSize: '1.1rem',
+              lineHeight: '1.5',
+              margin: '0'
+            }}>
+              Explora otros trabajos destacados
+            </p>
+          </div>
         </Container>
         
         {/* Carrusel fuera del Container para ocupar todo el ancho */}

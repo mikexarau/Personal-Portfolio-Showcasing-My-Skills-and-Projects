@@ -89,29 +89,37 @@ const OptimizedVideoElement = styled.video<{ $theme: any }>`
   }
 `
 
-// 🎯 **SOLUCIÓN 3: SIMPLE LOADING STATE**
+// 🎯 **SOLUCIÓN 3: MEJOR LOADING STATE CON SKELETON**
 const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
   display: ${props => props.$isVisible ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
   color: ${props => props.$theme.colors.text.secondary};
-  background: ${props => props.$theme.colors.bg.tertiary};
-  min-height: 200px;
+  background: linear-gradient(
+    90deg,
+    ${props => props.$theme.colors.bg.tertiary} 25%,
+    ${props => props.$theme.colors.bg.secondary} 50%,
+    ${props => props.$theme.colors.bg.tertiary} 75%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  min-height: 250px;
   border-radius: inherit;
+  position: relative;
   
-  &::after {
-    content: '';
-    width: 24px;
-    height: 24px;
-    border: 2px solid ${props => props.$theme.colors.text.secondary}40;
-    border-top: 2px solid ${props => props.$theme.colors.interactive.primary};
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  &::before {
+    content: '▶';
+    font-size: 48px;
+    color: ${props => props.$theme.colors.text.secondary}60;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  @keyframes shimmer {
+    0% { background-position: -400% 0; }
+    100% { background-position: 400% 0; }
   }
 `
 
@@ -131,28 +139,32 @@ class VideoPerformanceManager {
     return VideoPerformanceManager.instance
   }
 
-  // 🚀 **THROTTLED INTERSECTION OBSERVER**
+  // 🚀 **SIMPLIFIED INTERSECTION OBSERVER**
   private createOptimizedObserver() {
     return new IntersectionObserver(
       (entries) => {
-        // 🎯 THROTTLING CRÍTICO - Evita múltiples llamadas rápidas
-        if (this.isProcessing) return
-        
-        this.isProcessing = true
-        
-        // Procesar entradas en el próximo frame para no bloquear scroll
-        requestAnimationFrame(() => {
-          this.processVideoEntries(entries)
+        // Procesar inmediatamente para mejor responsividad
+        entries.forEach((entry) => {
+          const videoId = entry.target.getAttribute('data-video-id')
+          const video = this.videoQueue.get(videoId || '')
           
-          // Reset después de un delay mínimo
-          setTimeout(() => {
-            this.isProcessing = false
-          }, 50) // 50ms throttle para suavizar
+          if (!video) return
+          
+          if (entry.isIntersecting) {
+            // Play inmediato cuando entra en viewport
+            video.currentTime = 0
+            video.play().catch(() => {
+              // Silenciar errores de autoplay
+            })
+          } else {
+            // Pause inmediato cuando sale del viewport
+            video.pause()
+          }
         })
       },
       {
-        threshold: [0, 0.1, 0.5], // Múltiples thresholds para mejor control
-        rootMargin: '100px 0px 100px 0px', // Margen generoso para preload
+        threshold: 0.3, // Threshold único más alto para mejor UX
+        rootMargin: '50px 0px 50px 0px', // Margen reducido para mejor performance
       }
     )
   }
@@ -376,15 +388,19 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
         ref={videoRef}
         $theme={theme}
         data-video-id={videoId}
-        preload="metadata"
+        preload="auto"
         muted={muted}
         playsInline
         loop={loop}
         onLoadedData={handleLoadedData}
         onError={handleError}
+        onCanPlay={handleLoadedData}
+        onCanPlayThrough={() => setIsLoading(false)}
         aria-label={`Video ${videoId}`}
+        poster={`${src.replace(/\.(mp4|webm|mov)$/, '')}-poster.jpg`}
         style={{ display: isLoading ? 'none' : 'block' }}
       >
+        <source src={src} type="video/webm" />
         <source src={src} type="video/mp4" />
       </OptimizedVideoElement>
     </OptimizedVideoContainer>
