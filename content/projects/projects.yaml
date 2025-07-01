@@ -7,7 +7,7 @@
   images: "mediolanum"
   cover: "./mediolanum/mediolanum_-_renta_fija_hd (1080p).mp4"
   link: > # ignore newlines until "baseurl:"
-    <a href="#" target="_blank" 
+    <a href="https://www.bancomediolanum.es/" target="_blank" 
     style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver animación<a>
   desc: "Desarrollo completo de spot animado para Banco Mediolanum, enfocado en la promoción de productos de renta fija. Realización integral de la animación utilizando Adobe After Effects, desde el concepto visual hasta la post-producción final. El proyecto incluyó diseño de elementos gráficos, animación de tipografías dinámicas, transiciones fluidas y efectos visuales que comunican de manera clara y atractiva los beneficios de los productos financieros. Trabajo que combina creatividad visual con comunicación efectiva en el sector bancario, logrando un mensaje impactante y profesional para campañas publicitarias multiplataforma."
 
@@ -20,7 +20,7 @@
   images: "ehtb"
   cover: "./ehtb/EHTB-Linkedin-ESP.mp4"
   link: > # ignore newlines until "baseurl:"
-    <a href="#" target="_blank" 
+    <a href="https://insehtb.barcelona/ehtb/" target="_blank" 
     style="padding:8px 12px 8px 12px;border:2px solid rgb(63,64,72);border-radius:21px;color:rgb(63,64,72);background-color:transparent;text-decoration:none;">Ver proyecto<a>
   desc: "Liderazgo integral del diseño y desarrollo de la webapp para INS Escola d'Hoteleria i Turisme de Barcelona, junto con la creación de diversas creatividades animadas para campañas publicitarias. El proyecto abarcó desde la investigación UX y arquitectura de información hasta el desarrollo full-stack de la plataforma educativa. Implementación de sistema de gestión de contenidos académicos, portal de estudiantes, calendario de eventos y herramientas de comunicación interna. Paralelamente, desarrollo de piezas de motion graphics para ads en redes sociales y campañas de captación de estudiantes. Solución integral que modernizó la presencia digital de la institución educativa, mejorando la experiencia tanto de estudiantes actuales como potenciales candidatos."
 

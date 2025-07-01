@@ -1246,7 +1246,7 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
       'ehtb': 'INS Escola d\'Hoteleria i Turisme de Barcelona',
       'vimax': 'VIMAX',
       'prats': 'PRATS',
-      'tram': 'Galerías del Tresillo',
+      'tram': 'TRAM',
       'gdt': 'Galerías del Tresillo',
       'sergat': 'Sergat',
       'se': 'Sergat',
@@ -1258,7 +1258,7 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
       'ipb': 'IPB',
       'sp': 'StartupPack • Metalyfe',
       'coinecocal': 'StartupPack • Metalyfe',
-      'wc': 'WellnessConnect',
+      'wc': 'WinCrypto',
       'wns': 'WNS'
     }
     
