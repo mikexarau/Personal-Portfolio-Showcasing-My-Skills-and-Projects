@@ -1,0 +1,19 @@
+{
+  "components": [
+    {
+      "name": "ProjectGallery",
+      "path": "../components/ProjectGallery",
+      "threshold": 0.1
+    },
+    {
+      "name": "ContactForm",
+      "path": "../components/ContactForm",
+      "threshold": 0.1
+    },
+    {
+      "name": "BlogSection",
+      "path": "../components/BlogSection",
+      "threshold": 0.1
+    }
+  ]
+}

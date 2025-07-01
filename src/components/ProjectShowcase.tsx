@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
+import OptimizedVideoPerformance from './optimized-video-performance'
 
 // 🎯 CONTENEDOR PRINCIPAL SIMPLIFICADO
 const ShowcaseContainer = styled.section<{ $theme: any; $designSystem: any }>`
@@ -120,39 +121,63 @@ const IPBImageContainer = styled.div<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🎥 CONTENEDOR DE VIDEO OPTIMIZADO
+// 🎥 CONTENEDOR DE VIDEO OPTIMIZADO - REEMPLAZADO POR COMPONENTE OPTIMIZADO
 const VideoContainer = styled.div<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
+  
+  /* 🚀 SOLUCIÓN CRÍTICA: MAX-WIDTH RESPONSIVE PARA DESKTOP */
+  max-width: min(900px, 90vw); /* Máximo 900px o 90% del viewport */
+  margin: 0 auto; /* Centrar el contenedor */
+  
   border-radius: ${props => props.$designSystem.radius.xl};
   overflow: hidden;
   background: ${props => props.$theme.colors.bg.secondary};
+  
+  /* 🎯 HARDWARE ACCELERATION FORZADA */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
   box-shadow: 
     0 20px 40px -12px rgba(0, 0, 0, 0.1),
     0 8px 20px -5px rgba(0, 0, 0, 0.04);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   
   &:hover {
     box-shadow: 
       0 30px 60px -12px rgba(0, 0, 0, 0.15),
       0 12px 30px -5px rgba(0, 0, 0, 0.08);
-    transform: translateY(-4px);
+    transform: translateY(-4px) translateZ(0);
   }
   
   video {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
+    
+    /* 🚀 HARDWARE ACCELERATION */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
   @media (max-width: 768px) {
     border-radius: ${props => props.$designSystem.radius.lg};
+    max-width: 100%;
     
     &:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) translateZ(0);
     }
+  }
+  
+  @media (max-width: 480px) {
+    border-radius: ${props => props.$designSystem.radius.md};
+    max-width: 95vw !important;
   }
 `
 
@@ -263,7 +288,7 @@ interface ProjectShowcaseProps {
   projectTitle: string
 }
 
-// 🚀 COMPONENTE PRINCIPAL OPTIMIZADO CON SCROLL DETECTION
+// 🚀 COMPONENTE PRINCIPAL OPTIMIZADO - SIN LAG EN SCROLL
 const ProjectShowcase = ({
   projectImages,
   projectVideos,
@@ -271,10 +296,6 @@ const ProjectShowcase = ({
   projectTitle
 }: ProjectShowcaseProps) => {
   const { theme, designSystem } = useTheme2025()
-  
-  // 🎯 Referencias para videos y observer
-  const videoRefsMap = React.useRef<{ [key: string]: HTMLVideoElement | null }>({})
-  const observerRef = React.useRef<IntersectionObserver | null>(null)
 
   // 🔄 Combinar y ordenar todos los medios de forma simple
   const allMedia = [
@@ -283,186 +304,7 @@ const ProjectShowcase = ({
     ...projectDocuments.map(({ node }) => ({ ...node, type: 'document' as const }))
   ].sort((a, b) => a.name.localeCompare(b.name))
 
-  // 🎯 SISTEMA DE VIDEO OPTIMIZADO - Sin problemas de scroll
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    // Limpiar observer anterior si existe
-    if (observerRef.current) {
-      observerRef.current.disconnect()
-    }
-
-    // Crear nuevo observer con configuración optimizada
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const videoId = entry.target.getAttribute('data-video-id')
-          const video = videoRefsMap.current[videoId || '']
-          
-          if (!video) return
-
-          if (entry.isIntersecting) {
-            // 🎥 Video entra en viewport - reproducir
-            video.currentTime = 0 // Reiniciar desde el principio
-            video.play().catch((error) => {
-                          // Video autoplay puede estar bloqueado, se ignora silenciosamente
-            })
-          } else {
-            // ⏸️ Video sale del viewport - pausar inmediatamente
-            video.pause()
-          }
-        })
-      },
-      {
-        threshold: 0.1, // Solo necesita 10% visible para activarse
-        rootMargin: '50px 0px', // Margen extra para activación anticipada
-      }
-    )
-
-    // Observar todos los videos actuales
-    const videosToObserve = Object.values(videoRefsMap.current).filter(Boolean)
-    videosToObserve.forEach((video) => {
-      if (video && observerRef.current) {
-        observerRef.current.observe(video)
-      }
-    })
-
-    // Observer configurado
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [allMedia.length])
-
-  // 📦 Función para registrar video y observarlo inmediatamente
-  const setVideoRef = React.useCallback((id: string, element: HTMLVideoElement | null) => {
-    // Remover observación del video anterior si existe
-    const previousVideo = videoRefsMap.current[id]
-    if (previousVideo && observerRef.current) {
-      observerRef.current.unobserve(previousVideo)
-    }
-
-    // Actualizar referencia
-    videoRefsMap.current[id] = element
-
-    // Observar nuevo video inmediatamente si el observer está listo
-    if (element && observerRef.current) {
-      // Pequeño delay para asegurar que el elemento está completamente montado
-      setTimeout(() => {
-        if (observerRef.current && element) {
-          observerRef.current.observe(element)
-          
-          if (process.env.NODE_ENV === 'development') {
-            console.log(`🎥 Video ${id} añadido al observer`)
-          }
-        }
-      }, 50)
-    }
-  }, [])
-
-  // 🎯 Función para detectar el aspect ratio y aplicar clases CSS
-  const getAspectRatioClass = React.useCallback((element: HTMLVideoElement | HTMLImageElement) => {
-    const { videoWidth, videoHeight, naturalWidth, naturalHeight } = element as any
-    const width = videoWidth || naturalWidth || element.clientWidth
-    const height = videoHeight || naturalHeight || element.clientHeight
-    
-    if (!width || !height) return 'aspect-landscape'
-    
-    const ratio = width / height
-    
-    if (ratio > 1.3) return 'aspect-landscape'   // Horizontal
-    if (ratio < 0.8) return 'aspect-portrait'    // Vertical  
-    return 'aspect-square'                       // Cuadrado
-  }, [])
-
-  // 🎯 Función para detectar aspect ratio por nombre de archivo (carga inicial rápida)
-  const getAspectRatioFromFilename = React.useCallback((filename: string) => {
-    const name = filename.toLowerCase()
-    
-    // 📱 Detectar formatos verticales/móviles (portrait)
-    if (name.includes('1080x1920') || name.includes('9x16') || name.includes('_vertical') || 
-        name.includes('mobile') || name.includes('portrait') || name.includes('stories') ||
-        name.match(/\d+x\d+/) && name.match(/(\d+)x(\d+)/) && 
-        parseInt(name.match(/(\d+)x(\d+)/)?.[2] || '0') > parseInt(name.match(/(\d+)x(\d+)/)?.[1] || '0')) {
-      return 'aspect-portrait'
-    }
-    
-    // ⬜ Detectar formatos cuadrados (square)
-    if (name.includes('1x1') || name.includes('1080x1080') || name.includes('_square') ||
-        name.includes('square') || name.includes('instagram') ||
-        name.match(/\d+x\d+/) && name.match(/(\d+)x(\d+)/) && 
-        parseInt(name.match(/(\d+)x(\d+)/)?.[1] || '0') === parseInt(name.match(/(\d+)x(\d+)/)?.[2] || '0')) {
-      return 'aspect-square'
-    }
-    
-    // 🖥️ Detectar formatos horizontales/desktop (landscape)
-    if (name.includes('1920x1080') || name.includes('16x9') || name.includes('_horizontal') ||
-        name.includes('banner') || name.includes('web') || name.includes('desktop') ||
-        name.includes('landscape') || name.includes('wide')) {
-      return 'aspect-landscape'
-    }
-    
-    // 🎯 Fallback inteligente por extensión
-    if (name.includes('video') || name.includes('.mp4') || name.includes('.webm')) {
-      return 'aspect-landscape' // Videos suelen ser horizontales por defecto
-    }
-    
-    // Default conservador para no sobredimensionar
-    return 'aspect-landscape'
-  }, [])
-
-  // 🎯 Función para aplicar clase de aspect ratio inmediatamente
-  const applyAspectRatioClass = React.useCallback((containerId: string, aspectClass: string) => {
-    const container = document.getElementById(containerId)
-    if (container) {
-      // Remover clases anteriores y aplicar la nueva
-      container.className = container.className.replace(/aspect-\w+/g, '').trim() + ` ${aspectClass}`
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`📐 Aplicada clase ${aspectClass} a ${containerId}`)
-      }
-    }
-  }, [])
-
-  // 🎯 Effect para aplicar aspect ratios inmediatamente al montar
-  React.useEffect(() => {
-    // Aplicar clases de aspect ratio a todos los contenedores inmediatamente
-    allMedia.forEach((media) => {
-      const initialAspectClass = getAspectRatioFromFilename(media.name)
-      const containerId = `${media.type}-container-${media.id}`
-      
-      // Aplicar inmediatamente
-      applyAspectRatioClass(containerId, initialAspectClass)
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`🚀 Aplicación inicial: ${media.name} → ${initialAspectClass}`)
-      }
-    })
-  }, [allMedia, getAspectRatioFromFilename, applyAspectRatioClass])
-
-  // 🧹 Cleanup al desmontar el componente
-  React.useEffect(() => {
-    return () => {
-      // Pausar todos los videos al desmontar
-      Object.values(videoRefsMap.current).forEach((video) => {
-        if (video) {
-          video.pause()
-        }
-      })
-      
-      // Limpiar observer
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-        observerRef.current = null
-      }
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`🧹 ProjectShowcase ${projectTitle} desmontado correctamente`)
-      }
-    }
-  }, [projectTitle])
+  // ✅ NOTA: Ya no necesitamos detectar aspect ratio - el componente mantiene proporciones originales automáticamente
 
   // 🐛 Debug en desarrollo
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
@@ -563,33 +405,15 @@ const ProjectShowcase = ({
             </ImageContainer>
           )}
 
-          {/* 🎥 RENDERIZADO DE VIDEOS CON SCROLL CONTROL */}
+          {/* 🎥 RENDERIZADO DE VIDEOS OPTIMIZADO - MANTIENE PROPORCIONES ORIGINALES */}
           {media.type === 'video' && media.publicURL && (
-            <VideoContainer 
-              $theme={theme} 
-              $designSystem={designSystem}
-              id={`video-container-${media.id}`}
-            >
-              <video
-                ref={(el) => setVideoRef(media.id, el)}
-                data-video-id={media.id}
-                src={media.publicURL}
-                muted
-                loop
-                playsInline
-                controls={false}
-                preload="metadata"
-                aria-label={`Video showcase: ${media.name}`}
-                title={`Video del proyecto - ${media.name}`}
-              >
-                <track 
-                  kind="captions" 
-                  srcLang="es" 
-                  label="Español"
-                  default
-                />
-              </video>
-            </VideoContainer>
+            <OptimizedVideoPerformance
+              src={media.publicURL}
+              videoId={`project-${projectTitle}-${media.id}`}
+              autoPlay={true}
+              loop={true}
+              muted={true}
+            />
           )}
 
           {/* 📄 RENDERIZADO DE DOCUMENTOS */}
