@@ -384,6 +384,24 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
   const managerRef = useRef<VideoPerformanceManager>()
   const hasCheckedReadyState = useRef(false)
 
+  // 🎯 DETECCIÓN AUTOMÁTICA DE FORMATO DE VIDEO
+  const getVideoFormat = (src: string): { type: string; extension: string } => {
+    const url = src.toLowerCase()
+    if (url.includes('.webm')) {
+      return { type: 'video/webm', extension: 'webm' }
+    } else if (url.includes('.mp4')) {
+      return { type: 'video/mp4', extension: 'mp4' }
+    } else if (url.includes('.mov')) {
+      return { type: 'video/quicktime', extension: 'mov' }
+    } else if (url.includes('.avi')) {
+      return { type: 'video/x-msvideo', extension: 'avi' }
+    }
+    // Default fallback
+    return { type: 'video/mp4', extension: 'mp4' }
+  }
+
+  const videoFormat = getVideoFormat(src)
+
   // 🎯 Inicializar manager con reset en reload
   useEffect(() => {
     managerRef.current = VideoPerformanceManager.getInstance()
@@ -416,8 +434,11 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
     }
   }, [videoId, onLoad])
 
-  // 🚀 TIMEOUT DE SEGURIDAD para casos edge
+  // 🚀 TIMEOUT DE SEGURIDAD para casos edge - REDUCIDO PARA MÓVIL
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
+    const timeoutDuration = isMobile ? 5000 : 3000 // Más tiempo en móvil
+    
     const safetyTimeout = setTimeout(() => {
       if (isLoading && videoRef.current) {
         const video = videoRef.current
@@ -427,9 +448,16 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
         if (video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
           setIsLoading(false)
           onLoad?.()
+        } else {
+          // En móvil, si no se puede cargar después del timeout, mostrar error
+          if (isMobile) {
+            console.error(`Video ${videoId} falló en móvil - marcando como error`)
+            setHasError(true)
+            setIsLoading(false)
+          }
         }
       }
-    }, 3000) // 3 segundos de timeout
+    }, timeoutDuration)
 
     return () => clearTimeout(safetyTimeout)
   }, [isLoading, videoId, onLoad])
@@ -476,10 +504,12 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
 
   const handleError = useCallback((error: any) => {
     console.error(`Video ${videoId} error:`, error)
+    console.error(`Video src: ${src}`)
+    console.error(`Video format detected: ${videoFormat.type}`)
     setHasError(true)
     setIsLoading(false)
     onError?.(error)
-  }, [videoId, onError])
+  }, [videoId, onError, src, videoFormat])
 
   if (hasError) {
     return (
@@ -489,7 +519,7 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
         className={className}
       >
         <LoadingOverlay $theme={theme} $isVisible={true}>
-          ❌ Error cargando video
+          ❌ Error cargando video ({videoFormat.extension})
         </LoadingOverlay>
       </OptimizedVideoContainer>
     )
@@ -521,8 +551,10 @@ const OptimizedVideoPerformance: React.FC<OptimizedVideoProps> = ({
         aria-label={`Video ${videoId}`}
         style={{ display: isLoading ? 'none' : 'block' }}
       >
-        <source src={src} type="video/webm" />
-        <source src={src} type="video/mp4" />
+        {/* 🎯 FIX CRÍTICO: Solo servir el formato correcto detectado */}
+        <source src={src} type={videoFormat.type} />
+        {/* Fallback para compatibilidad */}
+        Tu navegador no soporta el elemento video.
       </OptimizedVideoElement>
     </OptimizedVideoContainer>
   )
