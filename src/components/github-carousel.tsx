@@ -84,17 +84,17 @@ const CarouselCard = styled.div<{
   
   /* 🔥 Hover effects solo en dispositivos con hover real (no móviles) */
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-8px);
+  &:hover {
+    transform: translateY(-8px);
+    
+    .card-visual {
+      .work-overlay {
+        opacity: 1;
+      }
       
-      .card-visual {
-        .work-overlay {
-          opacity: 1;
-        }
-        
-        .work-content {
-          transform: translateY(0);
-          opacity: 1;
+      .work-content {
+        transform: translateY(0);
+        opacity: 1;
         }
       }
     }
@@ -347,7 +347,7 @@ const WorkContent = styled.div<{ $theme: any; $designSystem: any }>`
     padding: ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[4]};
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: ${props => props.$designSystem.radius.full};
+    border-radius: 9999px;
     color: white;
     font-size: ${props => props.$designSystem.typography.scale.sm};
     font-weight: ${props => props.$designSystem.typography.weight.medium};

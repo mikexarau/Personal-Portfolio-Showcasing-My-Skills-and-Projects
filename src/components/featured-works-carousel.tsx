@@ -396,7 +396,7 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
     return isDark ? '#1a1a1a' : '#ffffff'
   }};
   padding: 4px 12px;
-  border-radius: ${props => props.$designSystem.radius.full};
+  border-radius: ${props => props.$designSystem.radius.xl};
   font-size: 10px;
   font-weight: ${props => props.$designSystem.typography.weight.bold};
   text-transform: uppercase;
@@ -574,7 +574,7 @@ const WorkButton = styled.div<{ $theme: any; $designSystem: any; $isDark: boolea
   padding: ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[4]};
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: ${props => props.$designSystem.radius.full};
+  border-radius: ${props => props.$designSystem.radius.xl};
   color: white;
   font-size: ${props => props.$designSystem.typography.scale.sm};
   font-weight: ${props => props.$designSystem.typography.weight.medium};
@@ -621,7 +621,7 @@ const ViewAllButton = styled(Link)<{ $theme: any; $designSystem: any }>`
   background: ${props => props.$theme.colors.bg.primary};
   color: ${props => props.$theme.colors.text.primary};
   border: 2px solid ${props => props.$theme.colors.border.primary};
-  border-radius: ${props => props.$designSystem.radius.lg};
+  border-radius: ${props => props.$designSystem.radius.xl};
   font-family: ${props => props.$designSystem.typography.fonts.display};
   font-size: ${props => props.$designSystem.typography.scale.base};
   font-weight: ${props => props.$designSystem.typography.weight.semibold};

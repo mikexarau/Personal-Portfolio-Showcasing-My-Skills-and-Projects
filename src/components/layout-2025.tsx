@@ -293,7 +293,7 @@ const MobileMenuHeader = styled.div<{ $theme: any; $designSystem: any }>`
     height: 40px;
     background: transparent;
     border: 1px solid ${props => props.$theme.colors.border.primary};
-    border-radius: ${props => props.$designSystem.radius.md};
+    border-radius: ${props => props.$designSystem.radius.full};
     color: ${props => props.$theme.colors.text.secondary};
     cursor: pointer;
     transition: all ${props => props.$designSystem.animation.duration.fast} ease;
@@ -337,7 +337,7 @@ const MobileNavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?
   padding: ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[3]};
   color: ${props => props.$isActive ? props.$theme.colors.interactive.primary : props.$theme.colors.text.primary};
   text-decoration: none;
-  border-radius: ${props => props.$designSystem.radius.lg};
+  border-radius: ${props => props.$designSystem.radius.full};
   font-family: ${props => props.$designSystem.typography.fonts.sans};
   font-size: ${props => props.$designSystem.typography.scale.base};
   font-weight: ${props => props.$isActive ? props.$designSystem.typography.weight.semibold : props.$designSystem.typography.weight.medium};
@@ -394,9 +394,9 @@ const MobileNavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?
   
   /* Solo mostrar arrow en hover en dispositivos con hover real */
   @media (hover: hover) and (pointer: fine) {
-    &:hover .arrow {
-      opacity: 1;
-      transform: translateX(0);
+  &:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
     }
   }
 `
@@ -446,16 +446,16 @@ const MobileMenuFooter = styled.div<{ $theme: any; $designSystem: any }>`
       padding: ${props => props.$designSystem.spacing[3]};
       background: ${props => props.$theme.colors.bg.secondary};
       border: 1px solid ${props => props.$theme.colors.border.primary};
-      border-radius: ${props => props.$designSystem.radius.lg};
+      border-radius: ${props => props.$designSystem.radius.full};
       color: ${props => props.$theme.colors.text.primary};
       cursor: pointer;
       transition: all ${props => props.$designSystem.animation.duration.fast} ease;
       
       /* Solo aplicar hover effects en dispositivos con hover real */
       @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          background: ${props => props.$theme.colors.bg.tertiary};
-          transform: translateY(-1px);
+      &:hover {
+        background: ${props => props.$theme.colors.bg.tertiary};
+        transform: translateY(-1px);
         }
       }
       
@@ -486,8 +486,8 @@ const NavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?: bool
   
   /* Solo aplicar hover effects en dispositivos con hover real */
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: ${props => props.$theme.colors.interactive.primary};
+  &:hover {
+    color: ${props => props.$theme.colors.interactive.primary};
     }
   }
   
@@ -502,8 +502,8 @@ const NavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?: bool
     
     /* Solo aplicar hover effects en navegación móvil en dispositivos con hover real */
     @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        color: ${props => props.$theme.colors.interactive.primary};
+    &:hover {
+      color: ${props => props.$theme.colors.interactive.primary};
       }
     }
   }
@@ -543,16 +543,16 @@ const ThemeToggle = styled.button<{ $theme: any; $designSystem: any }>`
   
   /* Solo aplicar hover effects en dispositivos con hover real */
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background: ${props => props.$theme.colors.bg.secondary};
-      border-color: ${props => props.$theme.colors.interactive.primary};
-      color: ${props => props.$theme.colors.interactive.primary};
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
-      
-      &::before {
-        width: 100%;
-        height: 100%;
+  &:hover {
+    background: ${props => props.$theme.colors.bg.secondary};
+    border-color: ${props => props.$theme.colors.interactive.primary};
+    color: ${props => props.$theme.colors.interactive.primary};
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
+    
+    &::before {
+      width: 100%;
+      height: 100%;
       }
     }
   }
@@ -619,16 +619,16 @@ const MobileMenuToggle = styled.button<{ $theme: any; $designSystem: any }>`
   
   /* Solo aplicar hover effects en dispositivos con hover real */
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background: ${props => props.$theme.colors.bg.secondary};
-      border-color: ${props => props.$theme.colors.interactive.primary};
-      color: ${props => props.$theme.colors.interactive.primary};
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
-      
-      &::before {
-        width: 100%;
-        height: 100%;
+  &:hover {
+    background: ${props => props.$theme.colors.bg.secondary};
+    border-color: ${props => props.$theme.colors.interactive.primary};
+    color: ${props => props.$theme.colors.interactive.primary};
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
+    
+    &::before {
+      width: 100%;
+      height: 100%;
       }
     }
   }

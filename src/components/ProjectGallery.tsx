@@ -172,7 +172,7 @@ const MediaItem = styled.div<{ $theme: any; $designSystem: any }>`
     width: 40px;
     height: 40px;
     background: rgba(0, 0, 0, 0.75);
-    border-radius: ${props => props.$designSystem.radius.full};
+    border-radius: 9999px;
     color: white;
     font-size: 18px;
     opacity: 0;

@@ -76,7 +76,7 @@ export const ActionBar = styled.div<{ $theme: any }>`
       border: 1px solid ${props => props.$theme.colors.border.primary};
       color: ${props => props.$theme.colors.text.secondary};
       padding: 0.5rem 1rem;
-      border-radius: 20px;
+      border-radius: 9999px;
       font-family: 'Inter', -apple-system, sans-serif;
       font-size: 0.875rem;
       font-weight: 400;

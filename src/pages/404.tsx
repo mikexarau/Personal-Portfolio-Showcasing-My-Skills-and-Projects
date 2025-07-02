@@ -188,7 +188,7 @@ const ActionButtons = styled.div<{ $theme: any }>`
     background: ${props => props.$theme.colors.interactive.primary};
     color: ${props => props.$theme.colors.bg.secondary};
     text-decoration: none;
-    border-radius: 0.75rem;
+    border-radius: 9999px;
     font-weight: 600;
     font-family: ${props => props.$theme.designSystem?.typography?.fonts?.sans || 'sans-serif'};
     transition: all 0.3s ease;
@@ -214,7 +214,7 @@ const ActionButtons = styled.div<{ $theme: any }>`
     background: ${props => props.$theme.colors.bg.secondary};
     color: ${props => props.$theme.colors.text.primary};
     text-decoration: none;
-    border-radius: 0.75rem;
+    border-radius: 9999px;
     font-weight: 600;
     font-family: ${props => props.$theme.designSystem?.typography?.fonts?.sans || 'sans-serif'};
     transition: all 0.3s ease;
