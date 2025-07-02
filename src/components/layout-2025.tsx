@@ -32,6 +32,7 @@ import {
   HiOutlineExternalLink,
   HiOutlineGlobeAlt
 } from 'react-icons/hi'
+import { FaXTwitter } from 'react-icons/fa6'
 import { Helmet } from 'react-helmet'
 // import Navbar2025 from './navbar-2025'
 // import Footer2025 from './footer-2025'
@@ -1248,6 +1249,16 @@ function Layout2025({ children, location }: LayoutProps) {
                   title="LinkedIn"
                 >
                   <SiLinkedin />
+                </SocialLink>
+                <SocialLink 
+                  href="https://x.com/mikixarau"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                  title="X (Twitter)"
+                >
+                  <FaXTwitter />
                 </SocialLink>
                 <SocialLink 
                   href="https://vimeo.com/miquelxarau" 
