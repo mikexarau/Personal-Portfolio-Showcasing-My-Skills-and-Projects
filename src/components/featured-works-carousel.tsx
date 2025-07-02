@@ -411,7 +411,7 @@ const WorkOverlay = styled.div<{ $theme: any; $designSystem: any; $isDark: boole
   z-index: 2;
 `
 
-// 🏷️ Badge - SOLUCION DEFINITIVA Z-INDEX - Posición absoluta con máximo z-index
+// 🏷️ Badge - REPLICANDO EXACTAMENTE TRABAJOS.TSX QUE FUNCIONA
 const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: string }>`
   position: absolute;
   top: -6px;
@@ -421,7 +421,7 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
     const currentYear = new Date().getFullYear()
     const isDark = props.$theme.mode === 'dark'
     
-    // Sistema monocromático basado en la antigüedad del proyecto
+    // Sistema monocromático idéntico al de trabajos.tsx
     if (year >= currentYear - 1) {
       // Proyectos recientes - máximo contraste
       return isDark ? '#ffffff' : '#1a1a1a'
@@ -442,7 +442,7 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
     const currentYear = new Date().getFullYear()
     const isDark = props.$theme.mode === 'dark'
     
-    // Color de texto óptimo para cada tonalidad monocromática
+    // Color de texto óptimo idéntico al de trabajos.tsx
     if (year >= currentYear - 1) {
       // Proyectos recientes - texto inverso al fondo
       return isDark ? '#1a1a1a' : '#ffffff'
@@ -465,9 +465,10 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   text-transform: uppercase;
   letter-spacing: ${props => props.$designSystem.typography.tracking.wider};
   transition: all ${props => props.$designSystem.animation.duration.normal} ease;
+  z-index: 20;
   white-space: nowrap;
   
-  /* Diseño ultra limpio sin bordes */
+  /* Diseño limpio sin bordes */
   border: none;
   backdrop-filter: none;
   
@@ -475,48 +476,18 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   opacity: 1;
   transform: translate(0, 0) scale(1);
   
-  /* 🔥 SOLUCIÓN DEFINITIVA Z-INDEX - MÁXIMA PRIORIDAD */
-  z-index: 999999 !important; /* Z-index máximo con !important */
-  
-  /* 🔥 CREAR NUEVO STACKING CONTEXT PARA SUPERAR TODOS LOS DEMÁS */
-  isolation: isolate;
-  will-change: auto;
-  contain: layout style;
-  
-  /* 📱 MOBILE: Configuración específica para pantallas pequeñas */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    top: -6px !important;
-    right: -6px !important;
+    top: -4px;
+    right: -4px;
     padding: 3px 8px;
     font-size: 9px;
-    z-index: 999999 !important;
-    position: absolute !important;
-    
-    /* 🔥 ASEGURAR QUE ESTÉ POR ENCIMA DE VIDEOS Y OVERLAYS EN MOBILE */
-    isolation: isolate !important;
-    will-change: auto !important;
-    transform: translateZ(999px) !important; /* Forzar nuevo layer */
   }
   
   @media (max-width: 480px) {
-    top: -6px !important;
-    right: -6px !important;
+    top: -3px;
+    right: -3px;
     padding: 2px 6px;
     font-size: 8px;
-    z-index: 999999 !important;
-    position: absolute !important;
-    
-    /* 🔥 MÁXIMO NIVEL DE ESPECIFICIDAD PARA PANTALLAS PEQUEÑAS */
-    isolation: isolate !important;
-    will-change: auto !important;
-    transform: translateZ(999px) !important;
-    contain: layout style !important;
-  }
-  
-  /* 🎯 HOVER: Mantener máxima visibilidad en hover */
-  &:hover {
-    z-index: 999999 !important;
-    transform: translateZ(999px) scale(1.05) !important;
   }
 `
 

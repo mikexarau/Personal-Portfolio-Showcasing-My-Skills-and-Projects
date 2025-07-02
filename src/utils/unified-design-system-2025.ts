@@ -155,12 +155,14 @@ export const unifiedTokens = {
     }
   },
 
-  // 📱 Breakpoints - Mobile-first
+  // 📱 Breakpoints - Mobile-first granular
   breakpoints: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px'
+    xs: '480px',     // Teléfonos pequeños
+    sm: '640px',     // Teléfonos grandes
+    md: '768px',     // Tablets
+    lg: '1024px',    // Laptops
+    xl: '1280px',    // Desktops
+    '2xl': '1536px'  // Pantallas grandes
   }
 } as const
 
