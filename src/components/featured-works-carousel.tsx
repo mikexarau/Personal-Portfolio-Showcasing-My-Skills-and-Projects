@@ -87,24 +87,25 @@ const fadeInUp = keyframes`
   }
 `
 
-// 🏗️ Container principal del carrusel
+// 🏗️ Container principal del carrusel - ANCHO COMPLETO
 const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
   background: ${props => props.$theme.colors.bg.primary};
-  overflow: visible; /* Permitir que los badges sobresalgan completamente */
-  padding: ${props => props.$designSystem.spacing[10]} ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[8]} ${props => props.$designSystem.spacing[4]};
+  overflow: visible;
+  /* PADDING SOLO VERTICAL - sin padding lateral para máximo ancho */
+  padding: ${props => props.$designSystem.spacing[10]} 0 ${props => props.$designSystem.spacing[8]} 0;
   
   @media (max-width: 1024px) {
-    padding: ${props => props.$designSystem.spacing[9]} ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[7]} ${props => props.$designSystem.spacing[4]};
+    padding: ${props => props.$designSystem.spacing[9]} 0 ${props => props.$designSystem.spacing[7]} 0;
   }
   
   @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[8]} ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]} ${props => props.$designSystem.spacing[3]};
+    padding: ${props => props.$designSystem.spacing[8]} 0 ${props => props.$designSystem.spacing[6]} 0;
   }
   
   @media (max-width: 480px) {
-    padding: ${props => props.$designSystem.spacing[7]} ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[5]} ${props => props.$designSystem.spacing[2]};
+    padding: ${props => props.$designSystem.spacing[7]} 0 ${props => props.$designSystem.spacing[5]} 0;
   }
 `
 
@@ -165,7 +166,7 @@ const CarouselTrack = styled.div<{
   }
 `
 
-// 🎯 Wrapper para card + información debajo (como lecorre.design) - Sin interferencia z-index
+// 🎯 Wrapper para card + información debajo - LIMPIO COMO TRABAJOS.TSX
 const CarouselCard = styled.div<{ 
   $theme: any; 
   $designSystem: any; 
@@ -179,12 +180,7 @@ const CarouselCard = styled.div<{
   width: ${props => props.$cardWidth}px;
   flex-shrink: 0;
   text-decoration: none;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
-  
-  /* 🔥 CRITICAL: NO crear stacking context que interfiera con badge */
-  z-index: auto;
-  isolation: auto;
-  will-change: auto;
+  transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
   
   /* 🔥 Solo aplicar hover effects en desktop */
   ${props => !props.$shouldDisableHover && css`
@@ -253,7 +249,7 @@ const CarouselCard = styled.div<{
   }
 `
 
-// 🎯 Card visual interactiva - Sin interferencia con badge z-index
+// 🎯 Card visual - SIMPLE COMO TRABAJOS.TSX
 const CardVisual = styled(Link)<{ 
   $theme: any; 
   $designSystem: any; 
@@ -264,17 +260,9 @@ const CardVisual = styled(Link)<{
   width: 100%;
   height: 240px;
   border-radius: ${props => props.$designSystem.radius.xl};
-  /* REMOVIDO: overflow: hidden; - Para permitir que el badge sobresalga */
+  overflow: hidden;
   text-decoration: none;
-  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
-  
-  /* 🔥 CRITICAL: NO crear stacking context que interfiera con el badge */
-  z-index: auto; /* No forzar z-index para evitar stacking context */
-  transform: none; /* No usar transform que crea stacking context */
-  will-change: auto; /* Evitar creating layers innecesarios */
-  isolation: auto; /* No crear isolation context */
-  
-  /* El hover effect se maneja desde CarouselCard */
+  transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     height: 200px;
