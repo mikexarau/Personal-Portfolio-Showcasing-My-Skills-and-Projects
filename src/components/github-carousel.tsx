@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
 import { useLazyLoadingCleanup } from '../utils/lazy-loading-system'
-import { useTouchInteractions } from '../utils/useTouchInteractions'
-import TouchInteractions from './TouchInteractions'
 import logger from '../utils/logger'
 import { 
   FaGithub,
@@ -37,7 +35,14 @@ const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
 const CarouselWrapper = styled.div<{ $designSystem: any }>`
   position: relative;
   width: 100%;
-  max-width: 100vw;
+  overflow-x: hidden; /* 🔥 CRÍTICO: Prevenir desbordamiento horizontal en mobile */
+  overflow-y: visible; /* Permitir contenido sobresalir verticalmente */
+  
+  /* 🔥 MOBILE: Asegurar que no haya scroll horizontal */
+  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 `
 
 const CarouselTrack = styled.div<{ 
@@ -61,15 +66,17 @@ const CarouselTrack = styled.div<{
     }
   `}
   
+  /* 🔥 MOBILE: Sin pausa en hover */
+  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
+    &:hover {
+      animation-play-state: running !important;
+    }
+  }
+  
   /* Mejorar la performance del scroll */
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  
-  /* 🎯 Optimizaciones táctiles */
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  overscroll-behavior-x: contain;
   
   @keyframes slideLoopRight {
     100% {
@@ -77,13 +84,6 @@ const CarouselTrack = styled.div<{
     }
     0% {
       transform: translateX(-${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards}px);
-    }
-  }
-  
-  /* 🔥 Eliminar hover effects en móvil */
-  @media (hover: none) and (pointer: coarse) {
-    &:hover {
-      animation-play-state: running !important;
     }
   }
 `
@@ -439,6 +439,24 @@ const GitHubCarousel = ({ className }: { className?: string }) => {
   const [cardWidth, setCardWidth] = useState(340)
   const containerRef = useRef<HTMLElement>(null)
   
+  // 🎯 Detección simple de dispositivos móviles
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window)
+      }
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // 🎯 Estado para pausar carrusel (solo desktop)
+  const [isPaused, setIsPaused] = useState(false)
+  
   // 🧹 Usar cleanup automático del sistema de lazy loading
   useLazyLoadingCleanup()
 
@@ -486,7 +504,7 @@ const GitHubCarousel = ({ className }: { className?: string }) => {
     return (
       <CarouselContainer $theme={theme} $designSystem={designSystem} className={className}>
         <CarouselWrapper $designSystem={designSystem}>
-          <CarouselTrack $theme={theme} $designSystem={designSystem} $cardWidth={cardWidth} $totalCards={3}>
+          <CarouselTrack $theme={theme} $designSystem={designSystem} $cardWidth={cardWidth} $totalCards={3} $isPaused={false} $shouldDisableHover={isMobile}>
             {Array.from({ length: 3 }).map((_, index) => (
               <LoadingCard key={index} $theme={theme} $designSystem={designSystem} $cardWidth={cardWidth}>
                 <FaSpinner className="loading-icon" />
@@ -516,6 +534,8 @@ const GitHubCarousel = ({ className }: { className?: string }) => {
           $designSystem={designSystem} 
           $cardWidth={cardWidth} 
           $totalCards={repositories.length}
+          $isPaused={isPaused}
+          $shouldDisableHover={isMobile}
         >
           {allRepositories.map((repo, index) => (
             <CarouselCard
