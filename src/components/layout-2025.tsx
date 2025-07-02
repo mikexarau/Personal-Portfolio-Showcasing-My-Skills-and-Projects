@@ -22,7 +22,8 @@ import {
 import { 
   SiGithub,
   SiLinkedin,
-  SiVimeo
+  SiVimeo,
+  SiX
 } from 'react-icons/si'
 import { 
   HiOutlineLocationMarker,
@@ -119,6 +120,32 @@ const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
   *:focus:not(:focus-visible) {
     outline: none;
   }
+  
+  /* Skip link accessibility - oculto por defecto, visible en focus */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 8px;
+    background: ${props => props.$theme.colors.interactive.primary};
+    color: #ffffff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: ${props => props.$designSystem.radius.md};
+    font-weight: ${props => props.$designSystem.typography.weight.medium};
+    font-size: ${props => props.$designSystem.typography.scale.sm};
+    z-index: 99999;
+    transition: all ${props => props.$designSystem.animation.duration.fast} ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    
+    &:focus {
+      top: 8px;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
 `
 
 // 🏗️ Layout Container
@@ -144,7 +171,11 @@ const Header = styled.header<{ $theme: any; $isScrolled: boolean; $designSystem:
   transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    padding: ${props => props.$isScrolled ? '0.75rem 1rem' : '1.5rem 1rem'};
+    padding: ${props => props.$isScrolled ? '0.75rem 1rem' : '1.25rem 1rem'};
+  }
+  
+  @media (max-width: 480px) {
+    padding: ${props => props.$isScrolled ? '0.5rem 0.75rem' : '1rem 0.75rem'};
   }
 `
 
@@ -662,7 +693,12 @@ const Main = styled.main<{ $theme: any; $designSystem: any }>`
   flex: 1;
   padding-top: ${props => props.$designSystem.spacing[20]};
   background: ${props => props.$theme.colors.bg.primary};
-  
+ 
+  /* 💻 TABLET: Ajuste intermedio */
+  @media (max-width: 1024px) {
+    padding-top: ${props => props.$designSystem.spacing[18]};
+  }
+ 
   /* 📱 MOBILE: Mejor gestión del espacio superior */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     padding-top: ${props => props.$designSystem.spacing[16]}; /* Menos padding en móvil */
@@ -670,6 +706,10 @@ const Main = styled.main<{ $theme: any; $designSystem: any }>`
   
   @media (max-width: 480px) {
     padding-top: ${props => props.$designSystem.spacing[14]}; /* Aún menos en pantallas pequeñas */
+  }
+  
+  @media (max-width: 360px) {
+    padding-top: ${props => props.$designSystem.spacing[12]}; /* Mínimo para pantallas muy pequeñas */
   }
 `
 
@@ -1285,6 +1325,16 @@ function Layout2025({ children, location }: LayoutProps) {
                   title="LinkedIn"
                 >
                   <SiLinkedin />
+                </SocialLink>
+                <SocialLink 
+                  href="https://x.com/miquelxarau" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  $theme={theme}
+                  $designSystem={designSystem}
+                  title="X (Twitter)"
+                >
+                  <SiX />
                 </SocialLink>
                 <SocialLink 
                   href="https://vimeo.com/miquelxarau" 

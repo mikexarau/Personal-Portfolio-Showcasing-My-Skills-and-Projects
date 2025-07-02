@@ -92,11 +92,20 @@ const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
   background: ${props => props.$theme.colors.bg.primary};
-  overflow: hidden;
+  overflow-x: hidden; /* Solo ocultar horizontalmente para el scroll del carrusel */
+  overflow-y: visible; /* Permitir que los badges sobresalgan verticalmente */
   padding: ${props => props.$designSystem.spacing[8]} 0 ${props => props.$designSystem.spacing[4]} 0;
   
+  @media (max-width: 1024px) {
+    padding: ${props => props.$designSystem.spacing[7]} 0 ${props => props.$designSystem.spacing[4]} 0;
+  }
+  
   @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[6]} 0 ${props => props.$designSystem.spacing[2]} 0;
+    padding: ${props => props.$designSystem.spacing[6]} 0 ${props => props.$designSystem.spacing[3]} 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: ${props => props.$designSystem.spacing[5]} 0 ${props => props.$designSystem.spacing[3]} 0;
   }
 `
 
@@ -979,14 +988,16 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
     return projectVideos[0]?.publicURL || null
   }
   
-  // Calcular tamaño de card responsive
+  // Calcular tamaño de card responsive - MEJORADO
   const getCardWidth = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 768) return 220 // móvil - reducido de 260
-      if (window.innerWidth < 1024) return 260 // tablet - reducido de 300
-      return 300 // desktop - reducido de 340
+      if (window.innerWidth < 480) return 280 // móvil pequeño - mejor uso del espacio
+      if (window.innerWidth < 768) return 300 // móvil - incrementado para mejor visualización
+      if (window.innerWidth < 1024) return 320 // tablet - incrementado
+      if (window.innerWidth < 1280) return 340 // desktop pequeño
+      return 360 // desktop grande - incrementado para mejor aprovechamiento
     }
-    return 300
+    return 340
   }
   
   const [cardWidth, setCardWidth] = useState(300)
