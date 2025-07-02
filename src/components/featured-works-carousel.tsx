@@ -1075,6 +1075,16 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
               $cardWidth={cardWidth}
               $shouldDisableHover={shouldDisableHover}
             >
+              {/* Badge de año FUERA del CardVisual para que sobresalga completamente */}
+              <WorkBadge 
+                className="work-badge" 
+                $theme={theme} 
+                $designSystem={designSystem}
+                $badgeType={getProjectYearBadge(project)}
+              >
+                {getProjectYearBadge(project)}
+              </WorkBadge>
+
               {/* Card visual con enlace */}
               <CardVisual 
                 className="card-visual"
@@ -1084,15 +1094,6 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
                 $isDark={isDark}
                 data-cursor="view"
               >
-                {/* Badge de año FUERA del CardInner para que sobresalga */}
-                <WorkBadge 
-                  className="work-badge" 
-                  $theme={theme} 
-                  $designSystem={designSystem}
-                  $badgeType={getProjectYearBadge(project)}
-                >
-                  {getProjectYearBadge(project)}
-                </WorkBadge>
 
                 {/* Contenedor interno con overflow hidden */}
                 <CardInner $theme={theme} $designSystem={designSystem}>

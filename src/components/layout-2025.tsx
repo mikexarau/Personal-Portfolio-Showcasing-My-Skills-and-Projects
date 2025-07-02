@@ -1385,7 +1385,6 @@ function Layout2025({ children, location }: LayoutProps) {
       
       <ScrollProgress 
         variant="default"
-        hideOnPages={['/']}
       />
       
       <CustomCursor />
