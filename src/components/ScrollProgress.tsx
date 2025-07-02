@@ -76,8 +76,8 @@ const ScrollProgress: React.FC<ScrollProgressProps> = ({
 
     // 🎯 Mostrar/ocultar basado en scroll position
     const handleVisibility = () => {
-      const shouldShow = window.scrollY > 100
-      setIsVisible(shouldShow)
+      // Mostrar siempre, independientemente de la posición de scroll
+      setIsVisible(true)
     }
 
     // Event listeners optimizados
@@ -114,8 +114,8 @@ const ScrollProgress: React.FC<ScrollProgressProps> = ({
       return
     }
 
-    // Default: mostrar en todas las páginas excepto home
-    setIsVisible(currentPath !== '/')
+    // Default: mostrar en todas las páginas
+    setIsVisible(true)
   }, [isClient, showOnPages, hideOnPages])
 
   // 🚫 No renderizar en SSR o si no es visible
@@ -127,7 +127,7 @@ const ScrollProgress: React.FC<ScrollProgressProps> = ({
       $designSystem={designSystem} 
       $variant={variant}
       className={variant === 'reading' ? 'reading-progress-bar' : 'scroll-progress-bar'}
-      style={{ opacity: scrollProgress > 0 ? 1 : 0 }}
+      style={{ opacity: 1 }}
     >
       <ProgressFill
         $theme={theme}

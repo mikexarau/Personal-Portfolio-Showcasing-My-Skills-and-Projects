@@ -92,20 +92,19 @@ const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
   background: ${props => props.$theme.colors.bg.primary};
-  overflow-x: hidden; /* Solo ocultar horizontalmente para el scroll del carrusel */
-  overflow-y: visible; /* Permitir que los badges sobresalgan verticalmente */
-  padding: ${props => props.$designSystem.spacing[8]} 0 ${props => props.$designSystem.spacing[4]} 0;
+  overflow: visible; /* Permitir que los badges sobresalgan completamente */
+  padding: ${props => props.$designSystem.spacing[10]} ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[8]} ${props => props.$designSystem.spacing[4]};
   
   @media (max-width: 1024px) {
-    padding: ${props => props.$designSystem.spacing[7]} 0 ${props => props.$designSystem.spacing[4]} 0;
+    padding: ${props => props.$designSystem.spacing[9]} ${props => props.$designSystem.spacing[4]} ${props => props.$designSystem.spacing[7]} ${props => props.$designSystem.spacing[4]};
   }
   
   @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[6]} 0 ${props => props.$designSystem.spacing[3]} 0;
+    padding: ${props => props.$designSystem.spacing[8]} ${props => props.$designSystem.spacing[3]} ${props => props.$designSystem.spacing[6]} ${props => props.$designSystem.spacing[3]};
   }
   
   @media (max-width: 480px) {
-    padding: ${props => props.$designSystem.spacing[5]} 0 ${props => props.$designSystem.spacing[3]} 0;
+    padding: ${props => props.$designSystem.spacing[7]} ${props => props.$designSystem.spacing[2]} ${props => props.$designSystem.spacing[5]} ${props => props.$designSystem.spacing[2]};
   }
 `
 
@@ -114,6 +113,7 @@ const CarouselWrapper = styled.div<{ $designSystem: any }>`
   position: relative;
   width: 100%;
   max-width: 100vw;
+  overflow: visible; /* Permitir que los badges sobresalgan */
 `
 
 // 🎯 Track del carrusel que se mueve automáticamente
@@ -988,16 +988,14 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
     return projectVideos[0]?.publicURL || null
   }
   
-  // Calcular tamaño de card responsive - MEJORADO
+  // Calcular tamaño de card responsive
   const getCardWidth = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 480) return 280 // móvil pequeño - mejor uso del espacio
-      if (window.innerWidth < 768) return 300 // móvil - incrementado para mejor visualización
-      if (window.innerWidth < 1024) return 320 // tablet - incrementado
-      if (window.innerWidth < 1280) return 340 // desktop pequeño
-      return 360 // desktop grande - incrementado para mejor aprovechamiento
+      if (window.innerWidth < 768) return 220 // móvil - tamaño original
+      if (window.innerWidth < 1024) return 260 // tablet - tamaño original
+      return 300 // desktop - tamaño original
     }
-    return 340
+    return 300
   }
   
   const [cardWidth, setCardWidth] = useState(300)
