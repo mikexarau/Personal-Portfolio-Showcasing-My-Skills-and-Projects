@@ -257,7 +257,7 @@ const FeaturedWorksSection = styled.section<{ $theme: any; $designSystem: any }>
   width: 100%;
   background: ${props => props.$theme.colors.bg?.primary};
   padding: 0 0 ${props => props.$designSystem.spacing[8]} 0;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: ${props => props.$designSystem.spacing[8]};
   
   @media (max-width: 768px) {
@@ -271,7 +271,7 @@ const GitHubSection = styled.section<{ $theme: any; $designSystem: any }>`
   width: 100%;
   background: ${props => props.$theme.colors.bg?.primary};
   padding: ${props => props.$designSystem.spacing[6]} 0 ${props => props.$designSystem.spacing[8]} 0;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: ${props => props.$designSystem.spacing[8]};
   
   @media (max-width: 768px) {
