@@ -109,15 +109,15 @@ const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🎯 Wrapper para el carrusel
+// 🎯 Wrapper para el carrusel - OVERFLOW FORZADO
 const CarouselWrapper = styled.div<{ $designSystem: any }>`
   position: relative;
   width: 100%;
   max-width: 100vw;
-  overflow: visible; /* Permitir que los badges sobresalgan */
+  overflow: visible !important;
 `
 
-// 🎯 Track del carrusel que se mueve automáticamente
+// 🎯 Track del carrusel que se mueve automáticamente - OVERFLOW FORZADO
 const CarouselTrack = styled.div<{ 
   $theme: any; 
   $designSystem: any; 
@@ -131,6 +131,7 @@ const CarouselTrack = styled.div<{
   width: ${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards * 2}px;
   animation: slideLoop ${props => props.$totalCards * 3}s linear infinite;
   animation-play-state: ${props => props.$isPaused ? 'paused' : 'running'};
+  overflow: visible !important;
   
   /* 🔥 Solo aplicar hover pause en desktop */
   ${props => !props.$shouldDisableHover && css`
@@ -399,11 +400,11 @@ const WorkOverlay = styled.div<{ $theme: any; $designSystem: any; $isDark: boole
   z-index: 2;
 `
 
-// 🏷️ Badge - REPLICANDO EXACTAMENTE TRABAJOS.TSX QUE FUNCIONA
+// 🏷️ Badge - SOLUCIÓN RADICAL CON !IMPORTANT
 const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: string }>`
-  position: absolute;
-  top: -6px;
-  right: -6px;
+  position: absolute !important;
+  top: -6px !important;
+  right: -6px !important;
   background: ${props => {
     const year = parseInt(props.$badgeType)
     const currentYear = new Date().getFullYear()
@@ -453,8 +454,9 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   text-transform: uppercase;
   letter-spacing: ${props => props.$designSystem.typography.tracking.wider};
   transition: all ${props => props.$designSystem.animation.duration.normal} ease;
-  z-index: 20;
-  white-space: nowrap;
+  z-index: 9999 !important;
+  white-space: nowrap !important;
+  display: block !important;
   
   /* Diseño limpio sin bordes */
   border: none;
