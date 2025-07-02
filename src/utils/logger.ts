@@ -121,7 +121,7 @@ class Logger {
   performanceLog(metric: string, value: number, unit: string = 'ms'): void {
     this.info(`Performance: ${metric} = ${value}${unit}`, 'PERFORMANCE');
   }
-}
+  }
 
 // 🎯 Singleton instance with SSR protection
 const logger = new Logger();

@@ -32,7 +32,7 @@ const StyledButton = styled.button<{
   gap: ${props => props.$designSystem.spacing[2]};
   font-family: ${props => props.$designSystem.typography.fonts.sans};
   font-weight: ${props => props.$designSystem.typography.weight.semibold};
-  border-radius: ${props => props.$designSystem.radius.full};
+  border-radius: ${props => props.$designSystem.radius.lg};
   transition: all ${props => props.$designSystem.animation.duration.fast} ease;
   cursor: pointer;
   border: 2px solid transparent;

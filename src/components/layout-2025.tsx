@@ -22,8 +22,7 @@ import {
 import { 
   SiGithub,
   SiLinkedin,
-  SiVimeo,
-  SiX
+  SiVimeo
 } from 'react-icons/si'
 import { 
   HiOutlineLocationMarker,
@@ -40,7 +39,6 @@ import { Helmet } from 'react-helmet'
 import '../styles/global-unified-2025.css'
 import CustomCursor from './CustomCursor'
 import CookieBanner from './CookieBanner'
-import ScrollProgress from './ScrollProgress'
 import { CRITICAL_A11Y_CSS } from '../utils/accessibility-performance-2025'
 
 // 🌐 Global Styles - Modern and Clean
@@ -67,7 +65,7 @@ const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: visible;
+    overflow-x: hidden;
   }
   
   /* Professional heading defaults */
@@ -120,32 +118,6 @@ const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
   *:focus:not(:focus-visible) {
     outline: none;
   }
-  
-  /* Skip link accessibility - oculto por defecto, visible en focus */
-  .skip-link {
-    position: absolute;
-    top: -40px;
-    left: 8px;
-    background: ${props => props.$theme.colors.interactive.primary};
-    color: #ffffff;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: ${props => props.$designSystem.radius.md};
-    font-weight: ${props => props.$designSystem.typography.weight.medium};
-    font-size: ${props => props.$designSystem.typography.scale.sm};
-    z-index: 99999;
-    transition: all ${props => props.$designSystem.animation.duration.fast} ease;
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
-    
-    &:focus {
-      top: 8px;
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-  }
 `
 
 // 🏗️ Layout Container
@@ -171,11 +143,7 @@ const Header = styled.header<{ $theme: any; $isScrolled: boolean; $designSystem:
   transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    padding: ${props => props.$isScrolled ? '0.75rem 1rem' : '1.25rem 1rem'};
-  }
-  
-  @media (max-width: 480px) {
-    padding: ${props => props.$isScrolled ? '0.5rem 0.75rem' : '1rem 0.75rem'};
+    padding: ${props => props.$isScrolled ? '0.75rem 1rem' : '1.5rem 1rem'};
   }
 `
 
@@ -395,7 +363,13 @@ const MobileNavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?
     transition: height ${props => props.$designSystem.animation.duration.fast} ease;
   }
   
-  &:hover::before,
+  /* Solo aplicar hover effects en dispositivos con hover real */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before {
+      height: 60%;
+    }
+  }
+  
   &.active::before {
     height: 60%;
   }
@@ -418,9 +392,12 @@ const MobileNavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?
     transition: all ${props => props.$designSystem.animation.duration.fast} ease;
   }
   
-  &:hover .arrow {
-    opacity: 1;
-    transform: translateX(0);
+  /* Solo mostrar arrow en hover en dispositivos con hover real */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 `
 
@@ -474,9 +451,12 @@ const MobileMenuFooter = styled.div<{ $theme: any; $designSystem: any }>`
       cursor: pointer;
       transition: all ${props => props.$designSystem.animation.duration.fast} ease;
       
-      &:hover {
-        background: ${props => props.$theme.colors.bg.tertiary};
-        transform: translateY(-1px);
+      /* Solo aplicar hover effects en dispositivos con hover real */
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background: ${props => props.$theme.colors.bg.tertiary};
+          transform: translateY(-1px);
+        }
       }
       
       .theme-icon {
@@ -504,8 +484,11 @@ const NavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?: bool
   padding: ${props => props.$designSystem.spacing[2]} 0;
   letter-spacing: ${props => props.$designSystem.typography.tracking.normal};
   
-  &:hover {
-    color: ${props => props.$theme.colors.interactive.primary};
+  /* Solo aplicar hover effects en dispositivos con hover real */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: ${props => props.$theme.colors.interactive.primary};
+    }
   }
   
   &.active {
@@ -517,8 +500,11 @@ const NavLink = styled(Link)<{ $theme: any; $designSystem: any; $isActive?: bool
     font-weight: ${props => props.$designSystem.typography.weight.light};
     color: ${props => props.$theme.colors.text.primary};
     
-    &:hover {
-      color: ${props => props.$theme.colors.interactive.primary};
+    /* Solo aplicar hover effects en navegación móvil en dispositivos con hover real */
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: ${props => props.$theme.colors.interactive.primary};
+      }
     }
   }
 `
@@ -555,16 +541,19 @@ const ThemeToggle = styled.button<{ $theme: any; $designSystem: any }>`
     transition: all ${props => props.$designSystem.animation.duration.normal} ease;
   }
   
-  &:hover {
-    background: ${props => props.$theme.colors.bg.secondary};
-    border-color: ${props => props.$theme.colors.interactive.primary};
-    color: ${props => props.$theme.colors.interactive.primary};
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
-    
-    &::before {
-      width: 100%;
-      height: 100%;
+  /* Solo aplicar hover effects en dispositivos con hover real */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: ${props => props.$theme.colors.bg.secondary};
+      border-color: ${props => props.$theme.colors.interactive.primary};
+      color: ${props => props.$theme.colors.interactive.primary};
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
+      
+      &::before {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   
@@ -628,16 +617,19 @@ const MobileMenuToggle = styled.button<{ $theme: any; $designSystem: any }>`
     transition: all ${props => props.$designSystem.animation.duration.normal} ease;
   }
   
-  &:hover {
-    background: ${props => props.$theme.colors.bg.secondary};
-    border-color: ${props => props.$theme.colors.interactive.primary};
-    color: ${props => props.$theme.colors.interactive.primary};
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
-    
-    &::before {
-      width: 100%;
-      height: 100%;
+  /* Solo aplicar hover effects en dispositivos con hover real */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: ${props => props.$theme.colors.bg.secondary};
+      border-color: ${props => props.$theme.colors.interactive.primary};
+      color: ${props => props.$theme.colors.interactive.primary};
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px ${props => props.$theme.colors.interactive.primary}20;
+      
+      &::before {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   
@@ -693,12 +685,7 @@ const Main = styled.main<{ $theme: any; $designSystem: any }>`
   flex: 1;
   padding-top: ${props => props.$designSystem.spacing[20]};
   background: ${props => props.$theme.colors.bg.primary};
- 
-  /* 💻 TABLET: Ajuste intermedio */
-  @media (max-width: 1024px) {
-    padding-top: ${props => props.$designSystem.spacing[18]};
-  }
- 
+  
   /* 📱 MOBILE: Mejor gestión del espacio superior */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     padding-top: ${props => props.$designSystem.spacing[16]}; /* Menos padding en móvil */
@@ -707,17 +694,13 @@ const Main = styled.main<{ $theme: any; $designSystem: any }>`
   @media (max-width: 480px) {
     padding-top: ${props => props.$designSystem.spacing[14]}; /* Aún menos en pantallas pequeñas */
   }
-  
-  @media (max-width: 360px) {
-    padding-top: ${props => props.$designSystem.spacing[12]}; /* Mínimo para pantallas muy pequeñas */
-  }
 `
 
 // 🦶 Footer - Minimalista y moderno
 const Footer = styled.footer<{ $theme: any; $designSystem: any }>`
   background: ${props => props.$theme.colors.bg.secondary};
   border-top: 1px solid ${props => props.$theme.colors.border.primary};
-  padding: ${props => props.$designSystem.spacing[12]} 0 ${props => props.$designSystem.spacing[6]} 0;
+  padding: ${props => props.$designSystem.spacing[16]} 0 ${props => props.$designSystem.spacing[8]} 0;
   margin-top: auto;
 `
 
@@ -733,61 +716,19 @@ const FooterContent = styled.div<{ $theme: any; $designSystem: any }>`
 
 const FooterGrid = styled.div<{ $theme: any; $designSystem: any }>`
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: ${props => props.$designSystem.spacing[6]};
-  margin-bottom: ${props => props.$designSystem.spacing[10]};
-  
-  @media (max-width: ${props => props.$designSystem.breakpoints.xl}) {
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: ${props => props.$designSystem.spacing[5]};
-    
-    /* Fusionar Legal y Redes Sociales en desktop large */
-    .footer-legal-section {
-      grid-column: 3;
-    }
-    
-    .footer-social-section {
-      grid-column: 3;
-      margin-top: ${props => props.$designSystem.spacing[6]};
-    }
-  }
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: ${props => props.$designSystem.spacing[12]};
+  margin-bottom: ${props => props.$designSystem.spacing[12]};
   
   @media (max-width: ${props => props.$designSystem.breakpoints.lg}) {
     grid-template-columns: 1fr 1fr;
-    gap: ${props => props.$designSystem.spacing[6]};
-    
-    .footer-brand {
-      grid-column: 1 / -1;
-      margin-bottom: ${props => props.$designSystem.spacing[4]};
-    }
-    
-    .footer-links-section {
-      grid-column: 1;
-    }
-    
-    .footer-legal-section {
-      grid-column: 2;
-    }
-    
-    .footer-social-section {
-      grid-column: 1 / -1;
-      margin-top: ${props => props.$designSystem.spacing[4]};
-      text-align: center;
-    }
+    gap: ${props => props.$designSystem.spacing[8]};
   }
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     grid-template-columns: 1fr;
-    gap: ${props => props.$designSystem.spacing[6]};
+    gap: ${props => props.$designSystem.spacing[8]};
     text-align: center;
-    
-    .footer-brand,
-    .footer-links-section,
-    .footer-legal-section,
-    .footer-social-section {
-      grid-column: 1;
-      margin-top: 0;
-    }
   }
 `
 
@@ -882,12 +823,12 @@ const FooterBottom = styled.div<{ $theme: any; $designSystem: any }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: ${props => props.$designSystem.spacing[6]};
+  padding-top: ${props => props.$designSystem.spacing[8]};
   border-top: 1px solid ${props => props.$theme.colors.border.primary};
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     flex-direction: column;
-    gap: ${props => props.$designSystem.spacing[3]};
+    gap: ${props => props.$designSystem.spacing[4]};
     text-align: center;
   }
 `
@@ -901,7 +842,7 @@ const Copyright = styled.p<{ $theme: any; $designSystem: any }>`
 const FooterInfo = styled.div<{ $theme: any; $designSystem: any }>`
   display: flex;
   align-items: center;
-  gap: ${props => props.$designSystem.spacing[4]};
+  gap: ${props => props.$designSystem.spacing[6]};
   color: ${props => props.$theme.colors.text.tertiary};
   font-size: ${props => props.$designSystem.typography.scale.sm};
   
@@ -914,13 +855,11 @@ const FooterInfo = styled.div<{ $theme: any; $designSystem: any }>`
     display: flex;
     align-items: center;
     gap: ${props => props.$designSystem.spacing[2]};
-    white-space: nowrap;
     
     svg {
       width: 14px;
       height: 14px;
       color: ${props => props.$theme.colors.interactive.primary};
-      flex-shrink: 0;
     }
   }
 `
@@ -1202,22 +1141,14 @@ function Layout2025({ children, location }: LayoutProps) {
       <Footer $theme={theme} $designSystem={designSystem}>
         <FooterContent $theme={theme} $designSystem={designSystem}>
           <FooterGrid $theme={theme} $designSystem={designSystem}>
-            <FooterBrand 
-              $theme={theme} 
-              $designSystem={designSystem}
-              className="footer-brand"
-            >
+            <FooterBrand $theme={theme} $designSystem={designSystem}>
               <h3>Miquel Xarau</h3>
               <p>
                 Diseñador UX/UI y desarrollador fullstack especializado en IA y ciberseguridad.
               </p>
             </FooterBrand>
             
-            <FooterSection 
-              $theme={theme} 
-              $designSystem={designSystem}
-              className="footer-links-section"
-            >
+            <FooterSection $theme={theme} $designSystem={designSystem}>
               <h4>Enlaces</h4>
               <FooterLinks $theme={theme} $designSystem={designSystem}>
                 <FooterLink 
@@ -1258,11 +1189,7 @@ function Layout2025({ children, location }: LayoutProps) {
               </FooterLinks>
             </FooterSection>
             
-            <FooterSection 
-              $theme={theme} 
-              $designSystem={designSystem}
-              className="footer-legal-section"
-            >
+            <FooterSection $theme={theme} $designSystem={designSystem}>
               <h4>Legal</h4>
               <FooterLinks $theme={theme} $designSystem={designSystem}>
                 <FooterLink 
@@ -1289,12 +1216,8 @@ function Layout2025({ children, location }: LayoutProps) {
               </FooterLinks>
             </FooterSection>
             
-            <FooterSection 
-              $theme={theme} 
-              $designSystem={designSystem}
-              className="footer-social-section"
-            >
-              <h4>Conecta</h4>
+            <FooterSection $theme={theme} $designSystem={designSystem}>
+              <h4>Redes Sociales</h4>
               <SocialLinks $theme={theme} $designSystem={designSystem}>
                 <SocialLink 
                   href="https://github.com/mikexarau" 
@@ -1325,16 +1248,6 @@ function Layout2025({ children, location }: LayoutProps) {
                   title="LinkedIn"
                 >
                   <SiLinkedin />
-                </SocialLink>
-                <SocialLink 
-                  href="https://x.com/miquelxarau" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  $theme={theme}
-                  $designSystem={designSystem}
-                  title="X (Twitter)"
-                >
-                  <SiX />
                 </SocialLink>
                 <SocialLink 
                   href="https://vimeo.com/miquelxarau" 
@@ -1381,10 +1294,6 @@ function Layout2025({ children, location }: LayoutProps) {
         $isOpen={isMobileMenuOpen} 
         $designSystem={designSystem} 
         onClick={closeMobileMenu}
-      />
-      
-      <ScrollProgress 
-        variant="default"
       />
       
       <CustomCursor />

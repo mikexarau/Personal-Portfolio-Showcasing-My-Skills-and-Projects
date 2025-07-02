@@ -123,15 +123,14 @@ export const unifiedTokens = {
   },
 
   // 🔘 Border radius - Consistente y moderno
-  // REGLA CRÍTICA DEL DESIGN SYSTEM: Todos los botones DEBEN usar 'full'
   radius: {
     none: '0',
     sm: '0.25rem',
-    md: '0.5rem',     // Para formularios
-    lg: '0.75rem',    // Para cards y contenedores
-    xl: '1rem',       // Para secciones grandes
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
     '2xl': '1.5rem',
-    full: '9999px'    // ⚠️ OBLIGATORIO para todos los botones
+    full: '9999px'
   },
 
   // 🌟 Shadows - Suaves y realistas
@@ -155,14 +154,12 @@ export const unifiedTokens = {
     }
   },
 
-  // 📱 Breakpoints - Mobile-first granular
+  // 📱 Breakpoints - Mobile-first
   breakpoints: {
-    xs: '480px',     // Teléfonos pequeños
-    sm: '640px',     // Teléfonos grandes
-    md: '768px',     // Tablets
-    lg: '1024px',    // Laptops
-    xl: '1280px',    // Desktops
-    '2xl': '1536px'  // Pantallas grandes
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px'
   }
 } as const
 
@@ -268,7 +265,7 @@ export const unifiedButton = css<{
   justify-content: center;
   gap: ${unifiedTokens.spacing[2]};
   border: none;
-  border-radius: ${unifiedTokens.radius.full};
+  border-radius: ${unifiedTokens.radius.lg};
   font-family: ${unifiedTokens.typography.fonts.body};
   font-weight: ${unifiedTokens.typography.weight.medium};
   text-decoration: none;

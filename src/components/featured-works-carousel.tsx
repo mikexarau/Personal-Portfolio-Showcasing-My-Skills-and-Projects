@@ -1,16 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import styled, { keyframes, css } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { useTheme2025 } from '../utils/theme-context-2025'
 import { 
   FiArrowRight,
   FiCalendar,
   FiCode,
   FiEye,
-  FiExternalLink,
-  FiChevronLeft,
-  FiChevronRight
+  FiExternalLink
 } from 'react-icons/fi'
 
 // Query para obtener todos los proyectos del YAML
@@ -85,69 +83,40 @@ const fadeInUp = keyframes`
   }
 `
 
-// 🏗️ Container principal del carrusel - ANCHO COMPLETO
+// 🏗️ Container principal del carrusel
 const CarouselContainer = styled.section<{ $theme: any; $designSystem: any }>`
   position: relative;
   width: 100%;
   background: ${props => props.$theme.colors.bg.primary};
-  overflow: visible;
-  /* PADDING SOLO VERTICAL - sin padding lateral para máximo ancho */
-  padding: ${props => props.$designSystem.spacing[10]} 0 ${props => props.$designSystem.spacing[8]} 0;
-  
-  @media (max-width: 1024px) {
-    padding: ${props => props.$designSystem.spacing[9]} 0 ${props => props.$designSystem.spacing[7]} 0;
-  }
+  overflow: hidden;
+  padding: ${props => props.$designSystem.spacing[8]} 0 ${props => props.$designSystem.spacing[4]} 0;
   
   @media (max-width: 768px) {
-    padding: ${props => props.$designSystem.spacing[8]} 0 ${props => props.$designSystem.spacing[6]} 0;
-  }
-  
-  @media (max-width: 480px) {
-    padding: ${props => props.$designSystem.spacing[7]} 0 ${props => props.$designSystem.spacing[5]} 0;
+    padding: ${props => props.$designSystem.spacing[6]} 0 ${props => props.$designSystem.spacing[2]} 0;
   }
 `
 
-// 🎯 Wrapper para el carrusel - OVERFLOW CONTROLADO
+// 🎯 Wrapper para el carrusel
 const CarouselWrapper = styled.div<{ $designSystem: any }>`
   position: relative;
   width: 100%;
-  overflow-x: hidden; /* 🔥 CRÍTICO: Prevenir desbordamiento horizontal en mobile */
-  overflow-y: visible; /* Permitir badges sobresalir verticalmente */
-  
-  /* 🔥 MOBILE: Asegurar que no haya scroll horizontal */
-  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
+  max-width: 100vw;
 `
 
-// 🎯 Track del carrusel que se mueve automáticamente - LOOP INFINITO PURO
+// 🎯 Track del carrusel que se mueve automáticamente
 const CarouselTrack = styled.div<{ 
   $theme: any; 
   $designSystem: any; 
   $cardWidth: number;
   $totalCards: number;
-  $isPaused: boolean;
-  $shouldDisableHover: boolean;
 }>`
   display: flex;
   gap: ${props => props.$designSystem.spacing[4]};
   width: ${props => (props.$cardWidth + parseInt(props.$designSystem.spacing[4])) * props.$totalCards * 2}px;
   animation: slideLoop ${props => props.$totalCards * 3}s linear infinite;
-  animation-play-state: ${props => props.$isPaused ? 'paused' : 'running'};
   
-  /* 🔥 Solo aplicar hover pause en desktop */
-  ${props => !props.$shouldDisableHover && css`
-    &:hover {
-      animation-play-state: paused;
-    }
-  `}
-  
-  /* 🔥 MOBILE: Sin pausa en hover */
-  @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    &:hover {
-      animation-play-state: running !important;
-    }
+  &:hover {
+    animation-play-state: paused;
   }
   
   /* Mejorar la performance del scroll */
@@ -165,13 +134,12 @@ const CarouselTrack = styled.div<{
   }
 `
 
-// 🎯 Wrapper para card + información debajo - LIMPIO COMO TRABAJOS.TSX
+// 🎯 Wrapper para card + información debajo (como lecorre.design) - Sin interferencia z-index
 const CarouselCard = styled.div<{ 
   $theme: any; 
   $designSystem: any; 
   $isDark: boolean;
   $cardWidth: number;
-  $shouldDisableHover: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -179,75 +147,50 @@ const CarouselCard = styled.div<{
   width: ${props => props.$cardWidth}px;
   flex-shrink: 0;
   text-decoration: none;
-  transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
-  overflow: visible !important; /* CRÍTICO: Permitir badges fuera */
+  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
   
-  /* 🔥 Solo aplicar hover effects en desktop */
-  ${props => !props.$shouldDisableHover && css`
+  /* 🔥 CRITICAL: NO crear stacking context que interfiera con badge */
+  z-index: auto;
+  isolation: auto;
+  will-change: auto;
+  
+  /* 🔥 Hover effects solo en dispositivos con hover real (no móviles) */
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
-      /* 🔥 MOBILE FIX: No usar transform en mobile que interfiere con badge z-index */
-      @media (min-width: ${props.$designSystem.breakpoints.md}) {
-        transform: translateY(-8px);
-      }
+      transform: translateY(-8px);
       
       .card-visual {
         .work-image {
-          @media (min-width: ${props.$designSystem.breakpoints.md}) {
-            transform: scale(1.05);
-          }
+          transform: scale(1.05);
         }
 
         .work-overlay {
-          @media (min-width: ${props.$designSystem.breakpoints.md}) {
-            opacity: 1;
-          }
+          opacity: 1;
         }
         
         .work-content {
-          @media (min-width: ${props.$designSystem.breakpoints.md}) {
-            transform: translateY(0);
-            opacity: 1;
-          }
+          transform: translateY(0);
+          opacity: 1;
         }
         
-        /* 🔥 Badge hover effect sin interferencia - SOLO DESKTOP */
+        /* 🔥 Badge hover effect sin interferencia */
         .work-badge {
-          @media (min-width: ${props.$designSystem.breakpoints.md}) {
-            transform: translateY(-4px);
-          }
+          transform: translateY(-4px) translateZ(999px) !important;
         }
       }
     }
-  `}
+  }
   
-  /* 🔥 MOBILE: Eliminar TODAS las animaciones complejas */
+  /* 🔥 MOBILE: Asegurar que no haya stacking context issues */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     z-index: auto !important;
     isolation: auto !important;
     will-change: auto !important;
     transform: none !important;
-    
-    .card-visual {
-      transform: none !important;
-      
-      .work-image {
-        transform: none !important;
-      }
-      .work-overlay {
-        opacity: 0 !important;
-      }
-      .work-content {
-        transform: translateY(16px) !important;
-        opacity: 0 !important;
-      }
-      .work-badge {
-        transform: none !important;
-      }
-    }
   }
 `
 
-// 🎯 Card visual - SIN OVERFLOW HIDDEN PARA BADGES
+// 🎯 Card visual interactiva - Sin interferencia con badge z-index
 const CardVisual = styled(Link)<{ 
   $theme: any; 
   $designSystem: any; 
@@ -258,9 +201,17 @@ const CardVisual = styled(Link)<{
   width: 100%;
   height: 240px;
   border-radius: ${props => props.$designSystem.radius.xl};
-  overflow: visible !important; /* CRÍTICO: No cortar badges */
+  /* REMOVIDO: overflow: hidden; - Para permitir que el badge sobresalga */
   text-decoration: none;
-  transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
+  transition: all ${props => props.$designSystem.animation.duration.normal} ${props => props.$designSystem.animation.easing.anticipate};
+  
+  /* 🔥 CRITICAL: NO crear stacking context que interfiera con el badge */
+  z-index: auto; /* No forzar z-index para evitar stacking context */
+  transform: none; /* No usar transform que crea stacking context */
+  will-change: auto; /* Evitar creating layers innecesarios */
+  isolation: auto; /* No crear isolation context */
+  
+  /* El hover effect se maneja desde CarouselCard */
   
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     height: 200px;
@@ -306,15 +257,15 @@ const CardRole = styled.p<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🎯 Contenedor interno - OVERFLOW HIDDEN SOLO PARA IMÁGENES
+// 🎯 Contenedor interno de la card con overflow hidden para imágenes
 const CardInner = styled.div<{ $theme: any; $designSystem: any }>`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+    width: 100%;
   height: 100%;
   border-radius: ${props => props.$designSystem.radius.xl};
-  overflow: hidden; /* Solo para imágenes, badge está fuera */
+    overflow: hidden;
   background: ${props => props.$theme?.colors?.bg?.secondary || '#f5f5f5'};
 `
 
@@ -397,17 +348,17 @@ const WorkOverlay = styled.div<{ $theme: any; $designSystem: any; $isDark: boole
   z-index: 2;
 `
 
-// 🏷️ Badge - SOLUCIÓN RADICAL CON !IMPORTANT
+// 🏷️ Badge - SOLUCION DEFINITIVA Z-INDEX - Posición absoluta con máximo z-index
 const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: string }>`
-  position: absolute !important;
-  top: -6px !important;
-  right: -6px !important;
+  position: absolute;
+  top: -6px;
+  right: -6px;
   background: ${props => {
     const year = parseInt(props.$badgeType)
     const currentYear = new Date().getFullYear()
     const isDark = props.$theme.mode === 'dark'
     
-    // Sistema monocromático idéntico al de trabajos.tsx
+    // Sistema monocromático basado en la antigüedad del proyecto
     if (year >= currentYear - 1) {
       // Proyectos recientes - máximo contraste
       return isDark ? '#ffffff' : '#1a1a1a'
@@ -428,7 +379,7 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
     const currentYear = new Date().getFullYear()
     const isDark = props.$theme.mode === 'dark'
     
-    // Color de texto óptimo idéntico al de trabajos.tsx
+    // Color de texto óptimo para cada tonalidad monocromática
     if (year >= currentYear - 1) {
       // Proyectos recientes - texto inverso al fondo
       return isDark ? '#1a1a1a' : '#ffffff'
@@ -451,11 +402,9 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   text-transform: uppercase;
   letter-spacing: ${props => props.$designSystem.typography.tracking.wider};
   transition: all ${props => props.$designSystem.animation.duration.normal} ease;
-  z-index: 9999 !important;
-  white-space: nowrap !important;
-  display: block !important;
+  white-space: nowrap;
   
-  /* Diseño limpio sin bordes */
+  /* Diseño ultra limpio sin bordes */
   border: none;
   backdrop-filter: none;
   
@@ -463,18 +412,48 @@ const WorkBadge = styled.div<{ $theme: any; $designSystem: any; $badgeType: stri
   opacity: 1;
   transform: translate(0, 0) scale(1);
   
+  /* 🔥 SOLUCIÓN DEFINITIVA Z-INDEX - MÁXIMA PRIORIDAD */
+  z-index: 999999 !important; /* Z-index máximo con !important */
+  
+  /* 🔥 CREAR NUEVO STACKING CONTEXT PARA SUPERAR TODOS LOS DEMÁS */
+  isolation: isolate;
+  will-change: auto;
+  contain: layout style;
+  
+  /* 📱 MOBILE: Configuración específica para pantallas pequeñas */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
-    top: -4px;
-    right: -4px;
+    top: -6px !important;
+    right: -6px !important;
     padding: 3px 8px;
     font-size: 9px;
+    z-index: 999999 !important;
+    position: absolute !important;
+    
+    /* 🔥 ASEGURAR QUE ESTÉ POR ENCIMA DE VIDEOS Y OVERLAYS EN MOBILE */
+    isolation: isolate !important;
+    will-change: auto !important;
+    transform: translateZ(999px) !important; /* Forzar nuevo layer */
   }
   
   @media (max-width: 480px) {
-    top: -3px;
-    right: -3px;
+    top: -6px !important;
+    right: -6px !important;
     padding: 2px 6px;
     font-size: 8px;
+    z-index: 999999 !important;
+    position: absolute !important;
+    
+    /* 🔥 MÁXIMO NIVEL DE ESPECIFICIDAD PARA PANTALLAS PEQUEÑAS */
+    isolation: isolate !important;
+    will-change: auto !important;
+    transform: translateZ(999px) !important;
+    contain: layout style !important;
+  }
+  
+  /* 🎯 HOVER: Mantener máxima visibilidad en hover */
+  &:hover {
+    z-index: 999999 !important;
+    transform: translateZ(999px) scale(1.05) !important;
   }
 `
 
@@ -740,7 +719,10 @@ const UnifiedVideoComponent: React.FC<{
     setIsClient(true)
   }, [])
 
-  // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
+
+
+
+    // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
   useEffect(() => {
     if (!isClient || !videoRef.current) return
 
@@ -784,6 +766,8 @@ const UnifiedVideoComponent: React.FC<{
       observer.disconnect()
     }
   }, [projectId, isClient])
+
+
 
   if (hasError) {
     return (
@@ -846,24 +830,6 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
   const projects: ProjectFromYaml[] = data?.allProjectsYaml?.edges?.map((edge: any) => edge.node) || []
   const videoFiles = data?.allFile?.nodes || []
   
-  // 🎯 Detección simple de dispositivos móviles
-  const [isMobile, setIsMobile] = useState(false)
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window)
-      }
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // 🎯 Estado para pausar carrusel (solo desktop)
-  const [isPaused, setIsPaused] = useState(false)
-  
   // Duplicar projects para efecto loop infinito
   const allProjects = [...projects, ...projects]
   
@@ -920,9 +886,9 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
   // Calcular tamaño de card responsive
   const getCardWidth = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 768) return 220 // móvil - tamaño original
-      if (window.innerWidth < 1024) return 260 // tablet - tamaño original
-      return 300 // desktop - tamaño original
+      if (window.innerWidth < 768) return 220 // móvil - reducido de 260
+      if (window.innerWidth < 1024) return 260 // tablet - reducido de 300
+      return 300 // desktop - reducido de 340
     }
     return 300
   }
@@ -965,7 +931,6 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
 
   return (
     <CarouselContainer $theme={theme} $designSystem={designSystem} className={className}>
-      {/* 🔥 SIN TouchInteractions - Carrusel automático igual que desktop */}
       <CarouselWrapper $designSystem={designSystem}>        
         {/* Track del carrusel */}
         <CarouselTrack
@@ -973,8 +938,6 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
           $designSystem={designSystem}
           $cardWidth={cardWidth}
           $totalCards={projects.length}
-          $isPaused={isPaused}
-          $shouldDisableHover={isMobile}
         >
           {allProjects.map((project, index) => (
             <CarouselCard 
@@ -983,18 +946,7 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
               $designSystem={designSystem}
               $isDark={isDark}
               $cardWidth={cardWidth}
-              $shouldDisableHover={isMobile}
             >
-              {/* Badge de año FUERA del CardVisual para que sobresalga completamente */}
-              <WorkBadge 
-                className="work-badge" 
-                $theme={theme} 
-                $designSystem={designSystem}
-                $badgeType={getProjectYearBadge(project)}
-              >
-                {getProjectYearBadge(project)}
-              </WorkBadge>
-
               {/* Card visual con enlace */}
               <CardVisual 
                 className="card-visual"
@@ -1004,6 +956,15 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
                 $isDark={isDark}
                 data-cursor="view"
               >
+                {/* Badge de año FUERA del CardInner para que sobresalga */}
+                <WorkBadge 
+                  className="work-badge" 
+                  $theme={theme} 
+                  $designSystem={designSystem}
+                  $badgeType={getProjectYearBadge(project)}
+                >
+                  {getProjectYearBadge(project)}
+                </WorkBadge>
 
                 {/* Contenedor interno con overflow hidden */}
                 <CardInner $theme={theme} $designSystem={designSystem}>

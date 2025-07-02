@@ -77,7 +77,7 @@ export function ThemeProvider2025({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setIsClient(true)
   }, [])
-
+  
   // 💾 Persist theme preference - ONLY after hydration
   useEffect(() => {
     if (!isClient) return

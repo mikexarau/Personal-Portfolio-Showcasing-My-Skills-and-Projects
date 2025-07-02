@@ -540,7 +540,7 @@ const ProjectGallery = ({
                         srcLang="es" 
                         label="Español"
                         default
-                      />
+                    />
                     </VideoElement>
                   ) : media.isImage && media.childImageSharp?.gatsbyImageData ? (
                     <ImageElement>
@@ -625,7 +625,7 @@ const ProjectGallery = ({
                   srcLang="es" 
                   label="Español"
                   default
-                />
+              />
               </video>
             ) : selectedMedia.isImage && selectedMedia.childImageSharp?.gatsbyImageData ? (
               (() => {

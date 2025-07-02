@@ -408,7 +408,7 @@ const ProjectShowcase = ({
           {/* 🎥 RENDERIZADO DE VIDEOS OPTIMIZADO - MANTIENE PROPORCIONES ORIGINALES */}
           {media.type === 'video' && media.publicURL && (
             <OptimizedVideoPerformance
-              src={media.publicURL}
+                src={media.publicURL}
               videoId={`project-${projectTitle}-${media.id}`}
               autoPlay={true}
               loop={true}

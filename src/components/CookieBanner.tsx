@@ -165,9 +165,9 @@ const PreferenceLabel = styled.label<{ $theme: any; $designSystem: any }>`
     }
     
     .label-description {
-      font-size: ${props => props.$designSystem.typography.scale.sm};
-      color: ${props => props.$theme.colors.text.secondary};
-      line-height: ${props => props.$designSystem.typography.leading.relaxed};
+  font-size: ${props => props.$designSystem.typography.scale.sm};
+  color: ${props => props.$theme.colors.text.secondary};
+  line-height: ${props => props.$designSystem.typography.leading.relaxed};
     }
   }
 `
@@ -300,23 +300,23 @@ const CookieBanner: React.FC = () => {
           <BannerActions $designSystem={designSystem}>
             <BannerButton
               $variant="secondary"
-              $theme={theme}
+              $theme={theme} 
               $designSystem={designSystem}
               onClick={showPreferencesModal}
             >
               Preferencias
             </BannerButton>
             <BannerButton
-              $variant="secondary"
-              $theme={theme}
+              $variant="secondary" 
+              $theme={theme} 
               $designSystem={designSystem}
               onClick={rejectOptional}
             >
               Solo necesarias
             </BannerButton>
             <BannerButton
-              $variant="primary"
-              $theme={theme}
+              $variant="primary" 
+              $theme={theme} 
               $designSystem={designSystem}
               onClick={acceptAll}
             >
@@ -329,11 +329,11 @@ const CookieBanner: React.FC = () => {
       <PreferencesModal $isOpen={showPreferences} $theme={theme} $designSystem={designSystem}>
         <PreferencesContent $theme={theme} $designSystem={designSystem}>
           <h3>Preferencias de Cookies</h3>
-          
+
           <PreferenceGroup $designSystem={designSystem}>
             <PreferenceLabel $theme={theme} $designSystem={designSystem}>
               <input
-                type="checkbox"
+                type="checkbox" 
                 checked={preferences.necessary}
                 disabled
                 readOnly
@@ -350,7 +350,7 @@ const CookieBanner: React.FC = () => {
           <PreferenceGroup $designSystem={designSystem}>
             <PreferenceLabel $theme={theme} $designSystem={designSystem}>
               <input
-                type="checkbox"
+                type="checkbox" 
                 checked={preferences.analytics}
                 onChange={(e) => setPreferences(prev => ({ ...prev, analytics: e.target.checked }))}
               />
@@ -366,7 +366,7 @@ const CookieBanner: React.FC = () => {
           <PreferenceGroup $designSystem={designSystem}>
             <PreferenceLabel $theme={theme} $designSystem={designSystem}>
               <input
-                type="checkbox"
+                type="checkbox" 
                 checked={preferences.functional}
                 onChange={(e) => setPreferences(prev => ({ ...prev, functional: e.target.checked }))}
               />
@@ -381,16 +381,16 @@ const CookieBanner: React.FC = () => {
 
           <PreferencesActions $designSystem={designSystem}>
             <BannerButton
-              $variant="secondary"
-              $theme={theme}
+              $variant="secondary" 
+              $theme={theme} 
               $designSystem={designSystem}
               onClick={() => setShowPreferences(false)}
             >
               Cancelar
             </BannerButton>
             <BannerButton
-              $variant="primary"
-              $theme={theme}
+              $variant="primary" 
+              $theme={theme} 
               $designSystem={designSystem}
               onClick={saveCustomPreferences}
             >
