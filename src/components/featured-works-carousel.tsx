@@ -182,6 +182,7 @@ const CarouselCard = styled.div<{
   flex-shrink: 0;
   text-decoration: none;
   transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
+  overflow: visible !important; /* CRÍTICO: Permitir badges fuera */
   
   /* 🔥 Solo aplicar hover effects en desktop */
   ${props => !props.$shouldDisableHover && css`
