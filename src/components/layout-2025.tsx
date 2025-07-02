@@ -67,7 +67,7 @@ const GlobalStyle = createGlobalStyle<{ $theme: any; $designSystem: any }>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: visible;
   }
   
   /* Professional heading defaults */
