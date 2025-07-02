@@ -250,7 +250,7 @@ const CarouselCard = styled.div<{
   }
 `
 
-// 🎯 Card visual - SIMPLE COMO TRABAJOS.TSX
+// 🎯 Card visual - SIN OVERFLOW HIDDEN PARA BADGES
 const CardVisual = styled(Link)<{ 
   $theme: any; 
   $designSystem: any; 
@@ -261,7 +261,7 @@ const CardVisual = styled(Link)<{
   width: 100%;
   height: 240px;
   border-radius: ${props => props.$designSystem.radius.xl};
-  overflow: hidden;
+  overflow: visible !important; /* CRÍTICO: No cortar badges */
   text-decoration: none;
   transition: transform ${props => props.$designSystem.animation.duration.normal} ease;
   
@@ -309,15 +309,15 @@ const CardRole = styled.p<{ $theme: any; $designSystem: any }>`
   }
 `
 
-// 🎯 Contenedor interno de la card con overflow hidden para imágenes
+// 🎯 Contenedor interno - OVERFLOW HIDDEN SOLO PARA IMÁGENES
 const CardInner = styled.div<{ $theme: any; $designSystem: any }>`
   position: absolute;
   top: 0;
   left: 0;
-    width: 100%;
+  width: 100%;
   height: 100%;
   border-radius: ${props => props.$designSystem.radius.xl};
-    overflow: hidden;
+  overflow: hidden; /* Solo para imágenes, badge está fuera */
   background: ${props => props.$theme?.colors?.bg?.secondary || '#f5f5f5'};
 `
 
