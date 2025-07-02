@@ -201,20 +201,25 @@ a:active,
 
 @media (max-width: 768px) {
   /* 🔥 Reducir animaciones complejas */
-  .reduce-motion {
-    animation: none !important;
-    transition: none !important;
+  .reduce-motion,
+  *[class*="carousel"],
+  *[class*="ripple"],
+  *[class*="spring"],
+  *[class*="bounce"] {
+    animation-duration: 0.2s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.2s !important;
   }
   
-  /* 🎯 Optimizar transforms para GPU */
+  /* 🎯 Eliminar transforms costosos */
   .gpu-optimized {
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
+    will-change: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+    perspective: none !important;
   }
   
-  /* 🎯 Reducir blur y filtros costosos */
+  /* 🎯 Simplificar efectos visuales */
   .backdrop-blur,
   .filter-blur {
     backdrop-filter: none !important;
@@ -222,8 +227,35 @@ a:active,
   }
   
   /* 🎯 Simplificar sombras */
-  .complex-shadow {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  .complex-shadow,
+  *[style*="box-shadow"] {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* 🔥 CRÍTICO: Eliminar animaciones infinitas */
+  *[style*="animation"][style*="infinite"],
+  .carousel-track[style*="animation"],
+  .slide-loop {
+    animation-duration: 0.5s !important;
+    animation-iteration-count: 1 !important;
+  }
+  
+  /* 🎯 Simplificar hover states */
+  *:hover {
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+  
+  /* 🔥 Performance: Eliminar will-change excesivos */
+  * {
+    will-change: auto !important;
+  }
+  
+  /* 🎯 Solo permitir will-change en elementos críticos */
+  video,
+  .ripple-container {
+    will-change: transform;
   }
 }
 

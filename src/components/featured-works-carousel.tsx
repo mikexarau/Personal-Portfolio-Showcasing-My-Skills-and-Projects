@@ -194,58 +194,56 @@ const CarouselCard = styled.div<{
       
       .card-visual {
         .work-image {
-          transform: scale(1.05);
+          @media (min-width: ${props.$designSystem.breakpoints.md}) {
+            transform: scale(1.05);
+          }
         }
 
         .work-overlay {
-          opacity: 1;
+          @media (min-width: ${props.$designSystem.breakpoints.md}) {
+            opacity: 1;
+          }
         }
         
         .work-content {
-          transform: translateY(0);
-          opacity: 1;
+          @media (min-width: ${props.$designSystem.breakpoints.md}) {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
         
-        /* 🔥 Badge hover effect sin interferencia */
+        /* 🔥 Badge hover effect sin interferencia - SOLO DESKTOP */
         .work-badge {
           @media (min-width: ${props.$designSystem.breakpoints.md}) {
-            transform: translateY(-4px) translateZ(999px) !important;
-          }
-          @media (max-width: ${props.$designSystem.breakpoints.md}) {
-            transform: translateZ(999px) scale(1.05) !important;
+            transform: translateY(-4px);
           }
         }
       }
     }
   `}
   
-  /* 🔥 MOBILE: Asegurar que no haya stacking context issues */
+  /* 🔥 MOBILE: Eliminar TODAS las animaciones complejas */
   @media (max-width: ${props => props.$designSystem.breakpoints.md}) {
     z-index: auto !important;
     isolation: auto !important;
     will-change: auto !important;
     transform: none !important;
-  }
-  
-  /* 🔥 Eliminar hover effects en dispositivos táctiles */
-  @media (hover: none) and (pointer: coarse) {
-    &:hover {
+    
+    .card-visual {
       transform: none !important;
       
-      .card-visual {
-        .work-image {
-          transform: none !important;
-        }
-        .work-overlay {
-          opacity: 0 !important;
-        }
-        .work-content {
-          transform: translateY(16px) !important;
-          opacity: 0 !important;
-        }
-        .work-badge {
-          transform: translateZ(999px) !important;
-        }
+      .work-image {
+        transform: none !important;
+      }
+      .work-overlay {
+        opacity: 0 !important;
+      }
+      .work-content {
+        transform: translateY(16px) !important;
+        opacity: 0 !important;
+      }
+      .work-badge {
+        transform: none !important;
       }
     }
   }
@@ -744,10 +742,7 @@ const UnifiedVideoComponent: React.FC<{
     setIsClient(true)
   }, [])
 
-
-
-
-    // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
+  // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
   useEffect(() => {
     if (!isClient || !videoRef.current) return
 
@@ -791,8 +786,6 @@ const UnifiedVideoComponent: React.FC<{
       observer.disconnect()
     }
   }, [projectId, isClient])
-
-
 
   if (hasError) {
     return (
@@ -874,28 +867,15 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
   // 🎯 Manejar gestos de swipe
   useEffect(() => {
     if (isSwipeLeft || isSwipeRight) {
-      // Pausar temporalmente el carrusel durante swipe
+      // 🔥 MOBILE: Pause más corto y simple
       setIsPaused(true)
-      triggerHapticFeedback('medium')
+      triggerHapticFeedback('light') // Reducido de 'medium' a 'light'
       
-      // Reanudar después de 2 segundos
-      setTimeout(() => setIsPaused(false), 2000)
+      // 🔥 MOBILE: Timeout más corto para mejor UX
+      const timeoutDuration = isTouchDevice ? 1000 : 1500
+      setTimeout(() => setIsPaused(false), timeoutDuration)
     }
-  }, [isSwipeLeft, isSwipeRight, triggerHapticFeedback])
-  
-  // 🎯 Pausar carrusel en touch para mejor UX
-  const handleTouchStart = () => {
-    if (isTouchDevice) {
-      setIsPaused(true)
-    }
-  }
-  
-  const handleTouchEnd = () => {
-    if (isTouchDevice) {
-      // Reanudar después de 1 segundo
-      setTimeout(() => setIsPaused(false), 1000)
-    }
-  }
+  }, [isSwipeLeft, isSwipeRight, triggerHapticFeedback, isTouchDevice])
   
   // Duplicar projects para efecto loop infinito
   const allProjects = [...projects, ...projects]
@@ -1001,21 +981,18 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
       <TouchInteractions
         onSwipeLeft={() => {
           setIsPaused(true)
-          triggerHapticFeedback('light')
-          setTimeout(() => setIsPaused(false), 1500)
+          setTimeout(() => setIsPaused(false), 1000)
         }}
         onSwipeRight={() => {
           setIsPaused(true)
-          triggerHapticFeedback('light') 
-          setTimeout(() => setIsPaused(false), 1500)
+          setTimeout(() => setIsPaused(false), 1000)
         }}
         enableRipple={false}
         enableSpring={false}
+        enableHaptic={isTouchDevice} // Solo haptic si es touch device
       >
         <CarouselWrapper 
           $designSystem={designSystem}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
         >        
           {/* Track del carrusel */}
           <CarouselTrack

@@ -76,21 +76,51 @@ const TouchContainer = styled.div<{
   /* 🎯 Estados táctiles */
   ${props => props.$isPressed && css`
     ${props.$enableSpring && css`
-      animation: ${springBounce} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      /* 🔥 MOBILE: Animación simplificada */
+      @media (min-width: 768px) {
+        animation: ${springBounce} 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @media (max-width: 768px) {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+      }
     `}
   `}
   
   ${props => props.$isLongPressed && css`
-    animation: ${longPressFeedback} 0.3s ease-in-out forwards;
+    /* 🔥 MOBILE: Sin animación de long press */
+    @media (min-width: 768px) {
+      animation: ${longPressFeedback} 0.3s ease-in-out forwards;
+    }
+    @media (max-width: 768px) {
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+    }
   `}
   
   /* 🎯 Feedback visual en tap */
   &[data-pressing="true"] {
-    animation: ${feedbackPulse} 0.6s ease-out;
+    /* 🔥 MOBILE: Feedback simplificado */
+    @media (min-width: 768px) {
+      animation: ${feedbackPulse} 0.6s ease-out;
+    }
+    @media (max-width: 768px) {
+      opacity: 0.8;
+    }
+  }
+  
+  /* 🔥 MOBILE: Eliminar optimizaciones GPU costosas */
+  @media (max-width: 768px) {
+    will-change: auto;
+    transform: none;
+  }
+  
+  /* 🔥 DESKTOP: Optimizaciones de rendimiento para touch */
+  @media (min-width: 768px) {
+    will-change: transform, opacity;
   }
   
   /* 🔥 Optimizaciones de rendimiento para touch */
-  will-change: transform, opacity;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -227,6 +257,9 @@ export const TouchInteractions: React.FC<TouchInteractionsProps> = ({
   const createRipple = useCallback((event: React.MouseEvent | React.TouchEvent) => {
     if (!enableRipple || disabled || !containerRef.current) return
     
+    // 🔥 MOBILE: Limitar ripples para mejor performance
+    if (isTouchDevice && ripples.length >= 3) return
+    
     const rect = containerRef.current.getBoundingClientRect()
     let x: number, y: number
     
@@ -238,7 +271,11 @@ export const TouchInteractions: React.FC<TouchInteractionsProps> = ({
       y = event.clientY - rect.top
     }
     
-    const size = Math.max(rect.width, rect.height) * 2
+    // 🔥 MOBILE: Ripple más pequeño para mejor performance
+    const size = isTouchDevice 
+      ? Math.max(rect.width, rect.height) * 1.5 
+      : Math.max(rect.width, rect.height) * 2
+    
     const newRipple: RippleState = {
       id: Date.now(),
       x,
@@ -248,16 +285,17 @@ export const TouchInteractions: React.FC<TouchInteractionsProps> = ({
     
     setRipples(prev => [...prev, newRipple])
     
-    // Remover ripple después de la animación
+    // 🔥 MOBILE: Cleanup más rápido para liberar recursos
+    const cleanupTime = isTouchDevice ? 400 : 600
     setTimeout(() => {
       setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id))
-    }, 600)
+    }, cleanupTime)
     
     // Haptic feedback
     if (enableHaptic && isTouchDevice) {
       triggerHapticFeedback('light')
     }
-  }, [enableRipple, disabled, enableHaptic, isTouchDevice, triggerHapticFeedback])
+  }, [enableRipple, disabled, enableHaptic, isTouchDevice, triggerHapticFeedback, ripples.length])
 
   // 🎯 Manejar interacciones
   useEffect(() => {
