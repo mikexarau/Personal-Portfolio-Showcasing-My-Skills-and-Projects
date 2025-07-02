@@ -318,7 +318,7 @@ export const TouchInteractions: React.FC<TouchInteractionsProps> = ({
       {...getTouchProps()}
       style={{
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'visible'
       }}
     >
       {/* 🌊 Ripple Effects */}
