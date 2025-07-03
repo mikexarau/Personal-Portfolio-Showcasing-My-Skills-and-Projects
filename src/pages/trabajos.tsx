@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react'
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import styled, { keyframes } from 'styled-components'
@@ -852,13 +852,63 @@ const ProjectImage = styled.div<{
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, ${props => props.$color}30, ${props => props.$color}60);
-    color: ${props => props.$theme?.colors?.text?.inverse || '#ffffff'};
-    font-size: 3rem;
     border-radius: inherit;
+    overflow: hidden;
+    
+    /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+    background: linear-gradient(
+      110deg,
+      ${props => props.$color}15 8%,
+      ${props => props.$color}25 18%,
+      ${props => props.$color}15 33%
+    );
+    background-size: 200% 100%;
+    animation: elegantShimmer 2s ease-in-out infinite;
+    
+    /* 🔴 INDICADOR SUTIL DE CARGA - SIN ICONOS */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 6px;
+      height: 6px;
+      background: ${props => props.$color};
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: subtlePulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes elegantShimmer {
+      0% { 
+        background-position: -200% 0; 
+      }
+      100% { 
+        background-position: 200% 0; 
+      }
+    }
+    
+    @keyframes subtlePulse {
+      0%, 100% { 
+        opacity: 0.4; 
+        transform: scale(1); 
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(1.3); 
+      }
+    }
+    
+    /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      background: ${props => props.$color}20;
+      
+      &::after {
+        animation: none;
+        opacity: 0.5;
+      }
+    }
   }
 `
 
@@ -879,30 +929,143 @@ const ProjectVideo = styled.video<{ $designSystem: any }>`
   }
 `
 
-// 🎯 Video fallback placeholder
+// 🎯 Video fallback placeholder - Minimalista y profesional
 const VideoLoadingPlaceholder = styled.div<{ $theme: any; $designSystem: any }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, ${props => props.$theme.colors.interactive.primary} 0%, ${props => props.$theme.colors.interactive.secondary || props.$theme.colors.interactive.primary} 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${props => props.$theme.colors.text.inverse};
   z-index: 1;
-  opacity: 0;
-  transition: opacity ${props => props.$designSystem.animation.duration.normal} ease;
+  overflow: hidden;
+  border-radius: inherit;
   
-  &.loading {
-    opacity: 1;
+  /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+  background: linear-gradient(
+    110deg,
+    ${props => props.$theme.colors.bg.secondary} 8%,
+    ${props => props.$theme.colors.bg.tertiary} 18%,
+    ${props => props.$theme.colors.bg.secondary} 33%
+  );
+  background-size: 200% 100%;
+  animation: elegantShimmer 2s ease-in-out infinite;
+  
+  /* 🎯 SHIMMER EFFECT ELEGANTE */
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
   }
   
-  svg {
+  /* 🔴 INDICADOR SUTIL DE CARGA - SIN ICONOS */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    background: ${props => props.$theme.colors.interactive.primary};
+    border-radius: 50%;
     opacity: 0.7;
+    animation: subtlePulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { 
+      opacity: 0.4; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.9; 
+      transform: scale(1.3); 
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: ${props => props.$theme.colors.bg.tertiary};
+    
+    &::after {
+      animation: none;
+      opacity: 0.5;
+    }
   }
 `
+
+// 🎯 Componente que maneja video + placeholder
+const VideoWithPlaceholder: React.FC<{
+  videoUrl: string;
+  theme: any;
+  designSystem: any;
+}> = ({ videoUrl, theme, designSystem }) => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const handleLoadedData = useCallback(() => {
+    setIsLoading(false)
+  }, [])
+
+  const handleError = useCallback(() => {
+    setHasError(true)
+    setIsLoading(false)
+  }, [])
+
+  // 🔄 Verificar estado inicial del video (importante para recargas de página)
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    // Si el video ya tiene datos (caché), ocultamos el placeholder inmediatamente
+    if (video.readyState >= 2) { // HAVE_CURRENT_DATA o superior
+      setIsLoading(false)
+      return
+    }
+
+    // Timeout de seguridad - si después de 5 segundos sigue cargando, ocultamos el placeholder
+    const timeoutId = setTimeout(() => {
+      if (isLoading) {
+        console.warn('Video loading timeout, hiding placeholder')
+        setIsLoading(false)
+      }
+    }, 5000)
+
+    return () => clearTimeout(timeoutId)
+  }, [videoUrl, isLoading])
+
+  if (hasError) {
+    return <VideoLoadingPlaceholder $theme={theme} $designSystem={designSystem} />
+  }
+
+  return (
+    <>
+      {isLoading && (
+        <VideoLoadingPlaceholder $theme={theme} $designSystem={designSystem} />
+      )}
+      <ProjectVideo
+        ref={videoRef}
+        $designSystem={designSystem}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        onLoadedData={handleLoadedData}
+        onCanPlay={handleLoadedData}
+        onLoadedMetadata={handleLoadedData}
+        onError={handleError}
+        style={{ display: isLoading ? 'none' : 'block' }}
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </ProjectVideo>
+    </>
+  )
+}
 
 const ProjectContent = styled.div<{ $viewMode: 'grid' | 'list'; $theme: any; $designSystem: any }>`
   padding: ${props => props.$designSystem.spacing[6]};
@@ -1553,21 +1716,11 @@ const TrabajosPage: React.FC<TrabajosPageProps> = ({ data }) => {
                           
                           if (videoUrl) {
                             return (
-                              <>
-                                <ProjectVideo 
-                                  $designSystem={designSystem}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  preload="metadata"
-                                >
-                                  <source src={videoUrl} type="video/mp4" />
-                                </ProjectVideo>
-                                <VideoLoadingPlaceholder $theme={theme} $designSystem={designSystem}>
-                                  <FiCode size={48} />
-                                </VideoLoadingPlaceholder>
-                              </>
+                              <VideoWithPlaceholder
+                                videoUrl={videoUrl}
+                                theme={theme}
+                                designSystem={designSystem}
+                              />
                             )
                           }
                           
@@ -1584,9 +1737,7 @@ const TrabajosPage: React.FC<TrabajosPageProps> = ({ data }) => {
                           
                           // Placeholder si no hay ni video ni imagen
                           return (
-                        <div className="placeholder">
-                          <FiLayers />
-                        </div>
+                            <div className="placeholder" />
                           )
                         })()}
                     </ProjectImage>

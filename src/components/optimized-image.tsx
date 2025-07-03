@@ -19,20 +19,68 @@ interface OptimizedImageProps {
 const ImageContainer = styled.div<{ $aspectRatio?: number }>`
   position: relative;
   overflow: hidden;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
   
   ${props => props.$aspectRatio && `
     aspect-ratio: ${props.$aspectRatio};
   `}
   
   &.loading {
-    animation: shimmer 1.5s infinite;
+    /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+    background: linear-gradient(
+      110deg,
+      #f8f9fa 8%,
+      #e9ecef 18%,
+      #f8f9fa 33%
+    );
+    background-size: 200% 100%;
+    animation: elegantShimmer 2s ease-in-out infinite;
+    
+    /* 🔴 INDICADOR SUTIL DE CARGA */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 6px;
+      height: 6px;
+      background: #6366f1;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: subtlePulse 1.5s ease-in-out infinite;
+    }
   }
   
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { 
+      opacity: 0.4; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.9; 
+      transform: scale(1.3); 
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    &.loading {
+      animation: none;
+      background: #e9ecef;
+      
+      &::after {
+        animation: none;
+        opacity: 0.5;
+      }
+    }
   }
 `
 
@@ -64,8 +112,51 @@ const PlaceholderSvg = styled.div`
   align-items: center;
   justify-content: center;
   background: #f5f5f5;
-  color: #999;
+  color: #9ca3af;
   font-size: 0.875rem;
+  overflow: hidden;
+  
+  /* 🌟 GRADIENTE SHIMMER PARA ERROR STATE */
+  &.error-state {
+    background: linear-gradient(
+      110deg,
+      #fef2f2 8%,
+      #fee2e2 18%,
+      #fef2f2 33%
+    );
+    background-size: 200% 100%;
+    animation: elegantShimmer 2s ease-in-out infinite;
+    
+    /* 🔴 INDICADOR DE ERROR */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+  }
+  
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    &.error-state {
+      animation: none;
+      background: #fee2e2;
+    }
+  }
 `
 
 // Hook para detectar soporte WebP
@@ -216,10 +307,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           />
         </picture>
       ) : error ? (
-        <PlaceholderSvg>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-          </svg>
+        <PlaceholderSvg className="error-state">
+          {/* Skeleton loader */}
+          <div>Cargando...</div>
         </PlaceholderSvg>
       ) : (
         <PlaceholderSvg>

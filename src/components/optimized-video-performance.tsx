@@ -89,20 +89,11 @@ const OptimizedVideoElement = styled.video<{ $theme: any }>`
   }
 `
 
-// 🎯 **SOLUCIÓN 3: LOADING STATE CON DIMENSIONES CONSISTENTES**
+// 🎯 **PLACEHOLDER MINIMALISTA Y PROFESIONAL**
 const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
   display: ${props => props.$isVisible ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
-  color: ${props => props.$theme.colors.text.secondary};
-  background: linear-gradient(
-    90deg,
-    ${props => props.$theme.colors.bg.tertiary} 25%,
-    ${props => props.$theme.colors.bg.secondary} 50%,
-    ${props => props.$theme.colors.bg.tertiary} 75%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
   
   /* 🎯 DIMENSIONES CONSISTENTES CON VIDEO */
   width: 100%;
@@ -110,25 +101,53 @@ const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
   aspect-ratio: 16 / 9; /* Ratio estándar para consistencia */
   min-height: 200px;
   max-height: 400px;
-  
   border-radius: inherit;
   position: relative;
+  overflow: hidden;
   
-  &::before {
-    content: '▶';
-    font-size: clamp(24px, 4vw, 48px); /* Responsive play icon */
-    color: ${props => props.$theme.colors.text.secondary}60;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+  /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+  background: linear-gradient(
+    110deg,
+    ${props => props.$theme.colors.bg.secondary} 8%,
+    ${props => props.$theme.colors.bg.tertiary} 18%,
+    ${props => props.$theme.colors.bg.secondary} 33%
+  );
+  background-size: 200% 100%;
+  animation: elegantShimmer 2s ease-in-out infinite;
+  
+  /* 🎯 SHIMMER EFFECT ELEGANTE Y SUTIL */
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
   }
   
-  /* 🎯 SHIMMER EFFECT MÁS SUTIL */
-  @keyframes shimmer {
-    0% { background-position: -400% 0; }
-    100% { background-position: 400% 0; }
+  /* 🔴 INDICADOR SUTIL DE CARGA - SIN ICONOS */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 8px;
+    height: 8px;
+    background: ${props => props.$theme.colors.interactive.primary};
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: subtlePulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { 
+      opacity: 0.3; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.2); 
+    }
   }
   
   /* 📱 MOBILE: Ajustes responsivos */
@@ -136,8 +155,22 @@ const LoadingOverlay = styled.div<{ $theme: any; $isVisible: boolean }>`
     min-height: 150px;
     max-height: 300px;
     
-    &::before {
-      font-size: 32px;
+    &::after {
+      bottom: 12px;
+      right: 12px;
+      width: 6px;
+      height: 6px;
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: ${props => props.$theme.colors.bg.tertiary};
+    
+    &::after {
+      animation: none;
+      opacity: 0.5;
     }
   }
 `

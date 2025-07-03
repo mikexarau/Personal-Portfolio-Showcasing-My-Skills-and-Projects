@@ -317,16 +317,65 @@ const WorkImage = styled.div<{ $designSystem: any }>`
 `
 
 const WorkImagePlaceholder = styled.div<{ $theme: any; $designSystem: any }>`
-      width: 100%;
-      height: 100%;
-  background: linear-gradient(135deg, ${props => props.$theme.colors.interactive.primary} 0%, ${props => props.$theme.colors.interactive.hover} 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${props => props.$theme.colors.text.inverse};
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
   
-  svg {
+  /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+  background: linear-gradient(
+    110deg,
+    ${props => props.$theme.colors.bg.secondary} 8%,
+    ${props => props.$theme.colors.bg.tertiary} 18%,
+    ${props => props.$theme.colors.bg.secondary} 33%
+  );
+  background-size: 200% 100%;
+  animation: elegantShimmer 2s ease-in-out infinite;
+  
+  /* 🎯 SHIMMER EFFECT ELEGANTE */
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
+  }
+  
+  /* 🔴 INDICADOR SUTIL DE CARGA - SIN ICONOS */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    background: ${props => props.$theme.colors.interactive.primary};
+    border-radius: 50%;
     opacity: 0.7;
+    animation: subtlePulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { 
+      opacity: 0.4; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.9; 
+      transform: scale(1.3); 
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: ${props => props.$theme.colors.bg.tertiary};
+    
+    &::after {
+      animation: none;
+      opacity: 0.5;
+    }
   }
 `
 
@@ -677,23 +726,71 @@ const WorkVideo = styled.video<{ $designSystem: any }>`
   }
 `
 
-// 🎯 Video fallback placeholder - Simplificado
+// 🎯 Video fallback placeholder - Minimalista y profesional
 const VideoLoadingPlaceholder = styled.div<{ $theme: any; $designSystem: any }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, ${props => props.$theme.colors.interactive.primary} 0%, ${props => props.$theme.colors.interactive.hover} 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${props => props.$theme.colors.text.inverse};
   border-radius: inherit;
   z-index: 1; /* Z-index bajo para que no tape el badge */
+  overflow: hidden;
   
-  svg {
+  /* 🌟 GRADIENTE SHIMMER MINIMALISTA */
+  background: linear-gradient(
+    110deg,
+    ${props => props.$theme.colors.bg.secondary} 8%,
+    ${props => props.$theme.colors.bg.tertiary} 18%,
+    ${props => props.$theme.colors.bg.secondary} 33%
+  );
+  background-size: 200% 100%;
+  animation: elegantShimmer 2s ease-in-out infinite;
+  
+  /* 🎯 SHIMMER EFFECT ELEGANTE */
+  @keyframes elegantShimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
+  }
+  
+  /* 🔴 INDICADOR SUTIL DE CARGA - SIN ICONOS */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    background: ${props => props.$theme.colors.interactive.primary};
+    border-radius: 50%;
     opacity: 0.7;
+    animation: subtlePulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { 
+      opacity: 0.4; 
+      transform: scale(1); 
+    }
+    50% { 
+      opacity: 0.9; 
+      transform: scale(1.3); 
+    }
+  }
+  
+  /* 🎯 REDUCIR ANIMACIONES EN MOTION REDUCIDO */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: ${props => props.$theme.colors.bg.tertiary};
+    
+    &::after {
+      animation: none;
+      opacity: 0.5;
+    }
   }
 `
 
@@ -719,10 +816,7 @@ const UnifiedVideoComponent: React.FC<{
     setIsClient(true)
   }, [])
 
-
-
-
-    // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
+  // 🎯 AUTOPLAY SIMPLE Y DIRECTO - SOLO EN CLIENTE
   useEffect(() => {
     if (!isClient || !videoRef.current) return
 
@@ -767,16 +861,12 @@ const UnifiedVideoComponent: React.FC<{
     }
   }, [projectId, isClient])
 
-
-
   if (hasError) {
     return (
       <VideoLoadingPlaceholder 
         $theme={theme} 
         $designSystem={designSystem}
-      >
-        <FiEye size={48} />
-      </VideoLoadingPlaceholder>
+      />
     )
   }
 
@@ -786,9 +876,7 @@ const UnifiedVideoComponent: React.FC<{
       <VideoLoadingPlaceholder 
         $theme={theme} 
         $designSystem={designSystem}
-      >
-        <FiEye size={48} />
-      </VideoLoadingPlaceholder>
+      />
     )
   }
 
@@ -799,9 +887,7 @@ const UnifiedVideoComponent: React.FC<{
           className="loading"
           $theme={theme} 
           $designSystem={designSystem}
-        >
-          <FiEye size={48} />
-        </VideoLoadingPlaceholder>
+        />
       )}
       
       <WorkVideo 
@@ -996,9 +1082,7 @@ const FeaturedWorksCarousel = ({ className }: FeaturedWorksCarouselProps) => {
                         
                         // Placeholder si no hay ni video ni imagen
                         return (
-                          <WorkImagePlaceholder $theme={theme} $designSystem={designSystem}>
-                            <FiCode size={48} />
-                          </WorkImagePlaceholder>
+                          <WorkImagePlaceholder $theme={theme} $designSystem={designSystem} />
                         )
                       })()}
                     </WorkImage>

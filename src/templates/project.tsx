@@ -1599,29 +1599,34 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({ data }) => {
       }}>
         {/* Títulos con Container pero carrusel fuera para ancho completo */}
         <Container $theme={theme} $designSystem={designSystem}>
-          <div style={{ 
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto',
-            marginBottom: '3rem'
+          <div style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center'
           }}>
-            <h2 style={{ 
-              marginBottom: '1rem',
-              fontSize: '2rem',
-              fontWeight: '600',
-              color: theme.colors.text.primary,
-              lineHeight: '1.2'
+            <div style={{ 
+              maxWidth: '800px',
+              marginBottom: '3rem'
             }}>
-              Otros trabajos
-            </h2>
-            <p style={{ 
-              color: theme.colors.text.secondary,
-              fontSize: '1.1rem',
-              lineHeight: '1.5',
-              margin: '0'
-            }}>
-              Explora otros trabajos destacados
-            </p>
+              <h2 style={{ 
+                marginBottom: '1rem',
+                fontSize: '2rem',
+                fontWeight: '600',
+                color: theme.colors.text.primary,
+                lineHeight: '1.2'
+              }}>
+                Otros trabajos
+              </h2>
+              <p style={{ 
+                color: theme.colors.text.secondary,
+                fontSize: '1.1rem',
+                lineHeight: '1.5',
+                margin: '0'
+              }}>
+                Explora otros trabajos destacados
+              </p>
+            </div>
           </div>
         </Container>
         

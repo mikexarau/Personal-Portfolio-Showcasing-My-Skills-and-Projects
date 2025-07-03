@@ -391,15 +391,53 @@ const ProjectShowcase = ({
                 />
               ) : (
                 <div style={{
+                  position: 'relative',
                   minHeight: '400px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #f3f4f6, #e5e7eb)',
-                  color: '#9ca3af',
-                  fontSize: '2rem'
+                  overflow: 'hidden',
+                  borderRadius: 'inherit',
+                  background: `linear-gradient(
+                    110deg,
+                    ${theme.colors.bg.secondary} 8%,
+                    ${theme.colors.bg.tertiary} 18%,
+                    ${theme.colors.bg.secondary} 33%
+                  )`,
+                  backgroundSize: '200% 100%',
+                  animation: 'elegantShimmer 2s ease-in-out infinite'
                 }}>
-                  🖼️ Imagen no disponible
+                  <style>
+                    {`
+                      @keyframes elegantShimmer {
+                        0% { background-position: -200% 0; }
+                        100% { background-position: 200% 0; }
+                      }
+                    `}
+                  </style>
+                  <div style={{
+                    content: '',
+                    position: 'absolute',
+                    bottom: '16px',
+                    right: '16px',
+                    width: '8px',
+                    height: '8px',
+                    background: theme.colors.interactive.primary,
+                    borderRadius: '50%',
+                    opacity: 0.7,
+                    animation: 'subtlePulse 1.5s ease-in-out infinite'
+                  }} />
+                  <style>
+                    {`
+                      @keyframes subtlePulse {
+                        0%, 100% { 
+                          opacity: 0.4; 
+                          transform: scale(1); 
+                        }
+                        50% { 
+                          opacity: 0.9; 
+                          transform: scale(1.3); 
+                        }
+                      }
+                    `}
+                  </style>
                 </div>
               )}
             </ImageContainer>

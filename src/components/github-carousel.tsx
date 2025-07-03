@@ -410,10 +410,6 @@ const LoadingCard = styled.div<{ $theme: any; $designSystem: any; $cardWidth: nu
   }
 `
 
-interface GitHubCarouselProps {
-  className?: string
-}
-
 const GitHubCarousel = ({ className }: { className?: string }) => {
   const { theme, designSystem, isDark } = useTheme2025()
   const [repositories, setRepositories] = useState<GitHubRepo[]>([])
